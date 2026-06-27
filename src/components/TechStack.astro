@@ -1,0 +1,19 @@
+---
+import { skills } from '../data/skills';
+---
+
+<section id="skills" class="section-shell py-12">
+	<h2 class="text-3xl font-bold tracking-normal text-slate-950">Tech Stack</h2>
+	<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+		{
+			skills.map((skill) => (
+				<div class="soft-card flex min-h-16 items-center gap-4 rounded-lg px-5 py-4">
+					<span class="grid h-9 w-9 shrink-0 place-items-center rounded-md text-sm font-bold text-white" style={`background: ${skill.color}`}>
+						{skill.label}
+					</span>
+					<span class="font-medium text-slate-800">{skill.name}</span>
+				</div>
+			))
+		}
+	</div>
+</section>

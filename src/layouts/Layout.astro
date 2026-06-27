@@ -1,23 +1,24 @@
+---
+import '../styles/global.css';
+
+const {
+	title = 'Manuel | Software Developer',
+	description = 'Portfolio of Manuel, a software developer building clean and useful digital products.',
+	lang = 'en',
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang={lang} data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

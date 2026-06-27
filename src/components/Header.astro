@@ -1,0 +1,47 @@
+---
+import { Menu } from '@lucide/astro';
+
+const navItems = [
+	{ label: 'Home', href: '/#home' },
+	{ label: 'Projects', href: '/#projects' },
+];
+---
+
+<header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
+	<div class="navbar section-shell min-h-12 px-0">
+		<div class="navbar-start">
+			<a href="/#home" class="text-xl font-bold tracking-normal text-slate-950">Manuel</a>
+		</div>
+
+		<nav class="navbar-center hidden lg:flex" aria-label="Main navigation">
+			<ul class="menu menu-horizontal gap-2 px-1 text-sm font-medium text-slate-600">
+				{
+					navItems.map((item) => (
+						<li>
+							<a class="rounded-none border-b-2 border-transparent px-3 py-3 hover:border-primary hover:bg-transparent hover:text-primary" href={item.href}>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="navbar-end">
+			<div class="dropdown dropdown-end lg:hidden">
+				<button class="btn btn-ghost btn-square" type="button" aria-label="Open navigation">
+					<Menu size={22} />
+				</button>
+				<ul class="menu dropdown-content z-40 mt-3 w-48 rounded-box border border-slate-200 bg-white p-2 shadow-lg">
+					{
+						navItems.map((item) => (
+							<li>
+								<a href={item.href}>{item.label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>

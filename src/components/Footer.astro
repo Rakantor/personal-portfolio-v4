@@ -1,0 +1,28 @@
+---
+import { Mail } from '@lucide/astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer id="contact" class="mt-12 border-t border-slate-800 bg-slate-800 text-white">
+	<div class="section-shell grid gap-3 py-4 md:grid-cols-3 md:items-center">
+		<p class="text-center text-sm text-white md:text-left">© {currentYear} Manuel. All rights reserved.</p>
+
+		<div class="flex items-center justify-center gap-3">
+			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10 hover:text-white" href="https://github.com/Rakantor" aria-label="GitHub">
+				<svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+					<path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.35 9.35 0 0 1 12 6.96c.85 0 1.7.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.64 1.03 2.76 0 3.95-2.34 4.82-4.57 5.08.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.81 0 .27.18.59.69.49A10.13 10.13 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"></path>
+				</svg>
+			</a>
+			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10 hover:text-white" href="mailto:maveigel@gmail.com" aria-label="Email">
+				<Mail size={20} />
+			</a>
+		</div>
+
+		<div class="flex justify-center md:justify-end">
+			<a class="px-2 text-sm font-medium text-white hover:text-white" href="/impressum">
+				Impressum
+			</a>
+		</div>
+	</div>
+</footer>
