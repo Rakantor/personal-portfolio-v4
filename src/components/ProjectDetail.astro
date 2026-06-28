@@ -1,0 +1,375 @@
+---
+import {
+	ArrowLeft,
+	BookOpenText,
+	CheckCircle2,
+	CodeXml,
+	ExternalLink,
+	FileText,
+	Globe2,
+	GraduationCap,
+} from '@lucide/astro';
+import type { SimpleIcon } from 'simple-icons';
+import {
+	siAndroid,
+	siAstro,
+	siFirebase,
+	siGithub,
+	siGithubpages,
+	siJavascript,
+	siMysql,
+	siNuxt,
+	siPhp,
+	siReact,
+	siShadcnui,
+	siTailwindcss,
+	siTypescript,
+	siVuedotjs,
+	siVuetify,
+	siWordpress,
+} from 'simple-icons';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+import Layout from '../layouts/Layout.astro';
+import type { Project, ProjectButton } from '../data/projects';
+import { htmlLang, localePath, type Locale, ui } from '../i18n';
+
+type Props = {
+	project: Project;
+	locale: Locale;
+};
+
+const { project, locale } = Astro.props;
+const t = ui[locale];
+
+const techIcons: Record<string, SimpleIcon> = {
+	Android: siAndroid,
+	Astro: siAstro,
+	Firebase: siFirebase,
+	'GitHub Pages': siGithubpages,
+	JavaScript: siJavascript,
+	MySQL: siMysql,
+	Nuxt: siNuxt,
+	PHP: siPhp,
+	React: siReact,
+	'shadcn/ui': siShadcnui,
+	'Tailwind CSS': siTailwindcss,
+	TypeScript: siTypescript,
+	'Vue.js': siVuedotjs,
+	Vuetify: siVuetify,
+	WordPress: siWordpress,
+};
+
+const getButtonClass = (button: ProjectButton) =>
+	button.type === 'website'
+		? 'btn btn-primary min-h-11 rounded-lg px-4 text-white shadow-lg shadow-blue-600/20'
+		: 'btn min-h-11 rounded-lg border-slate-300 bg-white px-4 text-slate-900 hover:border-primary hover:bg-blue-50 hover:text-primary';
+
+const isExternal = (href: string) => href.startsWith('http');
+---
+
+<Layout lang={htmlLang[locale]} title={`${project.title}`} description={project.description}>
+	<Header locale={locale} />
+	<main>
+		<section class="section-shell py-10 lg:py-14">
+			<a class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-blue-700" href={localePath(locale, '/#projects')}>
+				<ArrowLeft size={18} />
+				{t.projectDetail.back}
+			</a>
+
+			<div class="mt-9 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.95fr)] lg:items-start">
+				<section>
+					<div class="mb-5 flex flex-wrap gap-3">
+						<span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
+							{project.category}
+						</span>
+						<span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
+							{project.year}
+						</span>
+					</div>
+
+					<h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-slate-950 md:text-6xl">
+						{project.title}
+					</h1>
+
+					<p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{project.description}</p>
+
+					<div class="soft-card mt-8 rounded-lg p-5">
+						<h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{t.projectDetail.links}</h2>
+
+						<div class="flex flex-wrap gap-3">
+							{
+								project.buttons.map((button) => (
+									<a
+										class={getButtonClass(button)}
+										href={button.href}
+										aria-label={button.aria ?? `${button.label}: ${project.title}`}
+										target={isExternal(button.href) ? '_blank' : undefined}
+										rel={isExternal(button.href) ? 'noreferrer' : undefined}
+									>
+										{button.type === 'website' && <Globe2 size={18} />}
+										{button.type === 'pdf' && <FileText size={18} />}
+										{
+											button.type === 'github' && (
+												<svg aria-hidden="true" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="currentColor">
+													<path d={siGithub.path}></path>
+												</svg>
+											)
+										}
+										<span>{button.label}</span>
+										{isExternal(button.href) && <ExternalLink size={15} />}
+									</a>
+								))
+							}
+						</div>
+					</div>
+
+					<div class="mt-8">
+						<h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{t.projectDetail.tech}</h2>
+
+						<div class="flex flex-wrap gap-3">
+							{
+								project.tech.map((tech) => {
+									const icon = techIcons[tech];
+
+									return (
+										<span class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-800 shadow-sm">
+											{
+												icon ? (
+													<svg
+														aria-hidden="true"
+														class="h-4 w-4 shrink-0"
+														viewBox="0 0 24 24"
+														fill="currentColor"
+														style={`color: #${icon.hex}`}
+													>
+														<path d={icon.path}></path>
+													</svg>
+												) : (
+													<span class="grid h-5 w-5 shrink-0 place-items-center rounded bg-blue-50 text-[0.65rem] font-bold text-primary">
+														{tech.slice(0, 2)}
+													</span>
+												)
+											}
+											{tech}
+										</span>
+									);
+								})
+							}
+						</div>
+					</div>
+				</section>
+
+				<section class="lg:sticky lg:top-20">
+					<div data-project-gallery class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 shadow-xl shadow-slate-200/80">
+						<div data-gallery-track class="carousel w-full">
+							{
+								project.images.map((image, index) => {
+									const previous = index === 0 ? project.images.length - 1 : index - 1;
+									const next = index === project.images.length - 1 ? 0 : index + 1;
+
+									return (
+										<div data-gallery-slide data-gallery-index={index} class="carousel-item relative w-full">
+											<img
+												src={image.src}
+												alt={image.alt}
+												class="h-[20rem] w-full object-cover md:h-[30rem]"
+												loading={index === 0 ? 'eager' : 'lazy'}
+											/>
+
+											{
+												project.images.length > 1 && (
+													<div class="absolute inset-x-5 top-1/2 flex -translate-y-1/2 justify-between">
+														<button
+															type="button"
+															data-gallery-target={previous}
+															class="btn btn-circle border-slate-200 bg-white/90 text-slate-900 shadow-lg hover:bg-white hover:text-primary"
+															aria-label={t.projectDetail.previousImage}
+														>
+															<ArrowLeft size={20} />
+														</button>
+
+														<button
+															type="button"
+															data-gallery-target={next}
+															class="btn btn-circle border-slate-200 bg-white/90 text-slate-900 shadow-lg hover:bg-white hover:text-primary"
+															aria-label={t.projectDetail.nextImage}
+														>
+															<ArrowLeft class="rotate-180" size={20} />
+														</button>
+													</div>
+												)
+											}
+										</div>
+									);
+								})
+							}
+						</div>
+
+						<div class="border-t border-slate-200 bg-white/90 p-4">
+							<div class="flex gap-3 overflow-x-auto pb-1">
+								{
+									project.images.map((image, index) => (
+										<button
+											type="button"
+											data-gallery-target={index}
+											class="gallery-thumb block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 transition hover:border-primary"
+											aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
+											aria-current={index === 0 ? 'true' : undefined}
+										>
+											<img src={image.src} alt="" class="h-full w-full object-cover" loading="lazy" />
+										</button>
+									))
+								}
+							</div>
+
+							{
+								project.images.length > 1 && (
+									<div class="mt-3 flex justify-center gap-2">
+										{
+											project.images.map((_, index) => (
+												<button
+													type="button"
+													data-gallery-target={index}
+													class="gallery-number btn btn-xs h-7 min-h-7 w-7 rounded-full border-slate-300 bg-white p-0 text-xs text-slate-700 hover:border-primary hover:bg-blue-50 hover:text-primary"
+													aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
+													aria-current={index === 0 ? 'true' : undefined}
+												>
+													{index + 1}
+												</button>
+											))
+										}
+									</div>
+								)
+							}
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<section id="case-study" class="mt-12 divide-y divide-slate-200 border-y border-slate-200">
+				<div class="grid gap-6 py-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
+					<div class="flex items-center gap-4 lg:items-start">
+						<div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary">
+							<BookOpenText size={28} />
+						</div>
+						<h2 class="text-xl font-bold text-slate-950">{t.projectDetail.overview}</h2>
+					</div>
+
+					<div class="space-y-5 text-base leading-8 text-slate-700">
+						{project.overview.map((paragraph) => <p>{paragraph}</p>)}
+					</div>
+				</div>
+
+				<div class="grid gap-6 py-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
+					<div class="flex items-center gap-4 lg:items-start">
+						<div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary">
+							<CodeXml size={28} />
+						</div>
+						<h2 class="text-xl font-bold text-slate-950">{t.projectDetail.features}</h2>
+					</div>
+
+					<ul class="space-y-3 text-base leading-7 text-slate-700">
+						{
+							project.features.map((feature) => (
+								<li class="flex gap-3">
+									<CheckCircle2 class="mt-1 shrink-0 text-primary" size={18} />
+									<span>{feature}</span>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+				<div class="grid gap-6 py-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
+					<div class="flex items-center gap-4 lg:items-start">
+						<div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary">
+							<GraduationCap size={28} />
+						</div>
+						<h2 class="text-xl font-bold text-slate-950">{t.projectDetail.learned}</h2>
+					</div>
+
+					<p class="text-base leading-8 text-slate-700">{project.learned}</p>
+				</div>
+			</section>
+		</section>
+	</main>
+	<Footer locale={locale} />
+
+	<script>
+		const updateProjectGalleryControls = (gallery, activeIndex) => {
+			gallery.querySelectorAll('.gallery-thumb, .gallery-number').forEach((control) => {
+				const isActive = control.dataset.galleryTarget === activeIndex;
+				if (isActive) {
+					control.setAttribute('aria-current', 'true');
+				} else {
+					control.removeAttribute('aria-current');
+				}
+			});
+		};
+
+		const setProjectGallerySlide = (gallery, nextIndex, behavior = 'smooth') => {
+			const track = gallery.querySelector('[data-gallery-track]');
+			const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
+			const activeSlide = slides.find((slide) => slide.dataset.galleryIndex === nextIndex) ?? slides[0];
+
+			if (!track || !activeSlide) return;
+
+			track.scrollTo({
+				left: activeSlide.offsetLeft - track.offsetLeft,
+				behavior,
+			});
+			updateProjectGalleryControls(gallery, activeSlide.dataset.galleryIndex ?? '0');
+		};
+
+		document.querySelectorAll('[data-project-gallery]').forEach((gallery) => {
+			const track = gallery.querySelector('[data-gallery-track]');
+			let scrollTimeout;
+
+			gallery.addEventListener('click', (event) => {
+				if (!(event.target instanceof Element)) return;
+
+				const control = event.target.closest('[data-gallery-target]');
+				if (!control) return;
+
+				setProjectGallerySlide(gallery, control.dataset.galleryTarget ?? '0');
+			});
+
+			track?.addEventListener('scroll', () => {
+				window.clearTimeout(scrollTimeout);
+				scrollTimeout = window.setTimeout(() => {
+					const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
+					const activeSlide = slides.reduce((closest, slide) => {
+						if (!closest) return slide;
+
+						const slideDistance = Math.abs(slide.offsetLeft - track.scrollLeft - track.offsetLeft);
+						const closestDistance = Math.abs(closest.offsetLeft - track.scrollLeft - track.offsetLeft);
+
+						return slideDistance < closestDistance ? slide : closest;
+					}, null);
+
+					if (activeSlide) {
+						updateProjectGalleryControls(gallery, activeSlide.dataset.galleryIndex ?? '0');
+					}
+				}, 80);
+			});
+
+			updateProjectGalleryControls(gallery, '0');
+		});
+	</script>
+
+	<style>
+		.gallery-thumb[aria-current='true'] {
+			border-color: #2563eb;
+			box-shadow:
+				0 0 0 2px rgba(37, 99, 235, 0.24),
+				0 10px 22px rgba(37, 99, 235, 0.12);
+		}
+
+		.gallery-number[aria-current='true'] {
+			border-color: #2563eb;
+			background: #2563eb;
+			color: #ffffff;
+		}
+	</style>
+</Layout>
