@@ -1,16 +1,33 @@
 ---
 import { Menu } from '@lucide/astro';
+import { localeLabels, localePath, localizedPathFor, type Locale, ui } from '../i18n';
 
+type Props = {
+	locale?: Locale;
+	showLanguageSwitcher?: boolean;
+};
+
+const { locale = 'en', showLanguageSwitcher = true } = Astro.props;
+const t = ui[locale];
+const languageLinks = [
+	{ locale: 'en' as const, href: localizedPathFor(Astro.url.pathname, 'en'), label: 'EN' },
+	{ locale: 'de' as const, href: localizedPathFor(Astro.url.pathname, 'de'), label: 'DE' },
+];
 const navItems = [
-	{ label: 'Home', href: '/#home' },
-	{ label: 'Projects', href: '/#projects' },
+	{ label: t.nav.home, href: localePath(locale, '/#home') },
+	{ label: t.nav.projects, href: localePath(locale, '/#projects') },
 ];
 ---
 
 <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
 	<div class="navbar section-shell min-h-12 px-0">
 		<div class="navbar-start">
-			<a href="/#home" class="text-xl font-bold tracking-normal text-slate-950">Manuel</a>
+			<a href={localePath(locale, '/#home')} class="inline-flex items-center" aria-label="Manuel home">
+				<svg class="h-9 w-9 text-blue-800" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+					<rect x="1.5" y="1.5" width="37" height="37" rx="10" stroke="currentColor" stroke-width="3" />
+					<path d="M10 28V12h3.5l6.5 9.4 6.5-9.4H30v16h-3.5V18.7l-5.3 7.4h-2.4l-5.3-7.4V28H10Z" fill="currentColor" />
+				</svg>
+			</a>
 		</div>
 
 		<nav class="navbar-center hidden lg:flex" aria-label="Main navigation">
@@ -27,9 +44,30 @@ const navItems = [
 			</ul>
 		</nav>
 
-		<div class="navbar-end">
+		<div class="navbar-end gap-2">
+			{
+				showLanguageSwitcher && (
+					<div class="hidden items-center gap-2 text-sm font-semibold lg:flex" aria-label={t.nav.language}>
+						{
+							languageLinks.map((item, index) => (
+								<>
+									<a
+										class={item.locale === locale ? 'text-primary' : 'text-slate-600 hover:text-primary'}
+										href={item.href}
+										aria-current={item.locale === locale ? 'page' : undefined}
+										aria-label={localeLabels[item.locale]}
+									>
+										{item.label}
+									</a>
+									{index === 0 && <span class="text-slate-300" aria-hidden="true">|</span>}
+								</>
+							))
+						}
+					</div>
+				)
+			}
 			<div class="dropdown dropdown-end lg:hidden">
-				<button class="btn btn-ghost btn-square" type="button" aria-label="Open navigation">
+				<button class="btn btn-ghost btn-square" type="button" aria-label={t.nav.open}>
 					<Menu size={22} />
 				</button>
 				<ul class="menu dropdown-content z-40 mt-3 w-48 rounded-box border border-slate-200 bg-white p-2 shadow-lg">
@@ -39,6 +77,29 @@ const navItems = [
 								<a href={item.href}>{item.label}</a>
 							</li>
 						))
+					}
+					{
+						showLanguageSwitcher && (
+							<li>
+								<div class="flex items-center gap-2 px-3 py-2 text-sm font-semibold">
+									{
+										languageLinks.map((item, index) => (
+											<>
+												<a
+													class={item.locale === locale ? 'text-primary' : 'text-slate-600 hover:text-primary'}
+													href={item.href}
+													aria-current={item.locale === locale ? 'page' : undefined}
+													aria-label={localeLabels[item.locale]}
+												>
+													{item.label}
+												</a>
+												{index === 0 && <span class="text-slate-300" aria-hidden="true">|</span>}
+											</>
+										))
+									}
+								</div>
+							</li>
+						)
 					}
 				</ul>
 			</div>

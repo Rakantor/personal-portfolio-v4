@@ -1,15 +1,31 @@
 ---
 import { skills } from '../data/skills';
+import { type Locale, ui } from '../i18n';
+
+type Props = {
+	locale?: Locale;
+};
+
+const { locale = 'en' } = Astro.props;
+const t = ui[locale];
 ---
 
 <section id="skills" class="section-shell py-12">
-	<h2 class="text-3xl font-bold tracking-normal text-slate-950">Tech Stack</h2>
+	<h2 class="text-3xl font-bold tracking-normal text-slate-950">{t.techStack.title}</h2>
 	<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
 		{
 			skills.map((skill) => (
 				<div class="soft-card flex min-h-16 items-center gap-4 rounded-lg px-5 py-4">
-					<span class="grid h-9 w-9 shrink-0 place-items-center rounded-md text-sm font-bold text-white" style={`background: ${skill.color}`}>
-						{skill.label}
+					<span class="grid h-9 w-9 shrink-0 place-items-center">
+						<svg
+							aria-hidden="true"
+							class="h-7 w-7"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							style={`color: #${skill.icon.hex}`}
+						>
+							<path d={skill.icon.path}></path>
+						</svg>
 					</span>
 					<span class="font-medium text-slate-800">{skill.name}</span>
 				</div>
