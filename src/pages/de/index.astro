@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CodeDivider from '../../components/CodeDivider.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import Projects from '../../components/Projects.astro';
+import TechStack from '../../components/TechStack.astro';
+import Footer from '../../components/Footer.astro';
+import { htmlLang, ui } from '../../i18n';
+
+const locale = 'de';
+const t = ui[locale];
+---
+
+<Layout lang={htmlLang[locale]} title={t.meta.homeTitle} description={t.meta.homeDescription}>
+	<Header locale={locale} />
+	<main>
+		<Hero locale={locale} />
+		<CodeDivider />
+		<Projects locale={locale} />
+		<TechStack locale={locale} />
+	</main>
+	<Footer locale={locale} />
+</Layout>

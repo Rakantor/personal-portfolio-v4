@@ -1,24 +1,32 @@
 ---
-import { ArrowRight, Code2, Mail } from '@lucide/astro';
+import { ArrowRight, Mail } from '@lucide/astro';
 import avatar from '../assets/avatar.webp';
+import { localePath, type Locale, ui } from '../i18n';
+
+type Props = {
+	locale?: Locale;
+};
+
+const { locale = 'en' } = Astro.props;
+const t = ui[locale];
 ---
 
 <section id="home" class="section-shell grid min-h-[620px] items-center gap-12 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20">
 	<div class="max-w-2xl">
 		<h1 class="text-5xl font-extrabold leading-tight tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
-			Hey, I'm Manuel.
+			{t.hero.title}
 		</h1>
 		<p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-			I'm a Software Developer based in Vienna, Austria. I love building things that people enjoy using and that impact their lives in a positive way.
+			{t.hero.description}
 		</p>
 
 		<div class="mt-8 flex flex-wrap gap-4">
-			<a class="btn btn-primary min-h-12 rounded-lg px-5 text-white shadow-lg shadow-blue-600/20" href="#projects">
-				View Projects
+			<a class="btn btn-primary min-h-12 rounded-lg px-5 text-white shadow-lg shadow-blue-600/20" href={localePath(locale, '/#projects')}>
+				{t.hero.projects}
 				<ArrowRight size={18} />
 			</a>
 			<a class="btn min-h-12 rounded-lg border-slate-300 bg-white px-5 text-slate-900 hover:border-primary hover:bg-blue-50" href="mailto:maveigel@gmail.com">
-				Contact
+				{t.hero.contact}
 				<Mail size={18} />
 			</a>
 		</div>
@@ -35,17 +43,9 @@ import avatar from '../assets/avatar.webp';
 				src={avatar.src}
 				width={avatar.width}
 				height={avatar.height}
-				alt="Portrait illustration of Manuel"
+				alt={t.hero.avatarAlt}
 				fetchpriority="high"
 			/>
-		</div>
-		<div class="soft-card absolute bottom-3 left-0 hidden w-48 rounded-lg p-5 sm:block">
-			<Code2 class="text-primary" size={30} />
-			<p class="mt-4 text-sm leading-6 text-slate-600">
-				Clean code.<br />
-				Thoughtful design.<br />
-				Useful experiences.
-			</p>
 		</div>
 	</div>
 </section>

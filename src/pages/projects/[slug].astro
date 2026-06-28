@@ -1,0 +1,19 @@
+---
+import ProjectDetail from '../../components/ProjectDetail.astro';
+import { getLocalizedProject, projects, type Project } from '../../data/projects';
+
+export function getStaticPaths() {
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project: getLocalizedProject(project, 'en') },
+	}));
+}
+
+type Props = {
+	project: Project;
+};
+
+const { project } = Astro.props;
+---
+
+<ProjectDetail project={project} locale="en" />
