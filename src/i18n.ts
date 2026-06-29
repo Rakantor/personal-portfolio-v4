@@ -21,6 +21,7 @@ export const ui = {
 		},
 		nav: {
 			home: 'Home',
+			skills: 'Skills',
 			projects: 'Projects',
 			open: 'Open navigation',
 			language: 'Language',
@@ -34,14 +35,31 @@ export const ui = {
 			avatarAlt: 'Portrait illustration of Manuel',
 		},
 		projects: {
-			title: 'My Work',
-			description: "A collection of projects I've worked on.",
+			title: 'Featured Projects',
 			readMore: 'Read more',
 			viewDetails: 'View details for',
 			imageAlt: 'screenshot',
 		},
 		techStack: {
 			title: 'Tech Stack',
+			capabilities: {
+				title: 'Core Capabilities',
+				fullStack: 'Full-stack Development',
+				objectOriented: 'Object-oriented Programming',
+				restApis: 'REST APIs',
+				databaseDesign: 'Database Design',
+				mobileDevelopment: 'Mobile App Development',
+				deploymentHosting: 'Deployment and Hosting',
+			},
+			groups: {
+				languages: 'Languages',
+				frontend: 'Frontend',
+				backend: 'Backend',
+				databases: 'Databases',
+				buildTools: 'Build Tools',
+				cloudHosting: 'Cloud & Hosting',
+				devops: 'DevOps',
+			},
 		},
 		projectDetail: {
 			back: 'Back to projects',
@@ -67,6 +85,7 @@ export const ui = {
 		},
 		nav: {
 			home: 'Start',
+			skills: 'Skills',
 			projects: 'Projekte',
 			open: 'Navigation öffnen',
 			language: 'Sprache',
@@ -80,14 +99,31 @@ export const ui = {
 			avatarAlt: 'Portrait-Illustration von Manuel',
 		},
 		projects: {
-			title: 'Meine Arbeit',
-			description: 'Eine Auswahl an Projekten, an denen ich gearbeitet habe.',
+			title: 'Ausgewählte Projekte',
 			readMore: 'Mehr lesen',
 			viewDetails: 'Details ansehen zu',
 			imageAlt: 'Screenshot',
 		},
 		techStack: {
 			title: 'Tech Stack',
+			capabilities: {
+				title: 'Kernkompetenzen',
+				fullStack: 'Full-Stack-Entwicklung',
+				objectOriented: 'Objektorientierte Programmierung',
+				restApis: 'REST-APIs',
+				databaseDesign: 'Datenbankdesign',
+				mobileDevelopment: 'Mobile-App-Entwicklung',
+				deploymentHosting: 'Deployment und Hosting',
+			},
+			groups: {
+				languages: 'Programmiersprachen',
+				frontend: 'Frontend',
+				backend: 'Backend',
+				databases: 'Datenbanken',
+				buildTools: 'Build-Tools',
+				cloudHosting: 'Cloud & Hosting',
+				devops: 'DevOps',
+			},
 		},
 		projectDetail: {
 			back: 'Zurück zu den Projekten',
