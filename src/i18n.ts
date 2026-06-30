@@ -29,7 +29,7 @@ export const ui = {
 		hero: {
 			title: "Hey, I'm Manuel.",
 			description:
-				"I'm a Software Developer based in Vienna, Austria. I love building things that people enjoy using and that impact their lives in a positive way.",
+				"I'm a Software Developer from Vienna, Austria. I love building things that people enjoy using and that make their lives a little better.",
 			projects: 'View Projects',
 			contact: 'Contact',
 			avatarAlt: 'Portrait illustration of Manuel',
@@ -81,7 +81,7 @@ export const ui = {
 		meta: {
 			homeTitle: 'Manuel Veigel | Softwareentwickler',
 			homeDescription:
-				'Portfolio von Manuel Veigel, einem Softwareentwickler aus Wien, der klare und hilfreiche digitale Produkte baut.',
+				'Portfolio von Manuel Veigel, einem Softwareentwickler aus Wien.',
 		},
 		nav: {
 			home: 'Start',
@@ -93,7 +93,7 @@ export const ui = {
 		hero: {
 			title: 'Hey, ich bin Manuel.',
 			description:
-				'Ich bin Softwareentwickler aus Wien. Ich baue gern digitale Produkte, die angenehm zu benutzen sind und Menschen im Alltag wirklich weiterhelfen.',
+				'Ich bin Softwareentwickler aus Wien und hab Spaß daran, Dinge zu bauen, die Menschen gerne nutzen und die ihr Leben ein kleines bisschen besser machen.',
 			projects: 'Projekte ansehen',
 			contact: 'Kontakt',
 			avatarAlt: 'Portrait-Illustration von Manuel',
