@@ -322,58 +322,58 @@ const projectTranslations = {
 			category: 'Progressive Web App',
 			year: 'Ausgewähltes Projekt',
 			description:
-				'Torii SRS (v2) ist eine umfassende Lernplattform für japanische Vokabeln mit zuverlässiger Offline-Unterstützung über IndexedDB. Die Web-App verbindet ein dynamisches Wörterbuch, flexible Wiederholungsmethoden, eine Vorschau auf kommende Reviews sowie Such- und Analysefunktionen für den täglichen Lernfortschritt.',
+				'Torii SRS (v2) ist eine Web-App zum Lernen japanischer Vokabeln, die dank IndexedDB auch offline funktioniert. Die App enthält ein Wörterbuch, das sich flexibel erweitern lässt, sowie smarte Wiederholungsmethoden, damit neue Wörter besser hängen bleiben. Ein Prognosediagramm hilft dabei, das Lernen besser zu planen. Dazu kommen verbesserte Such- und Analysefunktionen, die nützliche Einblicke geben und Lernende in jeder Phase unterstützen.',
 			overview: [
 				'Torii SRS (v2) wurde als vollständige Vokabelplattform für Japanischlernende gebaut, die einen zuverlässigen Review-Ablauf auf verschiedenen Geräten brauchen. Der Fokus liegt auf schnellen Lerneinheiten, Offline-Nutzung, flexibler Wortverwaltung und klarer Fortschrittsübersicht.',
 				'Die Anwendung kombiniert Spaced Repetition, wörterbuchgestützte Eingabe, Review-Prognosen und Lernanalysen in einer Oberfläche. Ein wichtiges Ziel war, fortgeschrittene Lernfunktionen zugänglich zu machen, ohne den täglichen Review-Ablauf zu verlangsamen.',
 			],
 			features: [
-				'Offline-first Lernablauf mit IndexedDB',
+				'Offline-first Architektur mit IndexedDB',
 				'Dynamische Wörterbuchintegration zum schnellen Hinzufügen von Vokabeln',
 				'Mehrere Review-Modi für Erinnerung und aktiven Abruf',
 				'Prognose- und Analyseansichten zur Planung des Lernaufwands',
 				'Cloud-Architektur für Kontodaten und Synchronisierung',
 			],
 			learned:
-				'Dieses Projekt hat mein Verständnis für datenintensive Offline-Web-Apps vertieft, besonders bei Synchronisierung, lokaler Persistenz und dabei, komplexe Lernfunktionen im Alltag verständlich zu halten.',
+				'Dieses Projekt hat mir geholfen, datenintensive Web-Apps mit Offline-Funktion besser zu verstehen — vor allem, wenn es um Synchronisierung, lokale Speicherung und darum geht, den Benutzern komplexe Lernfunktionen einfach verständlich zu machen.',
 		},
 		'torii-srs-v1': {
 			category: 'Cross-Platform App',
 			year: 'Ausgewähltes Projekt',
 			description:
-				'Torii SRS (v1) ist ein plattformübergreifendes Lernwerkzeug für japanische Vokabeln, das Spaced Repetition für effektives Memorieren nutzt. Die App richtet sich an Gelegenheitslernende und JLPT-Kandidaten und bietet Vokabellisten, verschiedene Review-Modi, Audio, Schriftvarianten, Fortschrittsanzeige und automatische Cloud-Synchronisierung.',
+				'Torii SRS (v1) ist ein plattformübergreifendes Tool zum Lernen japanischer Vokabeln. Die App nutzt Spaced Repetition, damit Wörter langfristig besser im Gedächtnis bleiben. Sie eignet sich sowohl für Lernende, die nebenbei Japanisch üben, als auch für JLPT-Kandidaten. Dazu bietet sie Vokabellisten, verschiedene Review-Modi, Audio für die korrekte japanische Aussprache, unterschiedliche Schriftvarianten der japanischen Schriftzeichen, Fortschrittsanzeigen und automatische Cloud-Synchronisierung.',
 			overview: [
-				'Torii SRS (v1) war die erste vollständige Version des Lernprodukts und brachte Spaced-Repetition-Training auf Desktop und mobile Geräte.',
-				'Das Projekt sollte Vokabeltraining flexibel machen: Lernende konnten mit kuratierten JLPT-Listen arbeiten, Reviews anpassen, Audio nutzen und ihren Fortschritt synchronisieren, ohne Dateien manuell verwalten zu müssen.',
+				'Die erste vollständige Version von Torii SRS - für Windows, macOS, Linux und Android-Geräte.',
+				'Das Ziel war vor allem, das Lernen japanischer Vokabeln zu vereinfachen und verifizierte Vokabellisten für alle leicht zugänglich zu machen — ohne mühsames Suchen im Internet und ohne aufwendiges Setup in klassischen Flashcard-Programmen.',
 			],
 			features: [
 				'Plattformübergreifende App mit Java und libGDX',
-				'Spaced-Repetition-Review-Modi zum Vokabellernen',
-				'JLPT-Vokabellisten und eigene Lerninhalte',
+				'Spaced Repetition System',
+				'JLPT-Vokabellisten sowie eigene Lerninhalte',
 				'Audio-Unterstützung, Schriftvarianten und Fortschrittsanzeige',
-				'Automatische Cloud-Synchronisierung der Lerndaten',
+				'Automatische Cloud-Synchronisierung',
 			],
 			learned:
-				'Dieses Projekt hat mir gezeigt, wie stark Produktqualität von Alltagstauglichkeit abhängt: Review-Geschwindigkeit, zuverlässige Synchronisierung, klares Feedback und kleine lernbezogene Details waren genauso wichtig wie der Algorithmus.',
+				'Dieses Projekt hat mir gezeigt, wie wichtig Alltagstauglichkeit für die Qualität eines Produkts ist. Schnelle & zuverlässige Datensynchronisierung, klares Feedback beim Lernen und kleine Details im UI waren am Ende genauso wichtig wie der Algorithmus selbst.',
 		},
 		'torii-srs-landing-page': {
 			category: 'Marketing-Website',
 			year: 'Ausgewähltes Projekt',
 			description:
-				'Eine schnelle, moderne Landingpage für Torii SRS, die die Plattform mit klarer Produktkommunikation, Funktionsübersicht, Testimonials, Preisen und integrierter Wissensdatenbank präsentiert.',
+				'Eine schnelle, moderne Landingpage für Torii SRS, die das Produkt klar erklärt und alle wichtigen Infos an einem Ort bündelt — von Funktionen und Testimonials bis hin zu Preisen und einer integrierten Wissensdatenbank.',
 			overview: [
-				'Die Torii-SRS-Landingpage wurde gestaltet, um dem Produkt eine klarere öffentliche Präsenz zu geben und ein funktionsreiches Lernwerkzeug verständlich für neue Nutzer zu erklären.',
-				'Die Seite setzt auf schnelle Orientierung: Positionierung, Funktionen, Preise, Testimonials und Support-Inhalte sind so strukturiert, dass Besucher den Wert erkennen, bevor sie in die App wechseln.',
+				'Die Landingpage wurde entwickelt, um Torii SRS einen klareren öffentlichen Auftritt zu geben und neuen Nutzern schnell zu zeigen, was die Lernplattform kann.',
+				'Die Seite hilft Besuchern dabei, sich schnell zurechtzufinden: Positionierung, Funktionen, Preise, Testimonials und Support-Inhalte sind so aufgebaut, dass der Mehrwert klar wird, bevor sie in die App wechseln.',
 			],
 			features: [
 				'Responsive Marketingseite mit Astro und React-Komponenten',
 				'Klare Produktkommunikation für Japanischlernende',
-				'Bereiche für Funktionen, Testimonials, Preise und Wissensdatenbank',
+				'Bereiche für Features, Testimonials, Preise und eine Wissensdatenbank',
 				'Wiederverwendbare Komponenten mit Tailwind CSS und shadcn/ui',
-				'Schnelle statische Auslieferung für einen starken ersten Eindruck',
+				'Blitzschnelle statische Bereitstellung für einen starken ersten Eindruck',
 			],
 			learned:
-				'Diese Arbeit hat verdeutlicht, wie anders Produktwebsites im Vergleich zu App-Oberflächen funktionieren: Sie müssen Wert sofort erklären, Aufmerksamkeit gezielt führen und trotzdem schnell und wartbar bleiben.',
+				'Dieses Projekt hat mir verdeutlicht, wie anders Produktwebsites im Vergleich zu App-Oberflächen funktionieren: Sie müssen den Mehrwert sofort klar machen, Besucher gezielt durch die Inhalte führen und gleichzeitig schnell, SEO-freundlich und gut wartbar bleiben.',
 		},
 		'iu-quiz-app': {
 			category: 'Web-App',
