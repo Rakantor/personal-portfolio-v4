@@ -77,8 +77,8 @@ const isExternal = (href: string) => href.startsWith('http');
 				{t.projectDetail.back}
 			</a>
 
-			<div class="mt-9 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.95fr)] lg:items-start">
-				<section>
+			<div class="mt-9 grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.95fr)] lg:items-start">
+				<section class="min-w-0">
 					<div class="mb-5 flex flex-wrap gap-3">
 						<span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
 							{project.category}
@@ -160,9 +160,9 @@ const isExternal = (href: string) => href.startsWith('http');
 					</div>
 				</section>
 
-				<section class="lg:sticky lg:top-20">
-					<div data-project-gallery class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 shadow-xl shadow-slate-200/80">
-						<div data-gallery-track class="carousel w-full">
+				<section class="min-w-0 lg:sticky lg:top-20">
+					<div data-project-gallery class="min-w-0 max-w-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 shadow-xl shadow-slate-200/80">
+						<div data-gallery-track class="carousel max-w-full w-full">
 							{
 								project.images.map((image, index) => {
 									const previous = index === 0 ? project.images.length - 1 : index - 1;
@@ -207,7 +207,7 @@ const isExternal = (href: string) => href.startsWith('http');
 						</div>
 
 						<div class="border-t border-slate-200 bg-white/90 p-4">
-							<div class="flex gap-3 overflow-x-auto pb-1">
+							<div class="flex max-w-full gap-3 overflow-x-auto pb-1">
 								{
 									project.images.map((image, index) => (
 										<button
@@ -225,7 +225,7 @@ const isExternal = (href: string) => href.startsWith('http');
 
 							{
 								project.images.length > 1 && (
-									<div class="mt-3 flex justify-center gap-2">
+									<div class="mt-3 flex flex-wrap justify-center gap-2">
 										{
 											project.images.map((_, index) => (
 												<button
