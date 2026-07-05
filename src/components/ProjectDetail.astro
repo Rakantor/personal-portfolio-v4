@@ -79,15 +79,6 @@ const isExternal = (href: string) => href.startsWith('http');
 
 			<div class="mt-9 grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.95fr)] lg:items-start">
 				<section class="min-w-0">
-					<div class="mb-5 flex flex-wrap gap-3">
-						<span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
-							{project.category}
-						</span>
-						<span class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
-							{project.year}
-						</span>
-					</div>
-
 					<h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-slate-950 md:text-6xl">
 						{project.title}
 					</h1>
@@ -173,7 +164,7 @@ const isExternal = (href: string) => href.startsWith('http');
 											<img
 												src={image.src}
 												alt={image.alt}
-												class="h-[20rem] w-full object-cover md:h-[30rem]"
+												class="h-auto w-full"
 												loading={index === 0 ? 'eager' : 'lazy'}
 											/>
 
