@@ -310,6 +310,11 @@ export const projects: Project[] = [
 				href: 'https://github.com/Rakantor/iubh-gamer-app',
 				type: 'github',
 			},
+			{
+				label: 'View Project Report',
+				href: projectScreenshot('iu-gamer-app-projektbericht.pdf'),
+				type: 'pdf',
+			},
 		],
 	},
 ];
