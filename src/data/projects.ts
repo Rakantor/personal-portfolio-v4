@@ -167,6 +167,41 @@ export const projects: Project[] = [
 		],
 	},
 	{
+		slug: 'google-drive-pdf-downloader',
+		title: 'GDrive PDF Downloader',
+		category: 'Browser Tool',
+		year: 'Featured Work',
+		description:
+			'A browser-based tool for downloading PDFs from Google previews, including view-only documents where the standard download and print controls are unavailable. It captures the rendered pages, combines them into a PDF, and can preserve searchable text and hyperlinks.',
+		overview: [
+			'Google Drive PDF Downloader was built for documents that Google displays through its image-based PDF preview. The tool loads each rendered page, captures it in the browser, and assembles the results into a downloadable PDF.',
+			'It can run as a one-off console script or as an automatically activated userscript across Google Drive, Google Classroom, and other Google services. The workflow includes configurable quality settings, progress feedback, cancellation, and optional text extraction.',
+		],
+		features: [
+			'PDF capture from Google Drive, Google Classroom, and related preview viewers',
+			'Fast and high-quality modes with configurable capture zoom',
+			'Optional searchable, selectable text and preserved hyperlinks',
+			'Console script and userscript distributions for Chrome and Firefox',
+			'Progress tracking and cancellation for long documents',
+		],
+		learned:
+			'This project deepened my understanding of browser rendering behavior, DOM-driven automation, and the tradeoffs between capture quality, processing time, and output size when reconstructing documents entirely on the client.',
+		tech: ['TypeScript', 'Vitest'],
+		image: projectScreenshot('gdrive-pdf-2.webp'),
+		images: projectImages('GDrive PDF Downloader', [
+			'gdrive-pdf-1.webp',
+			'gdrive-pdf-2.webp',
+		]),
+		buttons: [
+			{
+				label: 'View on GitHub',
+				href: 'https://github.com/Rakantor/google-drive-pdf-downloader',
+				aria: 'Google Drive PDF Downloader GitHub repository',
+				type: 'github',
+			},
+		],
+	},
+	{
 		slug: 'iu-quiz-app',
 		title: 'IU Quiz App',
 		category: 'Web App',
@@ -228,8 +263,9 @@ export const projects: Project[] = [
 		learned:
 			'Building a game made architecture problems very concrete: state management, asset loading, collision, input handling, and feedback all have to work together smoothly for the experience to feel responsive.',
 		tech: ['Java', 'libGDX', 'Tiled'],
-		image: projectScreenshot('pmb-6.png'),
+		image: projectScreenshot('pmb-0.webp'),
 		images: projectImages('Menacing Blue', [
+			'pmb-0.webp',
 			'pmb-6.png',
 			'pmb-1.png',
 			'pmb-2.png',
@@ -379,6 +415,25 @@ const projectTranslations = {
 			],
 			learned:
 				'Dieses Projekt hat mir verdeutlicht, wie anders Produktwebsites im Vergleich zu App-Oberflächen funktionieren: Sie müssen den Mehrwert sofort klar machen, Besucher gezielt durch die Inhalte führen und gleichzeitig schnell, SEO-freundlich und gut wartbar bleiben.',
+		},
+		'google-drive-pdf-downloader': {
+			category: 'Browser-Tool',
+			year: 'Ausgewähltes Projekt',
+			description:
+				'Ein browserbasiertes Tool zum Herunterladen von PDFs aus der Google-Vorschau, einschließlich Dokumenten, bei denen die üblichen Download- und Druckfunktionen nicht verfügbar sind. Es erfasst die gerenderten Seiten, fügt sie zu einer PDF-Datei zusammen und kann durchsuchbaren Text sowie Hyperlinks erhalten.',
+			overview: [
+				'Google Drive PDF Downloader wurde für Dokumente entwickelt, die Google über eine bildbasierte PDF-Vorschau anzeigt. Das Tool lädt jede gerenderte Seite, erfasst sie direkt im Browser und fügt die Ergebnisse zu einer herunterladbaren PDF-Datei zusammen.',
+				'Es kann einmalig als Konsolenskript oder automatisch als Userscript in Google Drive, Google Classroom und weiteren Google-Diensten ausgeführt werden. Der Ablauf bietet konfigurierbare Qualitätseinstellungen, Fortschrittsanzeige, Abbruchmöglichkeit und optionale Texterkennung.',
+			],
+			features: [
+				'PDF-Erfassung aus Google Drive, Google Classroom und verwandten Vorschauansichten',
+				'Schneller und hochauflösender Modus mit konfigurierbarem Aufnahme-Zoom',
+				'Optionaler durchsuchbarer und auswählbarer Text sowie erhaltene Hyperlinks',
+				'Konsolenskript und Userscript für Chrome und Firefox',
+				'Fortschrittsanzeige und Abbruchmöglichkeit bei langen Dokumenten',
+			],
+			learned:
+				'Dieses Projekt hat mein Verständnis für Browser-Rendering, DOM-basierte Automatisierung und die Abwägung zwischen Aufnahmequalität, Verarbeitungszeit und Dateigröße bei der vollständig clientseitigen Rekonstruktion von Dokumenten vertieft.',
 		},
 		'iu-quiz-app': {
 			category: 'Web-App',
