@@ -31,7 +31,7 @@ import {
 import Footer from './Footer.astro';
 import Header from './Header.astro';
 import Layout from '../layouts/Layout.astro';
-import type { Project, ProjectButton } from '../data/projects';
+import { getProjectButtonLabel, type Project, type ProjectButton } from '../data/projects';
 import { htmlLang, localePath, type Locale, ui } from '../i18n';
 
 type Props = {
@@ -61,8 +61,10 @@ const techIcons: Record<string, SimpleIcon> = {
 };
 
 const getButtonClass = (button: ProjectButton) =>
-	button.type === 'website'
-		? 'btn btn-primary min-h-11 rounded-lg px-4 text-white shadow-lg shadow-blue-600/20'
+	button.type === 'github'
+		? 'btn min-h-11 rounded-lg border-slate-950 bg-slate-950 px-4 text-white shadow-none hover:border-black hover:bg-black hover:text-white'
+		: button.type === 'website'
+		? 'btn btn-primary min-h-11 rounded-lg px-4 text-white shadow-lg shadow-primary/20'
 		: 'btn min-h-11 rounded-lg border-slate-300 bg-white px-4 text-slate-900 hover:border-primary hover:bg-blue-50 hover:text-primary';
 
 const isExternal = (href: string) => href.startsWith('http');
@@ -72,7 +74,7 @@ const isExternal = (href: string) => href.startsWith('http');
 	<Header locale={locale} />
 	<main>
 		<section class="section-shell py-10 lg:py-14">
-			<a class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-blue-700" href={localePath(locale, '/#projects')}>
+			<a class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-[#315fc7]" href={localePath(locale, '/#projects')}>
 				<ArrowLeft size={18} />
 				{t.projectDetail.back}
 			</a>
@@ -94,7 +96,7 @@ const isExternal = (href: string) => href.startsWith('http');
 									<a
 										class={getButtonClass(button)}
 										href={button.href}
-										aria-label={button.aria ?? `${button.label}: ${project.title}`}
+										aria-label={button.aria ?? `${getProjectButtonLabel(button.type, locale)}: ${project.title}`}
 										target={isExternal(button.href) ? '_blank' : undefined}
 										rel={isExternal(button.href) ? 'noreferrer' : undefined}
 									>
@@ -107,7 +109,7 @@ const isExternal = (href: string) => href.startsWith('http');
 												</svg>
 											)
 										}
-										<span>{button.label}</span>
+										<span>{getProjectButtonLabel(button.type, locale)}</span>
 										{isExternal(button.href) && <ExternalLink size={15} />}
 									</a>
 								))
@@ -351,15 +353,15 @@ const isExternal = (href: string) => href.startsWith('http');
 
 	<style>
 		.gallery-thumb[aria-current='true'] {
-			border-color: #2563eb;
+			border-color: #457efd;
 			box-shadow:
-				0 0 0 2px rgba(37, 99, 235, 0.24),
-				0 10px 22px rgba(37, 99, 235, 0.12);
+				0 0 0 2px rgba(69, 126, 253, 0.24),
+				0 10px 22px rgba(69, 126, 253, 0.12);
 		}
 
 		.gallery-number[aria-current='true'] {
-			border-color: #2563eb;
-			background: #2563eb;
+			border-color: #457efd;
+			background: #457efd;
 			color: #ffffff;
 		}
 	</style>

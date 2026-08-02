@@ -1,9 +1,8 @@
 import type { Locale } from '../i18n';
 
-export type ProjectButtonType = 'website' | 'github' | 'pdf';
+export type ProjectButtonType = 'website' | 'demo' | 'github' | 'pdf';
 
 export type ProjectButton = {
-	label: string;
 	href: string;
 	aria?: string;
 	type: ProjectButtonType;
@@ -19,6 +18,7 @@ export type Project = {
 	title: string;
 	category: string;
 	year: string;
+	shortDescription: string;
 	description: string;
 	overview: string[];
 	features: string[];
@@ -43,6 +43,8 @@ export const projects: Project[] = [
 		title: 'Torii SRS (v2)',
 		category: 'Progressive Web App',
 		year: 'Featured Work',
+		shortDescription:
+			'A Japanese vocabulary platform with offline study, flexible word management, advanced reviews, and learning forecasts.',
 		description:
 			'Torii SRS (v2) is a comprehensive Japanese vocabulary learning platform featuring robust offline capabilities via IndexedDB. The web application integrates a dynamic dictionary for seamless word addition, offers advanced review methodologies to optimize vocabulary retention, and provides a review forecast chart for strategic study planning. Enhanced search and analytics tools deliver actionable insights, supporting learners at every stage.',
 		overview: [
@@ -82,7 +84,6 @@ export const projects: Project[] = [
 		]),
 		buttons: [
 			{
-				label: 'View Website',
 				href: 'https://beta.torii-srs.com',
 				aria: 'Torii SRS v2 website',
 				type: 'website',
@@ -94,6 +95,8 @@ export const projects: Project[] = [
 		title: 'Torii SRS (v1)',
 		category: 'Cross-Platform App',
 		year: 'Featured Work',
+		shortDescription:
+			'A cross-platform spaced repetition app for Japanese vocabulary with JLPT lists, flexible review modes, and cloud sync.',
 		description:
 			'Torii SRS (v1) is a cross-platform Japanese vocabulary learning tool leveraging spaced repetition to facilitate effective memorization. Designed for both casual learners and JLPT candidates, it features specialized vocabulary lists, diverse review modes, audio support, font randomization, progress tracking, and automatic cloud synchronization, all within an intuitive user interface.',
 		overview: [
@@ -121,7 +124,6 @@ export const projects: Project[] = [
 		]),
 		buttons: [
 			{
-				label: 'View Website',
 				href: 'https://torii-srs.com',
 				aria: 'Torii SRS v1 website',
 				type: 'website',
@@ -133,6 +135,8 @@ export const projects: Project[] = [
 		title: 'Torii SRS Landing Page',
 		category: 'Marketing Website',
 		year: 'Featured Work',
+		shortDescription:
+			'A modern marketing site that presents Torii SRS through clear product messaging, pricing, testimonials, and support content.',
 		description:
 			'A fast, modern landing page for Torii SRS, built to present the platform with clear product messaging, feature highlights, testimonials, pricing and an integrated knowledge base. It gives new learners a polished first impression and a direct path into the web app.',
 		overview: [
@@ -153,13 +157,11 @@ export const projects: Project[] = [
 		images: projectImages('Torii SRS Landing Page', ['torii-srs-site-1.jpg']),
 		buttons: [
 			{
-				label: 'View Website',
 				href: 'https://beta.torii-srs.com',
 				aria: 'Torii SRS landing page',
 				type: 'website',
 			},
 			{
-				label: 'View on GitHub',
 				href: 'https://github.com/Rakantor/torii-srs-site',
 				aria: 'Torii SRS landing page GitHub repository',
 				type: 'github',
@@ -171,6 +173,8 @@ export const projects: Project[] = [
 		title: 'GDrive PDF Downloader',
 		category: 'Browser Tool',
 		year: 'Featured Work',
+		shortDescription:
+			'A browser tool that reconstructs PDFs from Google previews and can preserve searchable text and hyperlinks.',
 		description:
 			'A browser-based tool for downloading PDFs from Google previews, including view-only documents where the standard download and print controls are unavailable. It captures the rendered pages, combines them into a PDF, and can preserve searchable text and hyperlinks.',
 		overview: [
@@ -194,7 +198,6 @@ export const projects: Project[] = [
 		]),
 		buttons: [
 			{
-				label: 'View on GitHub',
 				href: 'https://github.com/Rakantor/google-drive-pdf-downloader',
 				aria: 'Google Drive PDF Downloader GitHub repository',
 				type: 'github',
@@ -206,6 +209,8 @@ export const projects: Project[] = [
 		title: 'IU Quiz App',
 		category: 'Web App',
 		year: 'Featured Work',
+		shortDescription:
+			'A collaborative quiz platform that helps IU distance-learning students prepare for exams through interactive practice.',
 		description:
 			'An interactive online quiz platform developed to support IU distance learning students in exam preparation. It fosters collaborative and cooperative learning by enabling students to collectively answer subject-specific questions. Inspired by popular quiz games, the app encourages both individual and group participation, enhancing engagement and knowledge retention.',
 		overview: [
@@ -226,19 +231,16 @@ export const projects: Project[] = [
 		images: projectImages('IU Quiz App', ['iu-quiz-app-2.jpg']),
 		buttons: [
 			{
-				label: 'View Website',
 				href: 'https://iu-quiz-app.web.app',
 				type: 'website',
 			},
 			{
-				label: 'View on GitHub',
-				href: 'https://github.com/Rakantor/iu-quiz-app',
-				type: 'github',
-			},
-			{
-				label: 'View Project Report',
 				href: projectScreenshot('iu-quiz-app-projektbericht.pdf'),
 				type: 'pdf',
+			},
+			{
+				href: 'https://github.com/Rakantor/iu-quiz-app',
+				type: 'github',
 			},
 		],
 	},
@@ -247,6 +249,8 @@ export const projects: Project[] = [
 		title: 'Menacing Blue',
 		category: 'Cross-Platform Game',
 		year: 'Featured Work',
+		shortDescription:
+			'A cross-platform 2D RPG inspired by classic Pokémon games, featuring custom maps, turn-based battles, and online multiplayer.',
 		description:
 			'Menacing Blue is a cross-platform 2D game inspired by classic Pokémon titles. Developed from the ground up, it features animated NPCs, interactive objects, turn-based battles (including online multiplayer), custom maps created with Tiled, immersive sound design, and multiple difficulty levels, delivering a rich and engaging gaming experience.',
 		overview: [
@@ -275,9 +279,8 @@ export const projects: Project[] = [
 		]),
 		buttons: [
 			{
-				label: 'View on GitHub',
-				href: 'https://github.com/Rakantor/',
-				type: 'github',
+				href: 'https://pmb-demo.mave.dev',
+				type: 'demo',
 			},
 		],
 	},
@@ -286,6 +289,8 @@ export const projects: Project[] = [
 		title: 'Personal Website',
 		category: 'Portfolio Website',
 		year: 'Featured Work',
+		shortDescription:
+			'A personal portfolio showcasing selected projects, technical skills, and professional achievements.',
 		description:
 			'A personal portfolio website showcasing selected projects, technical skills, and professional achievements.',
 		overview: [
@@ -306,13 +311,11 @@ export const projects: Project[] = [
 		images: projectImages('Personal Website', ['personal-website-1.jpg']),
 		buttons: [
 			{
-				label: 'View Website',
-				href: 'https://v1.mave.dev',
+				href: 'https://mave.dev',
 				type: 'website',
 			},
 			{
-				label: 'View on GitHub',
-				href: 'https://github.com/Rakantor/personal-portfolio',
+				href: 'https://github.com/Rakantor/personal-portfolio-v4',
 				type: 'github',
 			},
 		],
@@ -322,6 +325,8 @@ export const projects: Project[] = [
 		title: 'IU Gamer App',
 		category: 'Android App',
 		year: 'Featured Work',
+		shortDescription:
+			'An Android app for organizing board game nights with scheduling, game voting, event ratings, and integrated chat.',
 		description:
 			'The IU Gamer App is an Android application designed to streamline the organization of board game sessions for gaming groups. It provides reliable scheduling notifications, enables users to propose and vote on games, rate past events, and communicate through an integrated chat, ensuring efficient coordination and enhanced group interaction.',
 		overview: [
@@ -342,26 +347,29 @@ export const projects: Project[] = [
 		images: projectImages('IU Gamer App', ['iu-gamer-app-1.jpg', 'iu-gamer-app-2.jpg']),
 		buttons: [
 			{
-				label: 'View on GitHub',
-				href: 'https://github.com/Rakantor/iubh-gamer-app',
-				type: 'github',
-			},
-			{
-				label: 'View Project Report',
 				href: projectScreenshot('iu-gamer-app-projektbericht.pdf'),
 				type: 'pdf',
+			},
+			{
+				href: 'https://github.com/Rakantor/iubh-gamer-app',
+				type: 'github',
 			},
 		],
 	},
 ];
 
-type ProjectTranslation = Pick<Project, 'category' | 'year' | 'description' | 'overview' | 'features' | 'learned'>;
+type ProjectTranslation = Pick<
+	Project,
+	'category' | 'year' | 'shortDescription' | 'description' | 'overview' | 'features' | 'learned'
+>;
 
 const projectTranslations = {
 	de: {
 		'torii-srs-v2': {
 			category: 'Progressive Web App',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Eine Plattform zum Lernen japanischer Vokabeln mit Offline-Nutzung, flexibler Wortverwaltung, fortgeschrittenen Reviews und Lernprognosen.',
 			description:
 				'Torii SRS (v2) ist eine Web-App zum Lernen japanischer Vokabeln, die dank IndexedDB auch offline funktioniert. Die App enthält ein Wörterbuch, das sich flexibel erweitern lässt, sowie smarte Wiederholungsmethoden, damit neue Wörter besser hängen bleiben. Ein Prognosediagramm hilft dabei, das Lernen besser zu planen. Dazu kommen verbesserte Such- und Analysefunktionen, die nützliche Einblicke geben und Lernende in jeder Phase unterstützen.',
 			overview: [
@@ -381,6 +389,8 @@ const projectTranslations = {
 		'torii-srs-v1': {
 			category: 'Cross-Platform App',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Eine plattformübergreifende Spaced-Repetition-App für japanische Vokabeln mit JLPT-Listen, flexiblen Review-Modi und Cloud-Synchronisierung.',
 			description:
 				'Torii SRS (v1) ist ein plattformübergreifendes Tool zum Lernen japanischer Vokabeln. Die App nutzt Spaced Repetition, damit Wörter langfristig besser im Gedächtnis bleiben. Sie eignet sich sowohl für Lernende, die nebenbei Japanisch üben, als auch für JLPT-Kandidaten. Dazu bietet sie Vokabellisten, verschiedene Review-Modi, Audio für die korrekte japanische Aussprache, unterschiedliche Schriftvarianten der japanischen Schriftzeichen, Fortschrittsanzeigen und automatische Cloud-Synchronisierung.',
 			overview: [
@@ -400,6 +410,8 @@ const projectTranslations = {
 		'torii-srs-landing-page': {
 			category: 'Marketing-Website',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Eine moderne Marketingseite, die Torii SRS mit klarer Produktkommunikation, Preisen, Testimonials und Support-Inhalten präsentiert.',
 			description:
 				'Eine schnelle, moderne Landingpage für Torii SRS, die das Produkt klar erklärt und alle wichtigen Infos an einem Ort bündelt — von Funktionen und Testimonials bis hin zu Preisen und einer integrierten Wissensdatenbank.',
 			overview: [
@@ -419,6 +431,8 @@ const projectTranslations = {
 		'google-drive-pdf-downloader': {
 			category: 'Browser-Tool',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Ein Browser-Tool, das PDFs aus Google-Vorschauen rekonstruiert und durchsuchbaren Text sowie Hyperlinks erhalten kann.',
 			description:
 				'Ein browserbasiertes Tool zum Herunterladen von PDFs aus der Google-Vorschau, einschließlich Dokumenten, bei denen die üblichen Download- und Druckfunktionen nicht verfügbar sind. Es erfasst die gerenderten Seiten, fügt sie zu einer PDF-Datei zusammen und kann durchsuchbaren Text sowie Hyperlinks erhalten.',
 			overview: [
@@ -438,6 +452,8 @@ const projectTranslations = {
 		'iu-quiz-app': {
 			category: 'Web-App',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Eine kollaborative Quizplattform, die IU-Fernstudierende durch interaktive Übungen bei der Prüfungsvorbereitung unterstützt.',
 			description:
 				'Eine interaktive Online-Quizplattform zur Unterstützung von IU-Fernstudierenden bei der Prüfungsvorbereitung. Sie fördert gemeinsames Lernen, indem Studierende fachspezifische Fragen kollaborativ beantworten können.',
 			overview: [
@@ -457,6 +473,8 @@ const projectTranslations = {
 		'menacing-blue': {
 			category: 'Cross-Platform Game',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Ein von klassischen Pokémon-Spielen inspiriertes 2D-RPG mit eigenen Karten, rundenbasierten Kämpfen und Online-Multiplayer.',
 			description:
 				'Menacing Blue ist ein plattformübergreifendes 2D-Spiel, inspiriert von klassischen Pokémon-Titeln. Es wurde von Grund auf entwickelt und enthält animierte NPCs, interaktive Objekte, rundenbasierte Kämpfe, Online-Multiplayer, Tiled-Karten, Sounddesign und mehrere Schwierigkeitsgrade.',
 			overview: [
@@ -476,6 +494,8 @@ const projectTranslations = {
 		'personal-website': {
 			category: 'Portfolio-Website',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Eine persönliche Portfolio-Website mit ausgewählten Projekten, technischen Fähigkeiten und beruflichen Stationen.',
 			description:
 				'Eine persönliche Portfolio-Website, die ausgewählte Projekte, technische Fähigkeiten und berufliche Stationen präsentiert.',
 			overview: [
@@ -495,6 +515,8 @@ const projectTranslations = {
 		'iu-gamer-app': {
 			category: 'Android-App',
 			year: 'Ausgewähltes Projekt',
+			shortDescription:
+				'Eine Android-App zur Organisation von Brettspielabenden mit Terminplanung, Spielabstimmungen, Eventbewertungen und integriertem Chat.',
 			description:
 				'Die IU Gamer App ist eine Android-Anwendung zur Organisation von Brettspielrunden. Sie unterstützt Terminbenachrichtigungen, Spielvorschläge, Abstimmungen, Bewertungen vergangener Events und Kommunikation über einen integrierten Chat.',
 			overview: [
@@ -516,16 +538,20 @@ const projectTranslations = {
 
 const buttonLabels: Record<Locale, Record<ProjectButtonType, string>> = {
 	en: {
-		website: 'View Website',
-		github: 'View on GitHub',
-		pdf: 'View Project Report',
+		website: 'Website',
+		demo: 'Play Demo',
+		github: 'Source Code',
+		pdf: 'Project Report',
 	},
 	de: {
-		website: 'Website ansehen',
-		github: 'Auf GitHub ansehen',
-		pdf: 'Projektbericht ansehen',
+		website: 'Website',
+		demo: 'Demo spielen',
+		github: 'Source Code',
+		pdf: 'Projektbericht',
 	},
 };
+
+export const getProjectButtonLabel = (type: ProjectButtonType, locale: Locale = 'en') => buttonLabels[locale][type];
 
 export const getLocalizedProject = (project: Project, locale: Locale): Project => {
 	if (locale === 'en') {
@@ -543,7 +569,6 @@ export const getLocalizedProject = (project: Project, locale: Locale): Project =
 		})),
 		buttons: project.buttons.map((button) => ({
 			...button,
-			label: buttonLabels[locale][button.type],
 			aria: `${buttonLabels[locale][button.type]}: ${project.title}`,
 		})),
 	};
