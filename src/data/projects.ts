@@ -16,8 +16,6 @@ export type ProjectImage = {
 export type Project = {
 	slug: string;
 	title: string;
-	category: string;
-	year: string;
 	shortDescription: string;
 	description: string;
 	overview: string[];
@@ -41,25 +39,25 @@ export const projects: Project[] = [
 	{
 		slug: 'torii-srs-v2',
 		title: 'Torii SRS (v2)',
-		category: 'Progressive Web App',
-		year: 'Featured Work',
 		shortDescription:
-			'A Japanese vocabulary platform with offline study, flexible word management, advanced reviews, and learning forecasts.',
+			'The web-based successor to Torii SRS. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
 		description:
-			'Torii SRS (v2) is a comprehensive Japanese vocabulary learning platform featuring robust offline capabilities via IndexedDB. The web application integrates a dynamic dictionary for seamless word addition, offers advanced review methodologies to optimize vocabulary retention, and provides a review forecast chart for strategic study planning. Enhanced search and analytics tools deliver actionable insights, supporting learners at every stage.',
+			'Torii SRS (v2) is where the whole thing moved to the web. It installs like a normal app, and it keeps working without a connection: reviews are stored locally in IndexedDB and sync back up once you\'re online again. It\'s also the version where the app grew up: a built-in dictionary for adding words on the fly, several review modes, spoken audio for every single word, a forecast chart showing how much work is coming your way, and statistics that point out where you\'re actually struggling.',
 		overview: [
-			'Torii SRS (v2) was built as a full-featured vocabulary study platform for Japanese learners who need a reliable daily review workflow across devices. The product focuses on fast study sessions, offline access, flexible word management, and clear progress visibility.',
-			'The application combines spaced repetition, dictionary-driven content entry, review forecasting, and learner analytics in one interface. A major goal was making advanced study tooling approachable without slowing down the core review loop.',
+			'Torii SRS (v2) takes everything the first version did and moves it into the browser. Studying happens in five-minute gaps: on the train, waiting for a coffee. So the app had to install on a phone, start instantly, and keep going when the connection drops.',
+			'The harder part was fitting more into it without making it slower. The dictionary, the forecast and the statistics are all there when you want them, but the daily loop of open, review, done stayed the shortest path through the app.',
 		],
 		features: [
-			'Offline-first learning flow backed by IndexedDB',
-			'Dynamic dictionary integration for adding vocabulary quickly',
-			'Multiple review modes designed around retention and recall',
-			'Forecast and analytics views for planning study workload',
-			'Cloud-backed architecture for account data and synchronization',
+			'Fully offline studying, with reviews stored in IndexedDB and synced once you reconnect',
+			'Built-in dictionary for adding new words without leaving the app',
+			'Several review modes, from quick recognition to active recall',
+			'Pronunciation audio for every word, generated with Amazon Polly, Azure and IBM Watson text-to-speech',
+			'Forecast chart for the review workload of the coming days and weeks',
+			'Search and statistics that surface the words you keep getting wrong',
+			'Cloud-backed accounts that keep progress in sync across devices',
 		],
 		learned:
-			'This project sharpened my understanding of data-heavy offline web apps, especially around synchronization, local persistence, and keeping complex study features understandable for regular daily use.',
+			'Offline-first sounds simple until two devices disagree about what you studied. Getting synchronization, local persistence and conflict handling right was the most instructive part of this project. It also confirmed something v1 had already taught me: the more an app can do, the more work it takes to keep the main path through it short.',
 		tech: [
 			'JavaScript',
 			'Vue.js',
@@ -84,7 +82,7 @@ export const projects: Project[] = [
 		]),
 		buttons: [
 			{
-				href: 'https://beta.torii-srs.com',
+				href: 'https://app.torii-srs.com',
 				aria: 'Torii SRS v2 website',
 				type: 'website',
 			},
@@ -93,25 +91,23 @@ export const projects: Project[] = [
 	{
 		slug: 'torii-srs-v1',
 		title: 'Torii SRS (v1)',
-		category: 'Cross-Platform App',
-		year: 'Featured Work',
 		shortDescription:
-			'A cross-platform spaced repetition app for Japanese vocabulary with JLPT lists, flexible review modes, and cloud sync.',
+			'A cross-platform app for learning Japanese vocabulary, with spaced repetition, ready-made JLPT lists, several review modes, and cloud sync.',
 		description:
-			'Torii SRS (v1) is a cross-platform Japanese vocabulary learning tool leveraging spaced repetition to facilitate effective memorization. Designed for both casual learners and JLPT candidates, it features specialized vocabulary lists, diverse review modes, audio support, font randomization, progress tracking, and automatic cloud synchronization, all within an intuitive user interface.',
+			'Torii SRS (v1) is my take on learning Japanese vocabulary without the busywork that usually comes with it. Spaced repetition takes care of scheduling your reviews, and ready-made JLPT word lists are built in, so you can start studying right away instead of building decks first. On top of that: audio for pronunciation, several review modes, different Japanese typefaces, progress stats, and automatic cloud sync, all on Windows, macOS, Linux, and Android.',
 		overview: [
-			'Torii SRS (v1) established the first complete version of the learning product, bringing spaced repetition practice to desktop and mobile users through a cross-platform app architecture.',
-			'The project focused on making vocabulary review flexible: learners could work with curated JLPT lists, customize review behavior, use audio support, and keep progress synchronized without managing files manually.',
+			'The first complete version of Torii SRS: one app for Windows, macOS, Linux and Android.',
+			'The idea behind it was simple: learning Japanese vocabulary shouldn\'t fail at the preparation stage. Instead of digging around the internet for word lists or spending an evening setting up a traditional flashcard program, you get verified JLPT lists from the start, and you can still add your own words whenever you want.',
 		],
 		features: [
-			'Cross-platform app experience built with Java and libGDX',
-			'Spaced repetition review modes for vocabulary memorization',
-			'JLPT-focused vocabulary lists and custom study material',
-			'Audio support, font randomization, and progress tracking',
-			'Automatic cloud synchronization for learner data',
+			'One app for Windows, macOS, Linux and Android, built with Java and libGDX',
+			'Spaced repetition that decides what you review and when',
+			'Ready-made JLPT vocabulary lists, plus room for your own words',
+			'Audio for correct pronunciation, varying Japanese typefaces, and progress tracking',
+			'Automatic cloud sync, so your progress follows you between devices',
 		],
 		learned:
-			'This project taught me how much product quality depends on day-to-day usability: review speed, sync reliability, clear progress feedback, and small learning-focused details mattered as much as the core algorithm.',
+			'What stuck with me most is how much of a product\'s quality comes down to everyday details. Fast and reliable sync, clear feedback while studying, and small interface decisions mattered just as much as the algorithm itself. Those are the things people actually notice, day after day.',
 		tech: ['Java', 'libGDX', 'MySQL', 'PHP', 'Amazon Web Services', 'WordPress'],
 		image: projectScreenshot('torii-v1-1.jpg'),
 		images: projectImages('Torii SRS (v1)', [
@@ -133,25 +129,23 @@ export const projects: Project[] = [
 	{
 		slug: 'torii-srs-landing-page',
 		title: 'Torii SRS Landing Page',
-		category: 'Marketing Website',
-		year: 'Featured Work',
 		shortDescription:
-			'A modern marketing site that presents Torii SRS through clear product messaging, pricing, testimonials, and support content.',
+			'The marketing site for Torii SRS: what the product does, what it costs, and a knowledge base for when people get stuck.',
 		description:
-			'A fast, modern landing page for Torii SRS, built to present the platform with clear product messaging, feature highlights, testimonials, pricing and an integrated knowledge base. It gives new learners a polished first impression and a direct path into the web app.',
+			'The public front door for Torii SRS. The app can do a lot, and on a landing page that is exactly the problem: nobody reads a feature list before they know what the thing is for. So the site leads with the pitch and backs it up afterwards with feature highlights, testimonials, pricing and a knowledge base. All of it is statically generated with Astro, which means it is simply there when you open it.',
 		overview: [
-			'The Torii SRS landing page was designed to give the product a clearer public face, turning a feature-rich learning tool into a focused presentation for new users.',
-			'The page emphasizes quick comprehension: product positioning, feature highlights, pricing, testimonials, and support content are organized so visitors can understand the value before entering the app.',
+			'Torii SRS had grown a lot of functionality but no proper public face. This site is that face: it explains the product to someone who has never heard of it and gives them one obvious way in.',
+			'It runs on Astro with React components, Tailwind CSS and shadcn/ui. The output is static, so there is next to nothing to load, and the component structure makes adding a new section or knowledge-base article a five-minute job instead of a refactor.',
 		],
 		features: [
-			'Responsive marketing layout built with Astro and React components',
-			'Clear product messaging for Japanese vocabulary learners',
-			'Feature, testimonial, pricing, and knowledge-base sections',
-			'Reusable component structure with Tailwind CSS and shadcn/ui',
-			'Fast static delivery optimized for first impressions',
+			'Static, responsive marketing site built with Astro and React components',
+			'Structured around what a first-time visitor needs to know, in that order',
+			'Sections for features, testimonials, pricing and a knowledge base',
+			'Consistent styling through reusable Tailwind CSS and shadcn/ui components',
+			'Fast page loads and SEO-friendly markup for organic reach',
 		],
 		learned:
-			'This work reinforced how different product websites are from application screens: the interface has to explain value immediately, guide attention deliberately, and still stay fast and maintainable.',
+			'Product sites and app screens are almost opposite problems. Inside the app, people already know what they want; on a landing page you have a few seconds to explain why they should care at all. Learning to lead with the value instead of the feature list was the useful part here. That, and how good a site feels when it ships almost no JavaScript.',
 		tech: ['TypeScript', 'Astro', 'React', 'Tailwind CSS', 'shadcn/ui'],
 		image: projectScreenshot('torii-srs-site-1.jpg'),
 		images: projectImages('Torii SRS Landing Page', ['torii-srs-site-1.jpg']),
@@ -171,25 +165,23 @@ export const projects: Project[] = [
 	{
 		slug: 'google-drive-pdf-downloader',
 		title: 'GDrive PDF Downloader',
-		category: 'Browser Tool',
-		year: 'Featured Work',
 		shortDescription:
-			'A browser tool that reconstructs PDFs from Google previews and can preserve searchable text and hyperlinks.',
+			'A browser tool that rebuilds a proper PDF out of Google\'s image-based preview, text and links included.',
 		description:
-			'A browser-based tool for downloading PDFs from Google previews, including view-only documents where the standard download and print controls are unavailable. It captures the rendered pages, combines them into a PDF, and can preserve searchable text and hyperlinks.',
+			'Some PDFs are shared in Google Drive as view-only: you can read them in the browser, but download and print are switched off. That gets annoying when it\'s your own course material and you want it offline. This tool rebuilds the file from what the preview already renders: it walks through the pages, captures each one, and assembles them back into a PDF, optionally with selectable text and working hyperlinks.',
 		overview: [
-			'Google Drive PDF Downloader was built for documents that Google displays through its image-based PDF preview. The tool loads each rendered page, captures it in the browser, and assembles the results into a downloadable PDF.',
-			'It can run as a one-off console script or as an automatically activated userscript across Google Drive, Google Classroom, and other Google services. The workflow includes configurable quality settings, progress feedback, cancellation, and optional text extraction.',
+			'Google renders these documents as images, one page at a time, and only loads what is currently on screen. So the tool scrolls through the document itself, waits for each page to finish rendering, captures it, and stitches everything together locally. Nothing is uploaded anywhere.',
+			'It comes in two forms: a script you paste into the browser console when you need it once, and a userscript that activates itself on Google Drive, Google Classroom and related viewers. There is a fast mode and a high-quality one, a progress display, and a cancel button for when a long document turns out to be longer than expected.',
 		],
 		features: [
-			'PDF capture from Google Drive, Google Classroom, and related preview viewers',
-			'Fast and high-quality modes with configurable capture zoom',
-			'Optional searchable, selectable text and preserved hyperlinks',
-			'Console script and userscript distributions for Chrome and Firefox',
-			'Progress tracking and cancellation for long documents',
+			'Works with Google Drive, Google Classroom and other Google preview viewers',
+			'Fast and high-quality capture modes with adjustable zoom',
+			'Optional text layer, so the result stays searchable and selectable, hyperlinks included',
+			'Available as a one-off console script or a self-activating userscript for Chrome and Firefox',
+			'Runs entirely in the browser, with progress display and cancellation, so nothing leaves your machine',
 		],
 		learned:
-			'This project deepened my understanding of browser rendering behavior, DOM-driven automation, and the tradeoffs between capture quality, processing time, and output size when reconstructing documents entirely on the client.',
+			'This one was a lesson in working with a page that was never meant to be worked with: waiting for the right moment in the render cycle, handling lazy loading, and trading capture quality against processing time and file size, all client-side, where every shortcut costs you somewhere else. Every document also breaks in its own way, which made "it worked on that one PDF" a pretty unreliable definition of working.',
 		tech: ['TypeScript', 'Vitest'],
 		image: projectScreenshot('gdrive-pdf-2.webp'),
 		images: projectImages('GDrive PDF Downloader', [
@@ -207,25 +199,23 @@ export const projects: Project[] = [
 	{
 		slug: 'iu-quiz-app',
 		title: 'IU Quiz App',
-		category: 'Web App',
-		year: 'Featured Work',
 		shortDescription:
-			'A collaborative quiz platform that helps IU distance-learning students prepare for exams through interactive practice.',
+			'A quiz platform that lets fellow distance-learning students work through exam questions together instead of grinding through them alone.',
 		description:
-			'An interactive online quiz platform developed to support IU distance learning students in exam preparation. It fosters collaborative and cooperative learning by enabling students to collectively answer subject-specific questions. Inspired by popular quiz games, the app encourages both individual and group participation, enhancing engagement and knowledge retention.',
+			'A university project from my studies at IU International University, built around a problem I had myself: in distance learning, you prepare for exams largely on your own. This app makes that part social. Students work through subject-specific questions in a shared quiz format inspired by the quiz games everyone knows, solo or against each other, which makes going over the same material for the third time noticeably less painful.',
 		overview: [
-			'IU Quiz App was created to make exam preparation more interactive for distance-learning students. Instead of studying isolated question sets, users can practice through a shared quiz experience inspired by familiar game mechanics.',
-			'The project combines a Vue/Nuxt frontend with Firebase services, making it possible to deliver a lightweight collaborative learning tool without a heavy custom backend.',
+			'Distance learning is flexible, but it is quiet. There is nobody to quiz you the evening before an exam and no study group down the hall. The IU Quiz App fills that gap with question sets per subject that students can work through together.',
+			'It is a Nuxt single-page app on top of Firebase, which handled authentication, data and hosting. That kept a student project from quietly turning into a backend project. A written report covering the concept and implementation is linked below.',
 		],
 		features: [
-			'Interactive quiz flow for individual and group preparation',
-			'Subject-specific question sets for exam-focused practice',
-			'Firebase-backed data and hosting setup',
-			'Responsive SPA interface built with Nuxt and Vuetify',
-			'Project report documenting the concept and implementation',
+			'Shared quiz flow for studying alone or against other students',
+			'Question sets organized by subject, aimed at actual exam preparation',
+			'Firebase for authentication, data and hosting, with no custom backend to maintain',
+			'Responsive single-page interface built with Nuxt and Vuetify',
+			'Full project report documenting concept, architecture and implementation',
 		],
 		learned:
-			'The project helped me think more deeply about learning behavior, especially how collaboration, feedback loops, and game-like interaction can make dry exam material easier to revisit.',
+			'The interesting part was not the code, it was noticing what makes people come back to material they find boring. Immediate feedback, a bit of competition and short rounds did more for that than any feature I could have added. It also showed me how much a managed backend buys you when the real constraint is the deadline.',
 		tech: ['JavaScript', 'Vue.js', 'Nuxt', 'Vuetify', 'Firebase'],
 		image: projectScreenshot('iu-quiz-app-2.jpg'),
 		images: projectImages('IU Quiz App', ['iu-quiz-app-2.jpg']),
@@ -247,25 +237,23 @@ export const projects: Project[] = [
 	{
 		slug: 'menacing-blue',
 		title: 'Menacing Blue',
-		category: 'Cross-Platform Game',
-		year: 'Featured Work',
 		shortDescription:
-			'A cross-platform 2D RPG inspired by classic Pokémon games, featuring custom maps, turn-based battles, and online multiplayer.',
+			'A 2D RPG in the spirit of the classic Pokémon games, built from scratch, with turn-based battles and online multiplayer.',
 		description:
-			'Menacing Blue is a cross-platform 2D game inspired by classic Pokémon titles. Developed from the ground up, it features animated NPCs, interactive objects, turn-based battles (including online multiplayer), custom maps created with Tiled, immersive sound design, and multiple difficulty levels, delivering a rich and engaging gaming experience.',
+			'Menacing Blue is the project I built purely for the fun of it: a 2D role-playing game in the spirit of the Pokémon titles I grew up with. Animated NPCs, interactive objects, hand-built maps, turn-based battles you can also fight against another player online, sound design and several difficulty levels. There is no game engine underneath: everything from map rendering to battle logic sits directly on Java and libGDX.',
 		overview: [
-			'Menacing Blue is a custom 2D game project that recreates the feel of classic handheld RPGs while implementing the systems from scratch.',
-			'The work spans gameplay programming, map tooling, battle flow, animation, sound, and multiplayer logic, making it one of the broadest technical projects in the portfolio.',
+			'This started as a way to find out whether I could build a whole game rather than a demo, and it turned into the most varied thing I have worked on. Movement and collision, tile maps, animation, dialogue, a turn-based battle system, sound and networking all had to exist before any of it was fun to play.',
+			'Maps are built in Tiled and loaded at runtime, so a new area is a content problem instead of a code problem. Battles run through the same system whether the opponent is an NPC or another player across the network. A playable demo is linked below.',
 		],
 		features: [
-			'Custom 2D game engine structure using Java and libGDX',
-			'Maps and interactive environments built with Tiled',
-			'Animated NPCs, objects, and turn-based battle systems',
-			'Online multiplayer battle support',
+			'Written from scratch in Java with libGDX, no game engine involved',
+			'Hand-built maps and interactive environments created with Tiled',
+			'Animated NPCs, interactive objects and a turn-based battle system',
+			'Online multiplayer battles against other players',
 			'Sound design and multiple difficulty levels',
 		],
 		learned:
-			'Building a game made architecture problems very concrete: state management, asset loading, collision, input handling, and feedback all have to work together smoothly for the experience to feel responsive.',
+			'Games make architecture problems impossible to ignore. State handling, asset loading, collision, input and feedback all run in the same loop many times a second, and if one of them is sloppy the whole thing feels off. Not broken, just off. Getting battles to behave identically against an NPC and across a network connection taught me more about decoupling systems than any amount of theory.',
 		tech: ['Java', 'libGDX', 'Tiled'],
 		image: projectScreenshot('pmb-0.webp'),
 		images: projectImages('Menacing Blue', [
@@ -287,26 +275,24 @@ export const projects: Project[] = [
 	{
 		slug: 'personal-website',
 		title: 'Personal Website',
-		category: 'Portfolio Website',
-		year: 'Featured Work',
 		shortDescription:
-			'A personal portfolio showcasing selected projects, technical skills, and professional achievements.',
+			'The site you are looking at right now. A bilingual portfolio built with Astro, Tailwind CSS and almost no client-side JavaScript.',
 		description:
-			'A personal portfolio website showcasing selected projects, technical skills, and professional achievements.',
+			'This is the site you are on. I rebuilt it with Astro because a portfolio is mostly text and images, and shipping an entire frontend framework to render that always felt like overkill. Everything is generated as static HTML at build time, it is available in English and German, and adding a new project means editing a single data file, which is the only reason it actually stays up to date.',
 		overview: [
-			'This personal website was built to present selected work, skills, and professional context in a compact and maintainable format.',
-			'The project focuses on clarity, responsive presentation, and a simple content structure that can evolve as new work is added.',
+			'The fourth version of my personal site, and the first one without a frontend framework running in the browser. Astro renders the pages to static HTML at build time; the only JavaScript that reaches visitors is what the project image gallery genuinely needs.',
+			'Content and presentation are kept apart on purpose. Projects and skills live in typed data files with their translations right next to them, and both language versions of the site are generated from that. Adding a project, a skill or a language is a content change rather than a rewrite.',
 		],
 		features: [
-			'Responsive single-page portfolio structure',
-			'Project showcase with direct links to deployed work and source code',
-			'Nuxt and Vuetify-based interface',
-			'Static deployment through GitHub Pages',
-			'Reusable content sections for project and skill presentation',
+			'Static site generated with Astro, with no frontend framework shipped to the browser',
+			'Complete English and German versions with locale-aware routing',
+			'Projects and skills defined in typed data files, so content lives in one place',
+			'Responsive layout styled with Tailwind CSS and daisyUI',
+			'Built and deployed to GitHub Pages automatically on every push',
 		],
 		learned:
-			'This project helped me refine how to present technical work concisely and reinforced the value of keeping personal sites easy to update as the portfolio changes.',
-		tech: ['TypeScript', 'Vue.js', 'Nuxt', 'Vuetify', 'GitHub Pages'],
+			'Rebuilding the same site for the fourth time is a good way to notice what actually changes over the years, and it is never the framework. Moving the content into typed data instead of scattering it across templates is what finally made this thing pleasant to update, and it is the pattern I now reach for whenever a site grows past a handful of pages.',
+		tech: ['TypeScript', 'Astro', 'Tailwind CSS', 'daisyUI', 'GitHub Pages'],
 		image: projectScreenshot('personal-website-1.jpg'),
 		images: projectImages('Personal Website', ['personal-website-1.jpg']),
 		buttons: [
@@ -323,25 +309,23 @@ export const projects: Project[] = [
 	{
 		slug: 'iu-gamer-app',
 		title: 'IU Gamer App',
-		category: 'Android App',
-		year: 'Featured Work',
 		shortDescription:
-			'An Android app for organizing board game nights with scheduling, game voting, event ratings, and integrated chat.',
+			'An Android app for board game groups: agree on a date, vote on what to play, rate it afterwards, and keep the chat in one place.',
 		description:
-			'The IU Gamer App is an Android application designed to streamline the organization of board game sessions for gaming groups. It provides reliable scheduling notifications, enables users to propose and vote on games, rate past events, and communicate through an integrated chat, ensuring efficient coordination and enhanced group interaction.',
+			'Another project from my studies at IU International University, aimed at something every board game group knows: organizing the evening takes longer than the game. The app keeps scheduling, game suggestions, voting, reminders, ratings and group chat together in one place, so the planning does not end up spread across three different messenger threads.',
 		overview: [
-			'IU Gamer App was designed around the practical coordination problems of recurring board game sessions: deciding what to play, organizing attendance, and keeping communication in one place.',
-			'The Android app combines scheduling, voting, ratings, notifications, and chat into a focused tool for small gaming groups.',
+			'Board game nights fall apart in fairly predictable ways: nobody commits to what to play, half the group forgets the date, and the whole discussion lives in a group chat where nothing is findable two days later.',
+			'The app is native Android, written in Java, with Firebase behind it for authentication, data and chat. Notifications turned out to be the part that mattered most, because a scheduling app that does not remind you reliably is worse than no app at all. A project report is linked below.',
 		],
 		features: [
-			'Native Android app built with Java',
-			'Game proposals, voting, and event coordination',
-			'Reliable scheduling notifications',
-			'Rating system for past sessions',
-			'Integrated Firebase-backed chat and data storage',
+			'Native Android app written in Java',
+			'Game suggestions and voting, so the group decides before the evening starts',
+			'Reliable scheduling notifications and reminders',
+			'Ratings for past sessions, to remember what actually went down well',
+			'Built-in group chat and data storage backed by Firebase',
 		],
 		learned:
-			'This project improved my understanding of mobile workflow design, especially around notifications, state persistence, and keeping group coordination features simple enough to use during real events.',
+			'Mobile apps live and die by things that never show up in the UI: notifications that actually arrive, state that survives the system killing your app, and screens that work one-handed while you are holding a game box in the other. The feature list was the easy part.',
 		tech: ['Java', 'Android', 'Firebase'],
 		image: projectScreenshot('iu-gamer-app-1.jpg'),
 		images: projectImages('IU Gamer App', ['iu-gamer-app-1.jpg', 'iu-gamer-app-2.jpg']),
@@ -360,178 +344,164 @@ export const projects: Project[] = [
 
 type ProjectTranslation = Pick<
 	Project,
-	'category' | 'year' | 'shortDescription' | 'description' | 'overview' | 'features' | 'learned'
+	'shortDescription' | 'description' | 'overview' | 'features' | 'learned'
 >;
 
 const projectTranslations = {
 	de: {
 		'torii-srs-v2': {
-			category: 'Progressive Web App',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Eine Plattform zum Lernen japanischer Vokabeln mit Offline-Nutzung, flexibler Wortverwaltung, fortgeschrittenen Reviews und Lernprognosen.',
+				'Der webbasierte Nachfolger von Torii SRS. Funktioniert komplett offline, synchronisiert später und zeigt den Lernaufwand für die nächsten Wochen.',
 			description:
-				'Torii SRS (v2) ist eine Web-App zum Lernen japanischer Vokabeln, die dank IndexedDB auch offline funktioniert. Die App enthält ein Wörterbuch, das sich flexibel erweitern lässt, sowie smarte Wiederholungsmethoden, damit neue Wörter besser hängen bleiben. Ein Prognosediagramm hilft dabei, das Lernen besser zu planen. Dazu kommen verbesserte Such- und Analysefunktionen, die nützliche Einblicke geben und Lernende in jeder Phase unterstützen.',
+				'Mit Torii SRS (v2) ist das Ganze ins Web übersiedelt. Die App installiert sich wie eine ganz normale App und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Worts, ein Prognosediagramm für die anstehende Lernlast und Statistiken, die zeigen, wo es wirklich hakt.',
 			overview: [
-				'Torii SRS (v2) wurde als vollständige Vokabelplattform für Japanischlernende gebaut, die einen zuverlässigen Review-Ablauf auf verschiedenen Geräten brauchen. Der Fokus liegt auf schnellen Lerneinheiten, Offline-Nutzung, flexibler Wortverwaltung und klarer Fortschrittsübersicht.',
-				'Die Anwendung kombiniert Spaced Repetition, wörterbuchgestützte Eingabe, Review-Prognosen und Lernanalysen in einer Oberfläche. Ein wichtiges Ziel war, fortgeschrittene Lernfunktionen zugänglich zu machen, ohne den täglichen Review-Ablauf zu verlangsamen.',
+				'Torii SRS (v2) nimmt alles aus der ersten Version mit und übersiedelt es in den Browser. Gelernt wird in Fünf-Minuten-Lücken: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
+				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne dass es langsamer wird. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also aufmachen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
 			],
 			features: [
-				'Offline-first Architektur mit IndexedDB',
-				'Dynamische Wörterbuchintegration zum schnellen Hinzufügen von Vokabeln',
-				'Mehrere Review-Modi für Erinnerung und aktiven Abruf',
-				'Prognose- und Analyseansichten zur Planung des Lernaufwands',
-				'Cloud-Architektur für Kontodaten und Synchronisierung',
+				'Komplettes Offline-Lernen: Reviews liegen lokal in IndexedDB und synchronisieren sich später',
+				'Integriertes Wörterbuch, um neue Vokabeln ohne Umweg hinzuzufügen',
+				'Mehrere Review-Modi, vom schnellen Wiedererkennen bis zum aktiven Abrufen',
+				'Aussprache-Audio zu jedem Wort, erzeugt mit Text-to-Speech von Amazon Polly, Azure und IBM Watson',
+				'Prognosediagramm für den Lernaufwand der nächsten Tage und Wochen',
+				'Suche und Statistiken, die zeigen, welche Wörter immer wieder danebengehen',
+				'Cloud-Architektur für Konten und geräteübergreifende Synchronisierung',
 			],
 			learned:
-				'Dieses Projekt hat mir geholfen, datenintensive Web-Apps mit Offline-Funktion besser zu verstehen — vor allem, wenn es um Synchronisierung, lokale Speicherung und darum geht, den Benutzern komplexe Lernfunktionen einfach verständlich zu machen.',
+				'Offline-first klingt einfach, bis zwei Geräte unterschiedlicher Meinung sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon v1 gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit steckt darin, den Hauptweg durch sie kurz zu halten.',
 		},
 		'torii-srs-v1': {
-			category: 'Cross-Platform App',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Eine plattformübergreifende Spaced-Repetition-App für japanische Vokabeln mit JLPT-Listen, flexiblen Review-Modi und Cloud-Synchronisierung.',
+				'Eine plattformübergreifende App zum Japanisch-Lernen, mit Spaced Repetition, fertigen JLPT-Listen, mehreren Review-Modi und Cloud-Sync.',
 			description:
-				'Torii SRS (v1) ist ein plattformübergreifendes Tool zum Lernen japanischer Vokabeln. Die App nutzt Spaced Repetition, damit Wörter langfristig besser im Gedächtnis bleiben. Sie eignet sich sowohl für Lernende, die nebenbei Japanisch üben, als auch für JLPT-Kandidaten. Dazu bietet sie Vokabellisten, verschiedene Review-Modi, Audio für die korrekte japanische Aussprache, unterschiedliche Schriftvarianten der japanischen Schriftzeichen, Fortschrittsanzeigen und automatische Cloud-Synchronisierung.',
+				'Torii SRS (v1) ist mein Versuch, japanische Vokabeln zu lernen, ohne vorher stundenlang Karteikarten anzulegen. Spaced Repetition übernimmt die Planung der Wiederholungen, fertige JLPT-Vokabellisten sind schon dabei, man kann also sofort loslegen. Dazu kommen Audio für die richtige Aussprache, mehrere Review-Modi, unterschiedliche Schriftvarianten der japanischen Zeichen, eine Fortschrittsanzeige und automatische Cloud-Synchronisierung. Egal ob unter Windows, macOS, Linux oder auf Android.',
 			overview: [
-				'Die erste vollständige Version von Torii SRS - für Windows, macOS, Linux und Android-Geräte.',
-				'Das Ziel war vor allem, das Lernen japanischer Vokabeln zu vereinfachen und verifizierte Vokabellisten für alle leicht zugänglich zu machen — ohne mühsames Suchen im Internet und ohne aufwendiges Setup in klassischen Flashcard-Programmen.',
+				'Die erste vollständige Version von Torii SRS: eine App für Windows, macOS, Linux und Android.',
+				'Die Idee dahinter war simpel: Japanisch lernen soll nicht schon an der Vorbereitung scheitern. Statt sich Vokabellisten mühsam im Internet zusammenzusuchen oder einen Abend lang ein klassisches Karteikarten-Programm einzurichten, sind geprüfte JLPT-Listen von Anfang an dabei. Eigene Wörter kann man trotzdem jederzeit ergänzen.',
 			],
 			features: [
-				'Plattformübergreifende App mit Java und libGDX',
-				'Spaced Repetition System',
-				'JLPT-Vokabellisten sowie eigene Lerninhalte',
-				'Audio-Unterstützung, Schriftvarianten und Fortschrittsanzeige',
-				'Automatische Cloud-Synchronisierung',
+				'Eine App für Windows, macOS, Linux und Android, gebaut mit Java und libGDX',
+				'Spaced Repetition, das entscheidet, was wann wiederholt wird',
+				'Fertige JLPT-Vokabellisten und Platz für eigene Wörter',
+				'Audio für die richtige Aussprache, wechselnde Schriftvarianten und Fortschrittsanzeige',
+				'Automatische Cloud-Synchronisierung über alle Geräte hinweg',
 			],
 			learned:
-				'Dieses Projekt hat mir gezeigt, wie wichtig Alltagstauglichkeit für die Qualität eines Produkts ist. Schnelle & zuverlässige Datensynchronisierung, klares Feedback beim Lernen und kleine Details im UI waren am Ende genauso wichtig wie der Algorithmus selbst.',
+				'Am meisten mitgenommen habe ich, wie stark die Qualität eines Produkts von den Alltagsdetails abhängt. Schnelle und zuverlässige Synchronisierung, klares Feedback beim Lernen und Kleinigkeiten im Interface waren am Ende genauso wichtig wie der Algorithmus selbst. Genau das fällt den Leuten nämlich täglich auf.',
 		},
 		'torii-srs-landing-page': {
-			category: 'Marketing-Website',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Eine moderne Marketingseite, die Torii SRS mit klarer Produktkommunikation, Preisen, Testimonials und Support-Inhalten präsentiert.',
+				'Die Marketing-Website für Torii SRS: was das Produkt kann, was es kostet, und eine Wissensdatenbank für den Fall der Fälle.',
 			description:
-				'Eine schnelle, moderne Landingpage für Torii SRS, die das Produkt klar erklärt und alle wichtigen Infos an einem Ort bündelt — von Funktionen und Testimonials bis hin zu Preisen und einer integrierten Wissensdatenbank.',
+				'Die öffentliche Eingangstür zu Torii SRS. Die App kann ziemlich viel, und genau das ist auf einer Landingpage das Problem: Niemand liest eine Feature-Liste, bevor er weiß, wofür das Ganze überhaupt gut ist. Die Seite fängt deshalb beim Wesentlichen an und liefert die Details erst danach, also Funktionen, Testimonials, Preise und eine Wissensdatenbank. Alles statisch mit Astro generiert und dadurch einfach sofort da.',
 			overview: [
-				'Die Landingpage wurde entwickelt, um Torii SRS einen klareren öffentlichen Auftritt zu geben und neuen Nutzern schnell zu zeigen, was die Lernplattform kann.',
-				'Die Seite hilft Besuchern dabei, sich schnell zurechtzufinden: Positionierung, Funktionen, Preise, Testimonials und Support-Inhalte sind so aufgebaut, dass der Mehrwert klar wird, bevor sie in die App wechseln.',
+				'Torii SRS hatte mit der Zeit viele Funktionen bekommen, aber keinen richtigen öffentlichen Auftritt. Diese Seite ist genau das: Sie erklärt das Produkt jemandem, der noch nie davon gehört hat, und bietet einen einzigen, klaren Einstieg.',
+				'Gebaut ist sie mit Astro, React-Komponenten, Tailwind CSS und shadcn/ui. Die Ausgabe ist statisch, es gibt also praktisch nichts zu laden, und dank der Komponentenstruktur ist ein neuer Abschnitt oder ein neuer Artikel in der Wissensdatenbank eine Sache von Minuten statt ein Refactoring.',
 			],
 			features: [
-				'Responsive Marketingseite mit Astro und React-Komponenten',
-				'Klare Produktkommunikation für Japanischlernende',
-				'Bereiche für Features, Testimonials, Preise und eine Wissensdatenbank',
-				'Wiederverwendbare Komponenten mit Tailwind CSS und shadcn/ui',
-				'Blitzschnelle statische Bereitstellung für einen starken ersten Eindruck',
+				'Statische, responsive Marketingseite mit Astro und React-Komponenten',
+				'Aufgebaut nach dem, was ein neuer Besucher zuerst wissen muss',
+				'Bereiche für Funktionen, Testimonials, Preise und eine Wissensdatenbank',
+				'Einheitliches Design durch wiederverwendbare Tailwind-CSS- und shadcn/ui-Komponenten',
+				'Kurze Ladezeiten und SEO-freundliches Markup für bessere Sichtbarkeit',
 			],
 			learned:
-				'Dieses Projekt hat mir verdeutlicht, wie anders Produktwebsites im Vergleich zu App-Oberflächen funktionieren: Sie müssen den Mehrwert sofort klar machen, Besucher gezielt durch die Inhalte führen und gleichzeitig schnell, SEO-freundlich und gut wartbar bleiben.',
+				'Produktseiten und App-Oberflächen sind fast gegensätzliche Aufgaben. In der App wissen die Leute schon, was sie wollen; auf einer Landingpage hat man ein paar Sekunden, um überhaupt zu erklären, warum sie sich dafür interessieren sollten. Zuerst den Nutzen zu zeigen statt der Feature-Liste war hier der wertvollste Teil. Und wie gut sich eine Seite anfühlt, die fast ohne JavaScript auskommt.',
 		},
 		'google-drive-pdf-downloader': {
-			category: 'Browser-Tool',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Ein Browser-Tool, das PDFs aus Google-Vorschauen rekonstruiert und durchsuchbaren Text sowie Hyperlinks erhalten kann.',
+				'Ein Browser-Tool, das aus Googles bildbasierter Vorschau wieder ein richtiges PDF macht, inklusive Text und Links.',
 			description:
-				'Ein browserbasiertes Tool zum Herunterladen von PDFs aus der Google-Vorschau, einschließlich Dokumenten, bei denen die üblichen Download- und Druckfunktionen nicht verfügbar sind. Es erfasst die gerenderten Seiten, fügt sie zu einer PDF-Datei zusammen und kann durchsuchbaren Text sowie Hyperlinks erhalten.',
+				'Manche PDFs werden in Google Drive nur zum Ansehen freigegeben: Lesen im Browser geht, Herunterladen und Drucken sind deaktiviert. Blöd, wenn es die eigenen Kursunterlagen sind und man sie offline braucht. Das Tool baut die Datei aus dem zusammen, was die Vorschau ohnehin schon anzeigt: Es geht die Seiten durch, erfasst jede einzelne und setzt daraus wieder ein PDF zusammen, auf Wunsch mit auswählbarem Text und funktionierenden Hyperlinks.',
 			overview: [
-				'Google Drive PDF Downloader wurde für Dokumente entwickelt, die Google über eine bildbasierte PDF-Vorschau anzeigt. Das Tool lädt jede gerenderte Seite, erfasst sie direkt im Browser und fügt die Ergebnisse zu einer herunterladbaren PDF-Datei zusammen.',
-				'Es kann einmalig als Konsolenskript oder automatisch als Userscript in Google Drive, Google Classroom und weiteren Google-Diensten ausgeführt werden. Der Ablauf bietet konfigurierbare Qualitätseinstellungen, Fortschrittsanzeige, Abbruchmöglichkeit und optionale Texterkennung.',
+				'Google rendert diese Dokumente als Bilder, Seite für Seite, und lädt immer nur das, was gerade sichtbar ist. Das Tool scrollt deshalb selbst durch das Dokument, wartet, bis jede Seite fertig gerendert ist, erfasst sie und fügt am Ende alles lokal zusammen. Hochgeladen wird dabei nichts.',
+				'Es gibt zwei Varianten: ein Skript, das man bei Bedarf einmalig in die Browser-Konsole einfügt, und ein Userscript, das sich in Google Drive, Google Classroom und ähnlichen Viewern von selbst aktiviert. Dazu ein schneller und ein hochauflösender Modus, eine Fortschrittsanzeige und ein Abbrechen-Button für den Fall, dass ein Dokument länger ist als gedacht.',
 			],
 			features: [
-				'PDF-Erfassung aus Google Drive, Google Classroom und verwandten Vorschauansichten',
-				'Schneller und hochauflösender Modus mit konfigurierbarem Aufnahme-Zoom',
-				'Optionaler durchsuchbarer und auswählbarer Text sowie erhaltene Hyperlinks',
-				'Konsolenskript und Userscript für Chrome und Firefox',
-				'Fortschrittsanzeige und Abbruchmöglichkeit bei langen Dokumenten',
+				'Funktioniert mit Google Drive, Google Classroom und weiteren Google-Vorschauansichten',
+				'Schneller und hochauflösender Modus mit einstellbarem Zoom',
+				'Optionale Textebene: Das Ergebnis bleibt durchsuchbar und markierbar, Hyperlinks inklusive',
+				'Verfügbar als einmaliges Konsolenskript oder als Userscript für Chrome und Firefox',
+				'Läuft komplett im Browser, mit Fortschrittsanzeige und Abbruchmöglichkeit, ohne dass etwas den eigenen Rechner verlässt',
 			],
 			learned:
-				'Dieses Projekt hat mein Verständnis für Browser-Rendering, DOM-basierte Automatisierung und die Abwägung zwischen Aufnahmequalität, Verarbeitungszeit und Dateigröße bei der vollständig clientseitigen Rekonstruktion von Dokumenten vertieft.',
+				'Dieses Projekt war eine Lektion darin, mit einer Seite zu arbeiten, die dafür nie vorgesehen war: auf den richtigen Moment im Render-Zyklus warten, mit Lazy Loading umgehen und Aufnahmequalität gegen Verarbeitungszeit und Dateigröße abwägen, und das alles clientseitig, wo jede Abkürzung an anderer Stelle wehtut. Dazu geht jedes Dokument auf seine eigene Art kaputt, und „bei dem einen PDF hat es funktioniert“ war als Definition von funktionieren ziemlich unbrauchbar.',
 		},
 		'iu-quiz-app': {
-			category: 'Web-App',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Eine kollaborative Quizplattform, die IU-Fernstudierende durch interaktive Übungen bei der Prüfungsvorbereitung unterstützt.',
+				'Eine Quizplattform, auf der Mitstudierende im Fernstudium Prüfungsfragen gemeinsam durchgehen statt allein durchackern.',
 			description:
-				'Eine interaktive Online-Quizplattform zur Unterstützung von IU-Fernstudierenden bei der Prüfungsvorbereitung. Sie fördert gemeinsames Lernen, indem Studierende fachspezifische Fragen kollaborativ beantworten können.',
+				'Ein Studienprojekt aus meiner Zeit an der IU Internationale Hochschule, entstanden aus einem Problem, das ich selbst hatte: Im Fernstudium bereitet man sich weitgehend allein auf Prüfungen vor. Diese App macht genau diesen Teil sozial. Studierende arbeiten fachspezifische Fragen in einem gemeinsamen Quizformat durch, inspiriert von den bekannten Quizspielen, allein oder gegeneinander. Das macht die dritte Runde durch denselben Stoff deutlich erträglicher.',
 			overview: [
-				'Die IU Quiz App wurde entwickelt, um Prüfungsvorbereitung für Fernstudierende interaktiver zu machen. Statt isolierter Fragensammlungen können Nutzer in einem gemeinsamen Quizformat lernen.',
-				'Das Projekt kombiniert ein Vue/Nuxt-Frontend mit Firebase-Diensten und ermöglicht dadurch ein leichtgewichtiges kollaboratives Lernwerkzeug ohne schweren eigenen Backend-Stack.',
+				'Ein Fernstudium ist flexibel, aber still. Da ist niemand, der einen am Abend vor der Prüfung abfragt, und keine Lerngruppe im Nebenraum. Die IU Quiz App füllt diese Lücke mit Fragensammlungen pro Fach, die Studierende gemeinsam durchgehen können.',
+				'Technisch ist es eine Single-Page-App mit Nuxt, dahinter Firebase für Authentifizierung, Daten und Hosting. Dadurch ist aus einem Studienprojekt nicht nebenbei ein Backend-Projekt geworden. Ein Bericht zu Konzept und Umsetzung ist unten verlinkt.',
 			],
 			features: [
-				'Interaktiver Quizablauf für Einzel- und Gruppenlernen',
-				'Fachspezifische Fragen für prüfungsorientierte Vorbereitung',
-				'Datenhaltung und Hosting über Firebase',
-				'Responsive SPA mit Nuxt und Vuetify',
-				'Projektbericht mit Konzept und Umsetzung',
+				'Gemeinsamer Quizablauf zum Lernen allein oder gegen andere Studierende',
+				'Fragensammlungen nach Fach, ausgerichtet auf die echte Prüfungsvorbereitung',
+				'Firebase für Authentifizierung, Daten und Hosting, ohne eigenes Backend zu warten',
+				'Responsive Single-Page-Oberfläche mit Nuxt und Vuetify',
+				'Ausführlicher Projektbericht zu Konzept, Architektur und Umsetzung',
 			],
 			learned:
-				'Das Projekt hat mich stärker über Lernverhalten nachdenken lassen, besonders darüber, wie Zusammenarbeit, Feedback und spielerische Interaktion trockenen Prüfungsstoff zugänglicher machen.',
+				'Das Spannende war nicht der Code, sondern die Frage, was Leute dazu bringt, zu Stoff zurückzukommen, den sie langweilig finden. Sofortiges Feedback, ein bisschen Wettbewerb und kurze Runden haben dafür mehr gebracht als jedes zusätzliche Feature. Und es hat gezeigt, wie viel einem ein fertiges Backend abnimmt, wenn die eigentliche Einschränkung die Deadline ist.',
 		},
 		'menacing-blue': {
-			category: 'Cross-Platform Game',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Ein von klassischen Pokémon-Spielen inspiriertes 2D-RPG mit eigenen Karten, rundenbasierten Kämpfen und Online-Multiplayer.',
+				'Ein 2D-RPG im Geist der klassischen Pokémon-Spiele, von Grund auf gebaut, mit rundenbasierten Kämpfen und Online-Multiplayer.',
 			description:
-				'Menacing Blue ist ein plattformübergreifendes 2D-Spiel, inspiriert von klassischen Pokémon-Titeln. Es wurde von Grund auf entwickelt und enthält animierte NPCs, interaktive Objekte, rundenbasierte Kämpfe, Online-Multiplayer, Tiled-Karten, Sounddesign und mehrere Schwierigkeitsgrade.',
+				'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Geist der Pokémon-Titel, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Darunter liegt keine Spiel-Engine: Von der Kartendarstellung bis zur Kampflogik sitzt alles direkt auf Java und libGDX.',
 			overview: [
-				'Menacing Blue ist ein eigenes 2D-Spielprojekt, das das Gefühl klassischer Handheld-RPGs aufgreift und die Systeme selbst implementiert.',
-				'Die Arbeit umfasst Gameplay-Programmierung, Map-Tooling, Kampflogik, Animation, Sound und Multiplayer und gehört damit zu den technisch breitesten Projekten im Portfolio.',
+				'Angefangen hat das Ganze mit der Frage, ob ich ein komplettes Spiel hinbekomme und nicht nur eine Demo. Herausgekommen ist das abwechslungsreichste Projekt, an dem ich je gearbeitet habe: Bewegung und Kollision, Tile-Maps, Animation, Dialoge, ein rundenbasiertes Kampfsystem, Sound und Netzwerkcode mussten alle existieren, bevor überhaupt etwas davon Spaß gemacht hat.',
+				'Die Karten entstehen in Tiled und werden zur Laufzeit geladen. Ein neues Gebiet ist damit eine Inhaltsfrage und keine Code-Frage. Kämpfe laufen über dasselbe System, egal ob der Gegner ein NPC oder ein anderer Spieler im Netzwerk ist. Eine spielbare Demo ist unten verlinkt.',
 			],
 			features: [
-				'Eigene 2D-Spielstruktur mit Java und libGDX',
-				'Karten und interaktive Umgebungen mit Tiled',
-				'Animierte NPCs, Objekte und rundenbasierte Kampfsysteme',
-				'Online-Multiplayer für Kämpfe',
+				'Von Grund auf in Java mit libGDX geschrieben, ohne Spiel-Engine',
+				'Selbst gebaute Karten und interaktive Umgebungen mit Tiled',
+				'Animierte NPCs, interaktive Objekte und ein rundenbasiertes Kampfsystem',
+				'Online-Multiplayer für Kämpfe gegen andere Spieler',
 				'Sounddesign und mehrere Schwierigkeitsgrade',
 			],
 			learned:
-				'Ein Spiel zu bauen hat Architekturprobleme sehr greifbar gemacht: State Management, Asset Loading, Kollision, Eingaben und Feedback müssen zusammenspielen, damit sich die Erfahrung reaktionsschnell anfühlt.',
+				'Bei einem Spiel lassen sich Architekturprobleme nicht ignorieren. State-Handling, Asset-Loading, Kollision, Eingaben und Feedback laufen alle in derselben Schleife, viele Male pro Sekunde. Ist eines davon schlampig, fühlt sich das ganze Spiel falsch an. Nicht kaputt, nur falsch. Kämpfe dazu zu bringen, gegen einen NPC und über eine Netzwerkverbindung identisch zu funktionieren, hat mir mehr über entkoppelte Systeme beigebracht als jede Theorie.',
 		},
 		'personal-website': {
-			category: 'Portfolio-Website',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Eine persönliche Portfolio-Website mit ausgewählten Projekten, technischen Fähigkeiten und beruflichen Stationen.',
+				'Die Seite, auf der du gerade bist. Ein zweisprachiges Portfolio mit Astro, Tailwind CSS und fast ohne JavaScript im Browser.',
 			description:
-				'Eine persönliche Portfolio-Website, die ausgewählte Projekte, technische Fähigkeiten und berufliche Stationen präsentiert.',
+				'Das ist die Seite, auf der du gerade bist. Ich habe sie mit Astro neu gebaut, weil ein Portfolio hauptsächlich aus Text und Bildern besteht und es sich immer nach Overkill angefühlt hat, dafür ein ganzes Frontend-Framework auszuliefern. Alles wird beim Build als statisches HTML generiert, es gibt sie auf Deutsch und Englisch, und ein neues Projekt hinzuzufügen heißt: eine einzige Datei bearbeiten. Nur deshalb bleibt sie überhaupt aktuell.',
 			overview: [
-				'Diese persönliche Website wurde gebaut, um ausgewählte Arbeiten, Fähigkeiten und beruflichen Kontext kompakt und wartbar zu präsentieren.',
-				'Das Projekt fokussiert sich auf klare Darstellung, responsive Umsetzung und eine einfache Inhaltsstruktur, die mit neuen Projekten mitwachsen kann.',
+				'Die vierte Version meiner persönlichen Website und die erste ohne Frontend-Framework im Browser. Astro rendert die Seiten beim Build zu statischem HTML; das einzige JavaScript, das bei Besuchern ankommt, ist das, was die Bildergalerie in den Projekten wirklich braucht.',
+				'Inhalt und Darstellung sind bewusst getrennt. Projekte und Skills liegen in typisierten Datendateien, die Übersetzungen gleich daneben, und beide Sprachversionen werden daraus generiert. Ein neues Projekt, ein neuer Skill oder eine weitere Sprache sind damit eine Inhaltsänderung und kein Umbau.',
 			],
 			features: [
-				'Responsive Single-Page-Portfolio-Struktur',
-				'Projektübersicht mit direkten Links zu Deployments und Quellcode',
-				'Oberfläche mit Nuxt und Vuetify',
-				'Statisches Deployment über GitHub Pages',
-				'Wiederverwendbare Bereiche für Projekte und Skills',
+				'Statische Website mit Astro, kein Frontend-Framework im Browser',
+				'Vollständige deutsche und englische Version mit sprachabhängigem Routing',
+				'Projekte und Skills in typisierten Datendateien, damit Inhalte an einem Ort liegen',
+				'Responsives Layout mit Tailwind CSS und daisyUI',
+				'Automatischer Build und Deployment auf GitHub Pages bei jedem Push',
 			],
 			learned:
-				'Dieses Projekt hat mir geholfen, technische Arbeit prägnanter zu präsentieren, und gezeigt, wie wertvoll es ist, persönliche Websites einfach aktualisierbar zu halten.',
+				'Dieselbe Website zum vierten Mal zu bauen ist ein guter Weg, um zu merken, was sich über die Jahre wirklich ändert. Und das ist nie das Framework. Die Inhalte in typisierte Daten zu verschieben, statt sie über Templates zu verteilen, hat diese Seite endlich angenehm wartbar gemacht. Das ist inzwischen das Muster, zu dem ich greife, sobald eine Website mehr als eine Handvoll Seiten hat.',
 		},
 		'iu-gamer-app': {
-			category: 'Android-App',
-			year: 'Ausgewähltes Projekt',
 			shortDescription:
-				'Eine Android-App zur Organisation von Brettspielabenden mit Terminplanung, Spielabstimmungen, Eventbewertungen und integriertem Chat.',
+				'Eine Android-App für Brettspielrunden: Termin finden, abstimmen, was gespielt wird, hinterher bewerten und den Chat an einem Ort haben.',
 			description:
-				'Die IU Gamer App ist eine Android-Anwendung zur Organisation von Brettspielrunden. Sie unterstützt Terminbenachrichtigungen, Spielvorschläge, Abstimmungen, Bewertungen vergangener Events und Kommunikation über einen integrierten Chat.',
+				'Noch ein Projekt aus meinem Studium an der IU Internationale Hochschule, für etwas, das jede Brettspielrunde kennt: Die Organisation dauert länger als das Spiel. Die App bündelt Terminplanung, Spielvorschläge, Abstimmungen, Erinnerungen, Bewertungen und Gruppenchat an einem Ort, damit sich die Planung nicht über drei verschiedene Messenger-Verläufe verteilt.',
 			overview: [
-				'Die IU Gamer App wurde rund um praktische Koordinationsprobleme regelmäßiger Brettspielrunden entworfen: entscheiden, was gespielt wird, Teilnahme organisieren und Kommunikation bündeln.',
-				'Die Android-App kombiniert Terminplanung, Abstimmungen, Bewertungen, Benachrichtigungen und Chat in einem fokussierten Werkzeug für kleine Gruppen.',
+				'Brettspielabende scheitern auf ziemlich vorhersehbare Weise: Niemand legt sich fest, was gespielt wird, die Hälfte vergisst den Termin, und die ganze Diskussion liegt in einem Gruppenchat, in dem zwei Tage später nichts mehr auffindbar ist.',
+				'Die App ist natives Android in Java, dahinter Firebase für Authentifizierung, Daten und Chat. Am wichtigsten waren am Ende die Benachrichtigungen, denn eine Termin-App, die nicht zuverlässig erinnert, ist schlechter als gar keine App. Ein Projektbericht ist unten verlinkt.',
 			],
 			features: [
-				'Native Android-App mit Java',
-				'Spielvorschläge, Abstimmungen und Event-Koordination',
-				'Zuverlässige Terminbenachrichtigungen',
-				'Bewertungssystem für vergangene Runden',
-				'Firebase-basierter Chat und Datenspeicher',
+				'Native Android-App in Java',
+				'Spielvorschläge und Abstimmungen, damit die Gruppe vor dem Abend entscheidet',
+				'Zuverlässige Terminbenachrichtigungen und Erinnerungen',
+				'Bewertungen vergangener Runden, um zu wissen, was gut angekommen ist',
+				'Integrierter Gruppenchat und Datenspeicherung über Firebase',
 			],
 			learned:
-				'Dieses Projekt hat mein Verständnis für mobile Workflows verbessert, besonders bei Benachrichtigungen, Persistenz und dabei, Gruppenfunktionen während echter Events einfach nutzbar zu halten.',
+				'Mobile Apps stehen und fallen mit Dingen, die man im UI nie sieht: Benachrichtigungen, die tatsächlich ankommen, Zustand, der überlebt, wenn das System die App abschießt, und Bildschirme, die sich einhändig bedienen lassen, während man in der anderen Hand eine Spieleschachtel hält. Die Feature-Liste war der einfache Teil.',
 		},
 	} satisfies Record<string, ProjectTranslation>,
 } satisfies Record<Exclude<Locale, 'en'>, Record<string, ProjectTranslation>>;

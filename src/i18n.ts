@@ -17,7 +17,8 @@ export const ui = {
 	en: {
 		meta: {
 			homeTitle: 'Manuel Veigel | Software Developer',
-			homeDescription: 'Portfolio of Manuel Veigel, a software developer building clean and useful digital products.',
+			homeDescription:
+				'Portfolio of Manuel Veigel, a software developer from Vienna building web and desktop apps, from Japanese learning platforms to browser tools and games.',
 		},
 		nav: {
 			home: 'Home',
@@ -29,26 +30,26 @@ export const ui = {
 		hero: {
 			title: "Hey, I'm Manuel.",
 			description:
-				"I'm a Software Developer from Vienna, Austria. I love building things that people enjoy using and that make their lives a little better.",
+				'Software developer from Vienna. I build web and desktop apps, and I care most about the small details that decide whether people keep using them.',
 			projects: 'View Projects',
 			contact: 'Contact',
 			avatarAlt: 'Portrait illustration of Manuel',
 		},
 		projects: {
 			title: 'Featured Projects',
-			readMore: 'Read more',
+			readMore: 'View project',
 			viewDetails: 'View details for',
 			imageAlt: 'screenshot',
 		},
 		techStack: {
 			title: 'Tech Stack',
 			capabilities: {
-				title: 'Core Capabilities',
+				title: 'What I Do',
 				fullStack: 'Full-stack Development',
 				objectOriented: 'Object-oriented Programming',
 				restApis: 'REST APIs',
 				databaseDesign: 'Database Design',
-				mobileDevelopment: 'Mobile App Development',
+				crossPlatform: 'Cross-platform Apps',
 				deploymentHosting: 'Deployment and Hosting',
 			},
 			groups: {
@@ -64,7 +65,7 @@ export const ui = {
 		projectDetail: {
 			back: 'Back to projects',
 			links: 'Project Links',
-			tech: 'Tech Used',
+			tech: 'Built With',
 			overview: 'Overview',
 			features: 'Key Features',
 			learned: 'What I Learned',
@@ -74,14 +75,14 @@ export const ui = {
 		},
 		footer: {
 			rights: 'All rights reserved.',
-			legal: 'Impressum',
+			legal: 'Legal Notice',
 		},
 	},
 	de: {
 		meta: {
 			homeTitle: 'Manuel Veigel | Softwareentwickler',
 			homeDescription:
-				'Portfolio von Manuel Veigel, einem Softwareentwickler aus Wien.',
+				'Portfolio von Manuel Veigel, Softwareentwickler aus Wien. Web- und Desktop-Apps, von Lernplattformen über Browser-Tools bis hin zu Spielen.',
 		},
 		nav: {
 			home: 'Start',
@@ -93,26 +94,26 @@ export const ui = {
 		hero: {
 			title: 'Hey, ich bin Manuel.',
 			description:
-				'Ich bin Softwareentwickler aus Wien und hab Spaß daran, Dinge zu bauen, die Menschen gerne nutzen und die ihr Leben ein kleines bisschen besser machen.',
+				'Softwareentwickler aus Wien. Ich baue Web- und Desktop-Apps und kümmere mich am liebsten um die kleinen Details, die entscheiden, ob Leute dranbleiben.',
 			projects: 'Projekte ansehen',
 			contact: 'Kontakt',
 			avatarAlt: 'Portrait-Illustration von Manuel',
 		},
 		projects: {
 			title: 'Ausgewählte Projekte',
-			readMore: 'Mehr lesen',
+			readMore: 'Projekt ansehen',
 			viewDetails: 'Details ansehen zu',
 			imageAlt: 'Screenshot',
 		},
 		techStack: {
 			title: 'Tech Stack',
 			capabilities: {
-				title: 'Kernkompetenzen',
+				title: 'Was ich mache',
 				fullStack: 'Full-Stack-Entwicklung',
 				objectOriented: 'Objektorientierte Programmierung',
 				restApis: 'REST-APIs',
 				databaseDesign: 'Datenbankdesign',
-				mobileDevelopment: 'Mobile-App-Entwicklung',
+				crossPlatform: 'Plattformübergreifende Apps',
 				deploymentHosting: 'Deployment und Hosting',
 			},
 			groups: {
@@ -128,9 +129,9 @@ export const ui = {
 		projectDetail: {
 			back: 'Zurück zu den Projekten',
 			links: 'Projektlinks',
-			tech: 'Verwendete Technologien',
+			tech: 'Gebaut mit',
 			overview: 'Überblick',
-			features: 'Zentrale Funktionen',
+			features: 'Die wichtigsten Funktionen',
 			learned: 'Was ich gelernt habe',
 			previousImage: 'Vorheriges Bild',
 			nextImage: 'Nächstes Bild',
