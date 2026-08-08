@@ -12,25 +12,21 @@ const t = ui[locale];
 const currentYear = new Date().getFullYear();
 ---
 
-<footer id="contact" class="mt-12 border-t border-slate-800 bg-slate-800 text-white">
-	<div class="section-shell grid gap-3 py-4 md:grid-cols-3 md:items-center">
-		<p class="text-center text-sm text-white md:text-left">© {currentYear} Manuel Veigel. {t.footer.rights}</p>
+<footer id="contact" class="bg-neutral text-neutral-content/70">
+	<div class="shell flex flex-col items-center justify-between gap-5 py-9 text-center font-mono text-[0.76rem] tracking-wide md:flex-row md:text-left">
+		<p class="m-0">© {currentYear} Manuel Veigel</p>
 
-		<div class="flex items-center justify-center gap-3">
-			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10 hover:text-white" href="https://github.com/Rakantor" aria-label="GitHub">
-				<svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+		<div class="flex gap-1">
+			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10" href="https://github.com/Rakantor" aria-label="GitHub">
+				<svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 					<path d={siGithub.path}></path>
 				</svg>
 			</a>
-			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10 hover:text-white" href="mailto:maveigel@gmail.com" aria-label="Email">
-				<Mail size={20} />
+			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10" href="mailto:maveigel@gmail.com" aria-label="Email">
+				<Mail size={19} />
 			</a>
 		</div>
 
-		<div class="flex justify-center md:justify-end">
-			<a class="px-2 text-sm font-medium text-white hover:text-white" href="/impressum">
-				{t.footer.legal}
-			</a>
-		</div>
+		<a class="transition-colors hover:text-white" href="/impressum">{t.footer.legal}</a>
 	</div>
 </footer>

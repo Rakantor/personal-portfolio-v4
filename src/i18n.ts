@@ -22,13 +22,15 @@ export const ui = {
 		},
 		nav: {
 			home: 'Home',
-			skills: 'Skills',
+			stack: 'Stack',
 			projects: 'Projects',
 			open: 'Open navigation',
 			language: 'Language',
 		},
 		hero: {
-			title: "Hey, I'm Manuel.",
+			// Split across two lines deliberately rather than left to wrap.
+			titleTop: "Hey, I'm",
+			titleBottom: 'Manuel.',
 			description:
 				'Software developer from Vienna. I build web and desktop apps, and I care most about the small details that decide whether people keep using them.',
 			projects: 'View Projects',
@@ -37,9 +39,16 @@ export const ui = {
 		},
 		projects: {
 			title: 'Featured Projects',
+			more: 'More Projects',
 			readMore: 'View project',
 			viewDetails: 'View details for',
 			imageAlt: 'screenshot',
+			slots: {
+				website: 'Site',
+				demo: 'Demo',
+				github: 'Code',
+				pdf: 'PDF',
+			},
 		},
 		techStack: {
 			title: 'Tech Stack',
@@ -57,13 +66,12 @@ export const ui = {
 				frontend: 'Frontend',
 				backend: 'Backend',
 				databases: 'Databases',
-				buildTools: 'Build Tools',
 				cloudHosting: 'Cloud & Hosting',
-				devops: 'DevOps',
+				buildDevops: 'Build & DevOps',
 			},
 		},
 		projectDetail: {
-			back: 'Back to projects',
+			next: 'Next project',
 			links: 'Project Links',
 			tech: 'Built With',
 			overview: 'Overview',
@@ -74,7 +82,6 @@ export const ui = {
 			goToImage: 'Go to image',
 		},
 		footer: {
-			rights: 'All rights reserved.',
 			legal: 'Legal Notice',
 		},
 	},
@@ -86,13 +93,14 @@ export const ui = {
 		},
 		nav: {
 			home: 'Start',
-			skills: 'Skills',
+			stack: 'Stack',
 			projects: 'Projekte',
 			open: 'Navigation öffnen',
 			language: 'Sprache',
 		},
 		hero: {
-			title: 'Hey, ich bin Manuel.',
+			titleTop: 'Hey, ich bin',
+			titleBottom: 'Manuel.',
 			description:
 				'Softwareentwickler aus Wien. Ich baue Web- und Desktop-Apps und kümmere mich am liebsten um die kleinen Details, die entscheiden, ob Leute dranbleiben.',
 			projects: 'Projekte ansehen',
@@ -101,9 +109,16 @@ export const ui = {
 		},
 		projects: {
 			title: 'Ausgewählte Projekte',
+			more: 'Weitere Projekte',
 			readMore: 'Projekt ansehen',
 			viewDetails: 'Details ansehen zu',
 			imageAlt: 'Screenshot',
+			slots: {
+				website: 'Site',
+				demo: 'Demo',
+				github: 'Code',
+				pdf: 'PDF',
+			},
 		},
 		techStack: {
 			title: 'Tech Stack',
@@ -121,13 +136,12 @@ export const ui = {
 				frontend: 'Frontend',
 				backend: 'Backend',
 				databases: 'Datenbanken',
-				buildTools: 'Build-Tools',
 				cloudHosting: 'Cloud & Hosting',
-				devops: 'DevOps',
+				buildDevops: 'Build & DevOps',
 			},
 		},
 		projectDetail: {
-			back: 'Zurück zu den Projekten',
+			next: 'Nächstes Projekt',
 			links: 'Projektlinks',
 			tech: 'Gebaut mit',
 			overview: 'Überblick',
@@ -138,7 +152,6 @@ export const ui = {
 			goToImage: 'Zu Bild',
 		},
 		footer: {
-			rights: 'Alle Rechte vorbehalten.',
 			legal: 'Impressum',
 		},
 	},

@@ -1,0 +1,23 @@
+---
+import { FileText, Globe, Play } from '@lucide/astro';
+import { siGithub } from 'simple-icons';
+import type { ProjectButtonType } from '../data/projects';
+
+type Props = {
+	type: ProjectButtonType;
+	size?: number;
+};
+
+const { type, size = 16 } = Astro.props;
+---
+
+{type === 'website' && <Globe size={size} />}
+{type === 'demo' && <Play size={size} />}
+{type === 'pdf' && <FileText size={size} />}
+{
+	type === 'github' && (
+		<svg style={`width:${size}px;height:${size}px`} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+			<path d={siGithub.path} />
+		</svg>
+	)
+}

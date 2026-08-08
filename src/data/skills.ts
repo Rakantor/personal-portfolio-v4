@@ -41,7 +41,7 @@ export type Skill = {
 	icon: SkillIcon;
 };
 
-export type SkillGroupKey = 'languages' | 'frontend' | 'backend' | 'databases' | 'buildTools' | 'cloudHosting' | 'devops';
+export type SkillGroupKey = 'languages' | 'frontend' | 'backend' | 'databases' | 'cloudHosting' | 'buildDevops';
 
 export type SkillGroup = {
 	key: SkillGroupKey;
@@ -137,14 +137,6 @@ export const skillGroups: SkillGroup[] = [
 		],
 	},
 	{
-		key: 'buildTools',
-		skills: [
-			{ name: 'Maven', icon: siApachemaven },
-			{ name: 'Gradle', icon: siGradle },
-			{ name: 'npm', icon: siNpm },
-		],
-	},
-	{
 		key: 'cloudHosting',
 		skills: [
 			{ name: 'AWS', icon: siAws },
@@ -153,8 +145,11 @@ export const skillGroups: SkillGroup[] = [
 		],
 	},
 	{
-		key: 'devops',
+		key: 'buildDevops',
 		skills: [
+			{ name: 'Maven', icon: siApachemaven },
+			{ name: 'Gradle', icon: siGradle },
+			{ name: 'npm', icon: siNpm },
 			{ name: 'Git', icon: siGit },
 			{ name: 'Docker', icon: siDocker },
 		],

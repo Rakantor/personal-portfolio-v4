@@ -1,5 +1,5 @@
 ---
-import { Boxes, Code2, Database, Globe2, MonitorSmartphone, Route } from '@lucide/astro';
+import { Boxes, CodeXml, Database, Globe, MonitorSmartphone, Route } from '@lucide/astro';
 import { skillGroups } from '../data/skills';
 import { type Locale, ui } from '../i18n';
 
@@ -9,82 +9,70 @@ type Props = {
 
 const { locale = 'en' } = Astro.props;
 const t = ui[locale];
-const getSkillGroupId = (key: string) => `skill-group-${key}`;
-const isMulticolorIcon = (icon: (typeof skillGroups)[number]['skills'][number]['icon']) => 'paths' in icon;
 
 const capabilities = [
-	{ name: t.techStack.capabilities.fullStack, icon: Code2 },
-	{ name: t.techStack.capabilities.objectOriented, icon: Boxes },
-	{ name: t.techStack.capabilities.restApis, icon: Route },
-	{ name: t.techStack.capabilities.databaseDesign, icon: Database },
-	{ name: t.techStack.capabilities.crossPlatform, icon: MonitorSmartphone },
-	{ name: t.techStack.capabilities.deploymentHosting, icon: Globe2 },
+	{ label: t.techStack.capabilities.fullStack, Icon: CodeXml },
+	{ label: t.techStack.capabilities.objectOriented, Icon: Boxes },
+	{ label: t.techStack.capabilities.restApis, Icon: Route },
+	{ label: t.techStack.capabilities.databaseDesign, Icon: Database },
+	{ label: t.techStack.capabilities.crossPlatform, Icon: MonitorSmartphone },
+	{ label: t.techStack.capabilities.deploymentHosting, Icon: Globe },
 ];
+
+const isMulticolorIcon = (icon: (typeof skillGroups)[number]['skills'][number]['icon']) => 'paths' in icon;
 ---
 
-<section id="skills" class="section-shell py-12">
-	<h2 class="text-3xl font-bold tracking-normal text-slate-950">{t.techStack.title}</h2>
-	<section class="mt-6" aria-labelledby="core-capabilities">
-		<h3 id="core-capabilities" class="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-			{t.techStack.capabilities.title}
-		</h3>
-		<div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			{
-				capabilities.map((capability) => {
-					const Icon = capability.icon;
+<section id="stack" class="shell py-20">
+	<h2 class="eyebrow mb-8"><span class="num">03</span> {t.techStack.capabilities.title}</h2>
 
-					return (
-						<div class="soft-card flex min-h-16 items-center gap-4 rounded-lg px-5 py-4">
-							<span class="grid h-9 w-9 shrink-0 place-items-center text-primary">
-								<Icon size={28} aria-hidden="true" />
-							</span>
-							<span class="font-medium text-slate-800">{capability.name}</span>
-						</div>
-					);
-				})
-			}
-		</div>
-	</section>
-
-	<div class="mt-10 grid gap-8">
+	<ul class="grid list-none grid-cols-1 gap-0 p-0 sm:grid-cols-2 lg:grid-cols-3">
 		{
-			skillGroups.map((group) => (
-				<section aria-labelledby={getSkillGroupId(group.key)}>
-					<h3 id={getSkillGroupId(group.key)} class="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-						{t.techStack.groups[group.key]}
-					</h3>
-					<div class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{
-							group.skills.map((skill) => (
-								<div class="soft-card flex min-h-16 items-center gap-4 rounded-lg px-5 py-4">
-									<span class="grid h-9 w-9 shrink-0 place-items-center">
-										{
-											isMulticolorIcon(skill.icon) ? (
-												<svg aria-hidden="true" class="h-7 w-7" viewBox={skill.icon.viewBox}>
-													{skill.icon.paths.map((path) => (
-														<path d={path.d} fill={path.fill}></path>
-													))}
-												</svg>
-											) : (
-												<svg
-													aria-hidden="true"
-													class="h-7 w-7"
-													viewBox="0 0 24 24"
-													fill="currentColor"
-													style={`color: #${skill.icon.hex}`}
-												>
-													<path d={skill.icon.path}></path>
-												</svg>
-											)
-										}
-									</span>
-									<span class="font-medium text-slate-800">{skill.name}</span>
-								</div>
-							))
-						}
-					</div>
-				</section>
+			capabilities.map(({ label, Icon }) => (
+				<li class="rule-top flex items-center gap-4 py-5 pr-6 text-base font-medium">
+					<Icon class="shrink-0 text-primary" size={22} aria-hidden="true" />
+					<span>{label}</span>
+				</li>
 			))
 		}
-	</div>
+	</ul>
+</section>
+
+<section id="tech-stack" class="shell pb-24">
+	<h2 class="eyebrow mb-8"><span class="num">04</span> {t.techStack.title}</h2>
+
+	{
+		skillGroups.map((group, index) => (
+			<div
+				class:list={[
+					'rule-top grid items-start gap-4 py-6 lg:grid-cols-[10rem_minmax(0,1fr)] lg:gap-8',
+					index === skillGroups.length - 1 && 'rule-bottom',
+				]}
+			>
+				<h3 class="pt-2 font-mono text-[0.73rem] font-medium uppercase tracking-[0.14em] text-muted">
+					{t.techStack.groups[group.key]}
+				</h3>
+
+				<div class="flex flex-wrap gap-2.5">
+					{group.skills.map((skill) => (
+						<span class="chip">
+							{
+								isMulticolorIcon(skill.icon) ? (
+									<svg viewBox={skill.icon.viewBox} aria-hidden="true">
+										{skill.icon.paths.map((path) => (
+											<path d={path.d} fill={path.fill} />
+										))}
+									</svg>
+								) : (
+									<svg viewBox="0 0 24 24" fill={`#${skill.icon.hex}`} aria-hidden="true">
+										<path d={skill.icon.path} />
+									</svg>
+								)
+							}
+							{skill.name}
+						</span>
+					))}
+				</div>
+			</div>
+		))
+	}
 </section>

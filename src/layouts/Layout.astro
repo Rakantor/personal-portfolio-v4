@@ -9,16 +9,20 @@ const {
 ---
 
 <!doctype html>
-<html lang={lang} data-theme="light">
+<html lang={lang} data-theme="portfolio">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+
+		<link rel="preload" href="/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/source-serif-4-var-latin.woff2" as="font" type="font/woff2" crossorigin />
+
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="bg-base-100 text-base-content">
 		<slot />
 	</body>
 </html>

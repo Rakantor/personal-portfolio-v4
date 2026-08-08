@@ -1,37 +1,10 @@
 ---
-import {
-	ArrowLeft,
-	BookOpenText,
-	CheckCircle2,
-	CodeXml,
-	ExternalLink,
-	FileText,
-	Globe2,
-	GraduationCap,
-} from '@lucide/astro';
-import type { SimpleIcon } from 'simple-icons';
-import {
-	siAndroid,
-	siAstro,
-	siFirebase,
-	siGithub,
-	siGithubpages,
-	siJavascript,
-	siMysql,
-	siNuxt,
-	siPhp,
-	siReact,
-	siShadcnui,
-	siTailwindcss,
-	siTypescript,
-	siVuedotjs,
-	siVuetify,
-	siWordpress,
-} from 'simple-icons';
+import { ArrowLeft, ArrowRight } from '@lucide/astro';
 import Footer from './Footer.astro';
 import Header from './Header.astro';
+import QuickLinkIcon from './QuickLinkIcon.astro';
 import Layout from '../layouts/Layout.astro';
-import { getProjectButtonLabel, type Project, type ProjectButton } from '../data/projects';
+import { getLocalizedProject, getProjectButtonLabel, projects, type Project } from '../data/projects';
 import { htmlLang, localePath, type Locale, ui } from '../i18n';
 
 type Props = {
@@ -42,327 +15,301 @@ type Props = {
 const { project, locale } = Astro.props;
 const t = ui[locale];
 
-const techIcons: Record<string, SimpleIcon> = {
-	Android: siAndroid,
-	Astro: siAstro,
-	Firebase: siFirebase,
-	'GitHub Pages': siGithubpages,
-	JavaScript: siJavascript,
-	MySQL: siMysql,
-	Nuxt: siNuxt,
-	PHP: siPhp,
-	React: siReact,
-	'shadcn/ui': siShadcnui,
-	'Tailwind CSS': siTailwindcss,
-	TypeScript: siTypescript,
-	'Vue.js': siVuedotjs,
-	Vuetify: siVuetify,
-	WordPress: siWordpress,
-};
+const currentIndex = projects.findIndex((candidate) => candidate.slug === project.slug);
+const nextProject = getLocalizedProject(projects[(currentIndex + 1) % projects.length], locale);
 
-const getButtonClass = (button: ProjectButton) =>
-	button.type === 'github'
-		? 'btn min-h-11 rounded-lg border-slate-950 bg-slate-950 px-4 text-white shadow-none hover:border-black hover:bg-black hover:text-white'
-		: button.type === 'website'
-		? 'btn btn-primary min-h-11 rounded-lg px-4 text-white shadow-lg shadow-primary/20'
-		: 'btn min-h-11 rounded-lg border-slate-300 bg-white px-4 text-slate-900 hover:border-primary hover:bg-blue-50 hover:text-primary';
-
+const hasGallery = project.images.length > 1;
+const totalLabel = String(project.images.length).padStart(2, '0');
 const isExternal = (href: string) => href.startsWith('http');
 ---
 
-<Layout lang={htmlLang[locale]} title={`${project.title}`} description={project.description}>
+<Layout lang={htmlLang[locale]} title={project.title} description={project.description}>
 	<Header locale={locale} />
-	<main>
-		<section class="section-shell py-10 lg:py-14">
-			<a class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-[#315fc7]" href={localePath(locale, '/#projects')}>
-				<ArrowLeft size={18} />
-				{t.projectDetail.back}
+
+	<main class="shell">
+		<nav class="flex items-center gap-2 pt-9 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-muted-2">
+			<a
+				class="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+				href={localePath(locale, '/#projects')}
+			>
+				<ArrowLeft size={14} />
+				{t.nav.projects}
 			</a>
+			<span class="text-base-300" aria-hidden="true">/</span>
+			<span class="text-base-content">{project.title}</span>
+		</nav>
 
-			<div class="mt-9 grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.95fr)] lg:items-start">
-				<section class="min-w-0">
-					<h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-slate-950 md:text-6xl">
-						{project.title}
-					</h1>
+		<div class="pb-10 pt-11">
+			<h1 class="h-hero max-w-[16ch] text-[clamp(2.4rem,5.4vw,4.1rem)] text-navy">{project.title}</h1>
+		</div>
 
-					<p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{project.description}</p>
+		<!-- Description alongside the gallery, 40 / 60 -------------------- -->
+		<!-- 40% description / 10% gutter / 50% gallery. Explicit tracks plus
+		     space-between: the 10% left over lands entirely in the gutter. -->
+		<div class="grid items-start gap-10 lg:grid-cols-[40%_50%] lg:justify-between lg:gap-x-0">
+			<p class="prose-serif m-0 min-w-0 text-[1.08rem] text-[#333c4d]">{project.description}</p>
 
-					<div class="soft-card mt-8 rounded-lg p-5">
-						<h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{t.projectDetail.links}</h2>
+			<!-- min-w-0: without it the scrolling thumbnail strip stretches the column. -->
+			<div
+				class:list={['grid min-w-0 gap-3', hasGallery && 'lg:grid-cols-[minmax(0,1fr)_5.25rem]']}
+				data-gallery
+			>
+				<div class="relative overflow-hidden rounded-[3px] bg-navy shadow-[0_30px_70px_-40px_rgb(12_23_48/0.6)]">
+					<!-- No fixed aspect ratio: the first screenshot sets the frame height and the
+					     rest are contained inside it. Within a project the shots share nearly the
+					     same ratio, so this removes the letterboxing a fixed frame would cause,
+					     without needing intrinsic dimensions in the data. -->
+					<img
+						data-slide="0"
+						class="block h-auto w-full opacity-100 transition-opacity duration-300"
+						src={project.images[0].src}
+						alt={project.images[0].alt}
+						loading="eager"
+					/>
 
-						<div class="flex flex-wrap gap-3">
-							{
-								project.buttons.map((button) => (
-									<a
-										class={getButtonClass(button)}
-										href={button.href}
-										aria-label={button.aria ?? `${getProjectButtonLabel(button.type, locale)}: ${project.title}`}
-										target={isExternal(button.href) ? '_blank' : undefined}
-										rel={isExternal(button.href) ? 'noreferrer' : undefined}
+					{
+						project.images.slice(1).map((image, offset) => (
+							<img
+								data-slide={offset + 1}
+								class="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-300"
+								src={image.src}
+								alt={image.alt}
+								loading="lazy"
+							/>
+						))
+					}
+
+					{
+						hasGallery && (
+							<>
+								<button
+									class="btn btn-circle absolute left-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
+									type="button"
+									data-gallery-step="-1"
+									aria-label={t.projectDetail.previousImage}
+								>
+									<ArrowLeft size={20} />
+								</button>
+								<button
+									class="btn btn-circle absolute right-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
+									type="button"
+									data-gallery-step="1"
+									aria-label={t.projectDetail.nextImage}
+								>
+									<ArrowRight size={20} />
+								</button>
+
+								<span
+									class="absolute bottom-4 right-4 rounded-[2px] bg-navy/80 px-2.5 py-1.5 font-mono text-[0.72rem] tracking-wider text-white backdrop-blur"
+									aria-live="polite"
+								>
+									<span data-gallery-current>01</span> / {totalLabel}
+								</span>
+							</>
+						)
+					}
+				</div>
+
+				<!-- Thumbnails: horizontal strip on narrow screens, vertical rail beside the
+				     image on desktop. The inner absolute layer lets the rail scroll within
+				     the image's height rather than stretching the row. -->
+				{
+					hasGallery && (
+						<div class="relative min-h-0 min-w-0">
+							<div class="flex gap-2.5 overflow-x-auto pb-1 lg:absolute lg:inset-0 lg:flex-col lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
+								{project.images.map((image, index) => (
+									<button
+										type="button"
+										data-gallery-target={index}
+										class:list={[
+											'block w-24 shrink-0 overflow-hidden rounded-[2px] border bg-base-200 transition lg:w-full',
+											index === 0
+												? 'border-primary opacity-100 ring-2 ring-primary/25'
+												: 'border-base-300 opacity-55 hover:opacity-100',
+										]}
+										aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
+										aria-current={index === 0 ? 'true' : undefined}
 									>
-										{button.type === 'website' && <Globe2 size={18} />}
-										{button.type === 'pdf' && <FileText size={18} />}
-										{
-											button.type === 'github' && (
-												<svg aria-hidden="true" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="currentColor">
-													<path d={siGithub.path}></path>
-												</svg>
-											)
-										}
-										<span>{getProjectButtonLabel(button.type, locale)}</span>
-										{isExternal(button.href) && <ExternalLink size={15} />}
-									</a>
-								))
-							}
-						</div>
-					</div>
-
-					<div class="mt-8">
-						<h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{t.projectDetail.tech}</h2>
-
-						<div class="flex flex-wrap gap-3">
-							{
-								project.tech.map((tech) => {
-									const icon = techIcons[tech];
-
-									return (
-										<span class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-800 shadow-sm">
-											{
-												icon ? (
-													<svg
-														aria-hidden="true"
-														class="h-4 w-4 shrink-0"
-														viewBox="0 0 24 24"
-														fill="currentColor"
-														style={`color: #${icon.hex}`}
-													>
-														<path d={icon.path}></path>
-													</svg>
-												) : (
-													<span class="grid h-5 w-5 shrink-0 place-items-center rounded bg-blue-50 text-[0.65rem] font-bold text-primary">
-														{tech.slice(0, 2)}
-													</span>
-												)
-											}
-											{tech}
-										</span>
-									);
-								})
-							}
-						</div>
-					</div>
-				</section>
-
-				<section class="min-w-0 lg:sticky lg:top-20">
-					<div data-project-gallery class="min-w-0 max-w-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 shadow-xl shadow-slate-200/80">
-						<div data-gallery-track class="carousel max-w-full w-full">
-							{
-								project.images.map((image, index) => {
-									const previous = index === 0 ? project.images.length - 1 : index - 1;
-									const next = index === project.images.length - 1 ? 0 : index + 1;
-
-									return (
-										<div data-gallery-slide data-gallery-index={index} class="carousel-item relative w-full">
-											<img
-												src={image.src}
-												alt={image.alt}
-												class="h-auto w-full"
-												loading={index === 0 ? 'eager' : 'lazy'}
-											/>
-
-											{
-												project.images.length > 1 && (
-													<div class="absolute inset-x-5 top-1/2 flex -translate-y-1/2 justify-between">
-														<button
-															type="button"
-															data-gallery-target={previous}
-															class="btn btn-circle border-slate-200 bg-white/90 text-slate-900 shadow-lg hover:bg-white hover:text-primary"
-															aria-label={t.projectDetail.previousImage}
-														>
-															<ArrowLeft size={20} />
-														</button>
-
-														<button
-															type="button"
-															data-gallery-target={next}
-															class="btn btn-circle border-slate-200 bg-white/90 text-slate-900 shadow-lg hover:bg-white hover:text-primary"
-															aria-label={t.projectDetail.nextImage}
-														>
-															<ArrowLeft class="rotate-180" size={20} />
-														</button>
-													</div>
-												)
-											}
-										</div>
-									);
-								})
-							}
-						</div>
-
-						<div class="border-t border-slate-200 bg-white/90 p-4">
-							<div class="flex max-w-full gap-3 overflow-x-auto pb-1">
-								{
-									project.images.map((image, index) => (
-										<button
-											type="button"
-											data-gallery-target={index}
-											class="gallery-thumb block h-16 w-24 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100 transition hover:border-primary"
-											aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
-											aria-current={index === 0 ? 'true' : undefined}
-										>
-											<img src={image.src} alt="" class="h-full w-full object-cover" loading="lazy" />
-										</button>
-									))
-								}
+										<img class="aspect-[16/10] w-full object-cover" src={image.src} alt="" loading="lazy" />
+									</button>
+								))}
 							</div>
-
-							{
-								project.images.length > 1 && (
-									<div class="mt-3 flex flex-wrap justify-center gap-2">
-										{
-											project.images.map((_, index) => (
-												<button
-													type="button"
-													data-gallery-target={index}
-													class="gallery-number btn btn-xs h-7 min-h-7 w-7 rounded-full border-slate-300 bg-white p-0 text-xs text-slate-700 hover:border-primary hover:bg-blue-50 hover:text-primary"
-													aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
-													aria-current={index === 0 ? 'true' : undefined}
-												>
-													{index + 1}
-												</button>
-											))
-										}
-									</div>
-								)
-							}
 						</div>
-					</div>
-				</section>
+					)
+				}
 			</div>
+		</div>
 
-			<section id="case-study" class="mt-12 divide-y divide-slate-200 border-y border-slate-200">
-				<div class="grid gap-6 py-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
-					<div class="flex items-center gap-4 lg:items-start">
-						<div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary">
-							<BookOpenText size={28} />
-						</div>
-						<h2 class="text-xl font-bold text-slate-950">{t.projectDetail.overview}</h2>
-					</div>
-
-					<div class="space-y-5 text-base leading-8 text-slate-700">
-						{project.overview.map((paragraph) => <p>{paragraph}</p>)}
+		<!-- Sticky meta rail + article ----------------------------------- -->
+		<div class="rule-top mt-18 grid gap-20 pt-13 lg:grid-cols-[17rem_minmax(0,1fr)]">
+			<aside class="self-start lg:sticky lg:top-24">
+				<div class="pb-5">
+					<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
+						{t.projectDetail.tech}
+					</h2>
+					<div class="flex flex-col gap-1.5 font-mono text-[0.82rem]">
+						{project.tech.map((tech) => <span>{tech}</span>)}
 					</div>
 				</div>
 
-				<div class="grid gap-6 py-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
-					<div class="flex items-center gap-4 lg:items-start">
-						<div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary">
-							<CodeXml size={28} />
-						</div>
-						<h2 class="text-xl font-bold text-slate-950">{t.projectDetail.features}</h2>
-					</div>
-
-					<ul class="space-y-3 text-base leading-7 text-slate-700">
+				<div class="rule-top pt-5">
+					<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
+						{t.projectDetail.links}
+					</h2>
+					<div class="flex flex-col gap-2">
 						{
-							project.features.map((feature) => (
-								<li class="flex gap-3">
-									<CheckCircle2 class="mt-1 shrink-0 text-primary" size={18} />
-									<span>{feature}</span>
+							project.buttons.map((button) => (
+								<a
+									class="btn btn-neutral btn-sm min-h-11 justify-center"
+									href={button.href}
+									target={isExternal(button.href) ? '_blank' : undefined}
+									rel={isExternal(button.href) ? 'noreferrer' : undefined}
+									aria-label={button.aria ?? `${getProjectButtonLabel(button.type, locale)}: ${project.title}`}
+								>
+									<QuickLinkIcon type={button.type} />
+									{getProjectButtonLabel(button.type, locale)}
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</aside>
+
+			<div>
+				<section class="rule-bottom mb-13 pb-13">
+					<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
+						{t.projectDetail.overview}
+					</h2>
+					<div class="prose-serif max-w-[68ch] text-[1.08rem] text-[#333c4d]">
+						{project.overview.map((paragraph) => <p class="mb-4 last:mb-0">{paragraph}</p>)}
+					</div>
+				</section>
+
+				<section class="rule-bottom mb-13 pb-13">
+					<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
+						{t.projectDetail.features}
+					</h2>
+					<ul class="m-0 list-none p-0">
+						{
+							project.features.map((feature, index) => (
+								<li
+									class:list={[
+										'grid grid-cols-[2.6rem_minmax(0,1fr)] gap-2 py-3.5',
+										index > 0 && 'border-t border-dashed border-base-300',
+									]}
+								>
+									<span class="pt-1 font-mono text-[0.75rem] tracking-wider text-primary" aria-hidden="true">
+										{String(index + 1).padStart(2, '0')}
+									</span>
+									<span class="prose-serif text-[1.05rem] text-[#333c4d]">{feature}</span>
 								</li>
 							))
 						}
 					</ul>
-				</div>
+				</section>
 
-				<div class="grid gap-6 py-10 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
-					<div class="flex items-center gap-4 lg:items-start">
-						<div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary">
-							<GraduationCap size={28} />
-						</div>
-						<h2 class="text-xl font-bold text-slate-950">{t.projectDetail.learned}</h2>
-					</div>
+				<section>
+					<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
+						{t.projectDetail.learned}
+					</h2>
+					<p class="prose-serif max-w-[68ch] text-[1.08rem] text-[#333c4d]">{project.learned}</p>
+				</section>
+			</div>
+		</div>
 
-					<p class="text-base leading-8 text-slate-700">{project.learned}</p>
+		<a
+			class="group rule-top rule-bottom mt-20 flex items-center justify-between gap-8 py-11"
+			href={localePath(locale, `/projects/${nextProject.slug}`)}
+		>
+			<div>
+				<span class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted-2">
+					{t.projectDetail.next}
+				</span>
+				<div class="mt-2 font-display text-[clamp(1.5rem,3vw,2.15rem)] font-bold tracking-tight text-navy transition-colors group-hover:text-primary">
+					{nextProject.title}
 				</div>
-			</section>
-		</section>
+			</div>
+			<ArrowRight class="shrink-0 text-primary transition-transform group-hover:translate-x-1" size={28} />
+		</a>
 	</main>
+
+	<div class="mt-20"></div>
 	<Footer locale={locale} />
 
 	<script>
-		const updateProjectGalleryControls = (gallery, activeIndex) => {
-			gallery.querySelectorAll('.gallery-thumb, .gallery-number').forEach((control) => {
-				const isActive = control.dataset.galleryTarget === activeIndex;
-				if (isActive) {
-					control.setAttribute('aria-current', 'true');
-				} else {
-					control.removeAttribute('aria-current');
-				}
-			});
-		};
+		document.querySelectorAll('[data-gallery]').forEach((gallery) => {
+			const slides = Array.from(gallery.querySelectorAll('[data-slide]'));
+			const thumbs = Array.from(gallery.querySelectorAll('[data-gallery-target]'));
+			const counter = gallery.querySelector('[data-gallery-current]');
+			if (slides.length < 2) return;
 
-		const setProjectGallerySlide = (gallery, nextIndex, behavior = 'smooth') => {
-			const track = gallery.querySelector('[data-gallery-track]');
-			const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
-			const activeSlide = slides.find((slide) => slide.dataset.galleryIndex === nextIndex) ?? slides[0];
+			let active = 0;
 
-			if (!track || !activeSlide) return;
+			const show = (next) => {
+				const index = (next + slides.length) % slides.length;
+				if (index === active) return;
+				active = index;
 
-			track.scrollTo({
-				left: activeSlide.offsetLeft - track.offsetLeft,
-				behavior,
-			});
-			updateProjectGalleryControls(gallery, activeSlide.dataset.galleryIndex ?? '0');
-		};
+				slides.forEach((slide, i) => {
+					const isActive = i === index;
+					slide.classList.toggle('opacity-100', isActive);
+					slide.classList.toggle('opacity-0', !isActive);
+					slide.classList.toggle('pointer-events-none', !isActive);
+				});
 
-		document.querySelectorAll('[data-project-gallery]').forEach((gallery) => {
-			const track = gallery.querySelector('[data-gallery-track]');
-			let scrollTimeout;
+				thumbs.forEach((thumb, i) => {
+					const isActive = i === index;
+					thumb.classList.toggle('border-primary', isActive);
+					thumb.classList.toggle('opacity-100', isActive);
+					thumb.classList.toggle('ring-2', isActive);
+					thumb.classList.toggle('ring-primary/25', isActive);
+					thumb.classList.toggle('border-base-300', !isActive);
+					thumb.classList.toggle('opacity-55', !isActive);
+					thumb.classList.toggle('hover:opacity-100', !isActive);
+
+					if (isActive) {
+						thumb.setAttribute('aria-current', 'true');
+					} else {
+						thumb.removeAttribute('aria-current');
+					}
+				});
+
+				if (counter) counter.textContent = String(index + 1).padStart(2, '0');
+			};
 
 			gallery.addEventListener('click', (event) => {
 				if (!(event.target instanceof Element)) return;
 
-				const control = event.target.closest('[data-gallery-target]');
-				if (!control) return;
+				const step = event.target.closest('[data-gallery-step]');
+				if (step) {
+					show(active + Number(step.getAttribute('data-gallery-step')));
+					return;
+				}
 
-				setProjectGallerySlide(gallery, control.dataset.galleryTarget ?? '0');
+				const target = event.target.closest('[data-gallery-target]');
+				if (target) show(Number(target.getAttribute('data-gallery-target')));
 			});
 
-			track?.addEventListener('scroll', () => {
-				window.clearTimeout(scrollTimeout);
-				scrollTimeout = window.setTimeout(() => {
-					const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
-					const activeSlide = slides.reduce((closest, slide) => {
-						if (!closest) return slide;
+			// Hovering a thumbnail previews it, same as clicking. Guarded to real mice so
+			// touch devices don't fire a synthesised hover before the tap registers.
+			gallery.addEventListener('pointerover', (event) => {
+				if (event.pointerType !== 'mouse') return;
+				if (!(event.target instanceof Element)) return;
 
-						const slideDistance = Math.abs(slide.offsetLeft - track.scrollLeft - track.offsetLeft);
-						const closestDistance = Math.abs(closest.offsetLeft - track.scrollLeft - track.offsetLeft);
-
-						return slideDistance < closestDistance ? slide : closest;
-					}, null);
-
-					if (activeSlide) {
-						updateProjectGalleryControls(gallery, activeSlide.dataset.galleryIndex ?? '0');
-					}
-				}, 80);
+				const target = event.target.closest('[data-gallery-target]');
+				if (target) show(Number(target.getAttribute('data-gallery-target')));
 			});
 
-			updateProjectGalleryControls(gallery, '0');
+			gallery.addEventListener('keydown', (event) => {
+				if (event.key === 'ArrowLeft') {
+					show(active - 1);
+				} else if (event.key === 'ArrowRight') {
+					show(active + 1);
+				} else {
+					return;
+				}
+				event.preventDefault();
+			});
 		});
 	</script>
-
-	<style>
-		.gallery-thumb[aria-current='true'] {
-			border-color: #457efd;
-			box-shadow:
-				0 0 0 2px rgba(69, 126, 253, 0.24),
-				0 10px 22px rgba(69, 126, 253, 0.12);
-		}
-
-		.gallery-number[aria-current='true'] {
-			border-color: #457efd;
-			background: #457efd;
-			color: #ffffff;
-		}
-	</style>
 </Layout>

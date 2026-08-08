@@ -545,3 +545,37 @@ export const getLocalizedProject = (project: Project, locale: Locale): Project =
 };
 
 export const getLocalizedProjects = (locale: Locale = 'en') => projects.map((project) => getLocalizedProject(project, locale));
+
+/**
+ * The projects shown large, with a screenshot, at the top of the home page.
+ * Everything else falls through to the compact "More Projects" index.
+ */
+export const featuredSlugs = [
+	'torii-srs-v2',
+	'torii-srs-v1',
+	'menacing-blue',
+	'google-drive-pdf-downloader',
+] as const;
+
+export const getFeaturedProjects = (locale: Locale = 'en') =>
+	featuredSlugs
+		.map((slug) => projects.find((project) => project.slug === slug))
+		.filter((project): project is Project => project !== undefined)
+		.map((project) => getLocalizedProject(project, locale));
+
+export const getMoreProjects = (locale: Locale = 'en') =>
+	projects
+		.filter((project) => !featuredSlugs.includes(project.slug as (typeof featuredSlugs)[number]))
+		.map((project) => getLocalizedProject(project, locale));
+
+/**
+ * Column order for the quick-link grid in the "More Projects" index.
+ * Types that none of the listed projects uses are dropped, so a column is
+ * never entirely empty.
+ */
+export const quickLinkSlotOrder: ProjectButtonType[] = ['website', 'demo', 'github', 'pdf'];
+
+export const getQuickLinkSlots = (visible: Project[]) =>
+	quickLinkSlotOrder.filter((type) =>
+		visible.some((project) => project.buttons.some((button) => button.type === type))
+	);

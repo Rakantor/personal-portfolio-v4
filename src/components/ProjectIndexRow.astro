@@ -1,0 +1,79 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import QuickLinkIcon from './QuickLinkIcon.astro';
+import { getProjectButtonLabel, type Project, type ProjectButtonType } from '../data/projects';
+import { localePath, type Locale, ui } from '../i18n';
+
+type Props = {
+	project: Project;
+	locale?: Locale;
+	/** Shared across every row so the quick links line up into columns. */
+	slots: ProjectButtonType[];
+	isLast?: boolean;
+};
+
+const { project, locale = 'en', slots, isLast = false } = Astro.props;
+const t = ui[locale];
+const href = localePath(locale, `/projects/${project.slug}`);
+const slotColumns = `grid-template-columns: repeat(${slots.length}, minmax(0, 1fr))`;
+---
+
+<div
+	class:list={[
+		'index-row rule-top grid items-center gap-5 px-2 py-5 transition-colors hover:bg-white/5 lg:grid-cols-[9rem_minmax(0,1fr)_10rem] lg:gap-7',
+		isLast && 'rule-bottom',
+	]}
+>
+	<a class="shot max-lg:max-w-[11rem]" href={href} tabindex="-1" aria-hidden="true">
+		<img src={project.image} alt="" loading="lazy" />
+	</a>
+
+	<div>
+		<a
+			class="inline-flex items-center gap-2 font-display text-[1.15rem] font-semibold tracking-tight text-white transition-colors hover:text-blue-bright"
+			href={href}
+		>
+			{project.title}
+			<ArrowRight class="go text-blue-bright" size={15} />
+		</a>
+
+		<p class="prose-serif mt-1.5 max-w-[52ch] text-[0.95rem] text-white/65">
+			{project.shortDescription}
+		</p>
+
+		<div class="tech-line mt-2.5">
+			{project.tech.map((tech) => <span>{tech}</span>)}
+		</div>
+	</div>
+
+	<!-- Below lg the column headings are hidden, so the fixed slots would leave a
+	     confusing gap where a project has no website. There, the links simply
+	     pack to the left instead. -->
+	<div class="flex flex-wrap gap-2 lg:grid" style={slotColumns}>
+		{
+			slots.map((type) => {
+				const button = project.buttons.find((candidate) => candidate.type === type);
+
+				if (!button) {
+					return <span class="hidden h-10 lg:block" aria-hidden="true" />;
+				}
+
+				const label = getProjectButtonLabel(type, locale);
+
+				return (
+					<a
+						class="btn btn-outline btn-sm btn-on-dark h-10 min-h-10 w-10 px-0 lg:w-full"
+						href={button.href}
+						target="_blank"
+						rel="noreferrer"
+						aria-label={button.aria ?? `${label}: ${project.title}`}
+						title={`${label} — ${project.title}`}
+					>
+						<QuickLinkIcon type={type} size={17} />
+						<span class="sr-only">{label}</span>
+					</a>
+				);
+			})
+		}
+	</div>
+</div>

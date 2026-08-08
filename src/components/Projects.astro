@@ -1,6 +1,7 @@
 ---
-import ProjectCard from './ProjectCard.astro';
-import { getLocalizedProjects } from '../data/projects';
+import FeaturedProject from './FeaturedProject.astro';
+import ProjectIndexRow from './ProjectIndexRow.astro';
+import { getFeaturedProjects, getMoreProjects, getQuickLinkSlots } from '../data/projects';
 import { type Locale, ui } from '../i18n';
 
 type Props = {
@@ -9,17 +10,50 @@ type Props = {
 
 const { locale = 'en' } = Astro.props;
 const t = ui[locale];
-const projects = getLocalizedProjects(locale);
+
+const featured = getFeaturedProjects(locale);
+const more = getMoreProjects(locale);
+const slots = getQuickLinkSlots(more);
+const slotColumns = `grid-template-columns: repeat(${slots.length}, minmax(0, 1fr))`;
 ---
 
-<section id="projects" class="section-shell py-10">
-	<div class="mb-6 flex items-end justify-between gap-6">
-		<div>
-			<h2 class="text-3xl font-bold tracking-normal text-slate-950">{t.projects.title}</h2>
-		</div>
-	</div>
+<section id="projects" class="shell pb-24">
+	<h2 class="eyebrow mb-10"><span class="num">01</span> {t.projects.title}</h2>
 
-	<div class="grid gap-7 md:grid-cols-2">
-		{projects.map((project) => <ProjectCard project={project} locale={locale} />)}
+	{
+		featured.map((project, index) => (
+			<FeaturedProject
+				project={project}
+				locale={locale}
+				index={index}
+				isFirst={index === 0}
+				isLast={index === featured.length - 1}
+			/>
+		))
+	}
+</section>
+
+<section id="more" class="on-dark bg-neutral py-20 text-neutral-content">
+	<div class="shell">
+		<h2 class="eyebrow mb-10"><span class="num">02</span> {t.projects.more}</h2>
+
+		<div class="mb-1 hidden grid-cols-[9rem_minmax(0,1fr)_10rem] gap-7 px-2 lg:grid" aria-hidden="true">
+			<span></span>
+			<span></span>
+			<div class="grid gap-2 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-white/35" style={slotColumns}>
+				{slots.map((type) => <span class="text-center">{t.projects.slots[type]}</span>)}
+			</div>
+		</div>
+
+		{
+			more.map((project, index) => (
+				<ProjectIndexRow
+					project={project}
+					locale={locale}
+					slots={slots}
+					isLast={index === more.length - 1}
+				/>
+			))
+		}
 	</div>
 </section>
