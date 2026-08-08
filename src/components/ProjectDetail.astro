@@ -1,11 +1,12 @@
 ---
 import { ArrowLeft, ArrowRight } from '@lucide/astro';
+import { getImage } from 'astro:assets';
 import Footer from './Footer.astro';
 import Header from './Header.astro';
 import QuickLinkIcon from './QuickLinkIcon.astro';
 import Layout from '../layouts/Layout.astro';
 import { getLocalizedProject, getProjectButtonLabel, projects, type Project } from '../data/projects';
-import { htmlLang, localePath, type Locale, ui } from '../i18n';
+import { localePath, type Locale, ui } from '../i18n';
 
 type Props = {
 	project: Project;
@@ -21,12 +22,51 @@ const nextProject = getLocalizedProject(projects[(currentIndex + 1) % projects.l
 const hasGallery = project.images.length > 1;
 const totalLabel = String(project.images.length).padStart(2, '0');
 const isExternal = (href: string) => href.startsWith('http');
+
+/*
+ * The screenshots are CloudFront originals of up to ~1900px. The frame is
+ * ~500px wide and the thumbnails 96px, so both are re-encoded at build time to
+ * something proportionate. Slides keep each image's own ratio — the frame is
+ * still sized by the first one — while thumbnails are cropped to the 16:10 the
+ * strip renders them at. Sharp will not upscale, so screenshots already smaller
+ * than the target come through untouched.
+ */
+const FRAME_WIDTH = 1000;
+const THUMB_WIDTH = 192;
+
+/** `src` is a required attribute, so deferred slides hold a transparent pixel until shown. */
+const BLANK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+const gallery = await Promise.all(
+	project.images.map(async (image) => {
+		const [slide, thumb] = await Promise.all([
+			getImage({
+				src: image.src,
+				width: FRAME_WIDTH,
+				height: Math.round((FRAME_WIDTH * image.height) / image.width),
+				format: 'webp',
+				quality: 78,
+			}),
+			getImage({
+				src: image.src,
+				width: THUMB_WIDTH,
+				height: Math.round((THUMB_WIDTH * 10) / 16),
+				format: 'webp',
+				quality: 70,
+			}),
+		]);
+
+		return { alt: image.alt, width: image.width, height: image.height, slide: slide.src, thumb: thumb.src };
+	})
+);
 ---
 
-<Layout lang={htmlLang[locale]} title={project.title} description={project.description}>
+<!-- shortDescription, not description: the long one runs to ~490 characters,
+     well past what search results and social cards keep. -->
+<Layout locale={locale} title={project.title} description={project.shortDescription}>
 	<Header locale={locale} />
 
-	<main class="shell">
+	<main id="content" class="shell">
 		<nav class="flex items-center gap-2 pt-9 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-muted-2">
 			<a
 				class="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
@@ -57,23 +97,32 @@ const isExternal = (href: string) => href.startsWith('http');
 				<div class="relative overflow-hidden rounded-[3px] bg-navy shadow-[0_30px_70px_-40px_rgb(12_23_48/0.6)]">
 					<!-- No fixed aspect ratio: the first screenshot sets the frame height and the
 					     rest are contained inside it. Within a project the shots share nearly the
-					     same ratio, so this removes the letterboxing a fixed frame would cause,
-					     without needing intrinsic dimensions in the data. -->
+					     same ratio, so this removes the letterboxing a fixed frame would cause.
+					     Its intrinsic size is declared so the box is reserved up front — without
+					     it the frame started at zero height and shoved the article down on load. -->
 					<img
 						data-slide="0"
 						class="block h-auto w-full opacity-100 transition-opacity duration-300"
-						src={project.images[0].src}
-						alt={project.images[0].alt}
+						src={gallery[0].slide}
+						alt={gallery[0].alt}
+						width={gallery[0].width}
+						height={gallery[0].height}
 						loading="eager"
+						fetchpriority="high"
 					/>
 
+					<!-- These sit inside the visible frame, so `loading="lazy"` would never
+					     defer them. Holding the URL back until a slide is first shown does. -->
 					{
-						project.images.slice(1).map((image, offset) => (
+						gallery.slice(1).map((image, offset) => (
 							<img
 								data-slide={offset + 1}
 								class="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-300"
-								src={image.src}
+								src={BLANK_PIXEL}
+								data-src={image.slide}
 								alt={image.alt}
+								width={image.width}
+								height={image.height}
 								loading="lazy"
 							/>
 						))
@@ -117,7 +166,7 @@ const isExternal = (href: string) => href.startsWith('http');
 					hasGallery && (
 						<div class="relative min-h-0 min-w-0">
 							<div class="flex gap-2.5 overflow-x-auto pb-1 lg:absolute lg:inset-0 lg:flex-col lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
-								{project.images.map((image, index) => (
+								{gallery.map((image, index) => (
 									<button
 										type="button"
 										data-gallery-target={index}
@@ -130,7 +179,15 @@ const isExternal = (href: string) => href.startsWith('http');
 										aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
 										aria-current={index === 0 ? 'true' : undefined}
 									>
-										<img class="aspect-[16/10] w-full object-cover" src={image.src} alt="" loading="lazy" />
+										<img
+											class="aspect-[16/10] w-full object-cover"
+											src={image.thumb}
+											alt=""
+											width={192}
+											height={120}
+											loading="lazy"
+											decoding="async"
+										/>
 									</button>
 								))}
 							</div>
@@ -245,8 +302,21 @@ const isExternal = (href: string) => href.startsWith('http');
 
 			let active = 0;
 
+			// Slides carry their URL in data-src until first shown. Neighbours are
+			// resolved alongside so stepping through the gallery never waits.
+			const load = (index) => {
+				const slide = slides[(index + slides.length) % slides.length];
+				const src = slide?.getAttribute('data-src');
+				if (!src) return;
+				slide.setAttribute('src', src);
+				slide.removeAttribute('data-src');
+			};
+
 			const show = (next) => {
 				const index = (next + slides.length) % slides.length;
+				load(index);
+				load(index + 1);
+				load(index - 1);
 				if (index === active) return;
 				active = index;
 

@@ -5,14 +5,17 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-	lang="de-AT"
+	locale="de"
+	translated={false}
 	title="Impressum und Datenschutz | Manuel Veigel"
 	description="Impressum und Datenschutzerklärung von Manuel Veigel."
 >
 	<Header locale="de" showLanguageSwitcher={false} />
-	<main class="shell py-14 lg:py-20">
+	<main id="content" class="shell py-14 lg:py-20">
 		<article class="legal-content soft-card rounded-lg p-6 sm:p-10 lg:p-12">
-			<h1>Impressum</h1>
+			<h1>Impressum und Datenschutzerklärung</h1>
+
+			<h2>Impressum</h2>
 			<p>Informationen über den Diensteanbieter.</p>
 			<p>
 				<strong>Manuel Veigel</strong><br />
@@ -23,7 +26,7 @@ import Layout from '../layouts/Layout.astro';
 				<a href="mailto:maveigel@gmail.com">maveigel@gmail.com</a>
 			</p>
 
-			<h2>Bildernachweis</h2>
+			<h3>Bildernachweis</h3>
 			<p>Die Bilder, Fotos und Grafiken auf dieser Webseite sind urheberrechtlich geschützt.</p>
 			<p>Alle Texte sind urheberrechtlich geschützt.</p>
 			<p>
@@ -34,8 +37,8 @@ import Layout from '../layouts/Layout.astro';
 				und redaktionell an diese Website angepasst.
 			</p>
 
-			<h1 class="mt-14">Datenschutzerklärung</h1>
-			<h2>Einleitung und Überblick</h2>
+			<h2 class="mt-14">Datenschutzerklärung</h2>
+			<h3>Einleitung und Überblick</h3>
 			<p>
 				Wir haben diese Datenschutzerklärung verfasst, um Ihnen gemäß der Vorgaben der Datenschutz-Grundverordnung
 				(EU) 2016/679 und anwendbaren nationalen Gesetzen zu erklären, welche personenbezogenen Daten verarbeitet
@@ -46,14 +49,14 @@ import Layout from '../layouts/Layout.astro';
 				Links und bei der Kontaktaufnahme per E-Mail verarbeitet werden können.
 			</p>
 
-			<h2>Anwendungsbereich</h2>
+			<h3>Anwendungsbereich</h3>
 			<p>
 				Diese Datenschutzerklärung gilt für diese Website und die darüber angebotenen Inhalte. Sie gilt auch für
 				die Kommunikation, wenn Sie per E-Mail Kontakt aufnehmen. Für externe Websites, die über Links erreichbar
 				sind, gelten die Datenschutzerklärungen der jeweiligen Anbieter.
 			</p>
 
-			<h2>Rechtsgrundlagen</h2>
+			<h3>Rechtsgrundlagen</h3>
 			<p>
 				Wir verarbeiten personenbezogene Daten nur, wenn mindestens eine der folgenden Rechtsgrundlagen vorliegt:
 			</p>
@@ -68,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
 				Vorschriften relevant sind, werden diese berücksichtigt.
 			</p>
 
-			<h2>Kontaktdaten des Verantwortlichen</h2>
+			<h3>Kontaktdaten des Verantwortlichen</h3>
 			<p>
 				Manuel Veigel<br />
 				Wien, Österreich
@@ -78,7 +81,7 @@ import Layout from '../layouts/Layout.astro';
 				<a href="mailto:maveigel@gmail.com">maveigel@gmail.com</a>
 			</p>
 
-			<h2>Speicherdauer</h2>
+			<h3>Speicherdauer</h3>
 			<p>
 				Personenbezogene Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist
 				oder gesetzliche Aufbewahrungspflichten bestehen. Wenn Sie die Löschung Ihrer Daten verlangen oder eine
@@ -86,7 +89,7 @@ import Layout from '../layouts/Layout.astro';
 				entgegensteht.
 			</p>
 
-			<h2>Ihre Rechte laut DSGVO</h2>
+			<h3>Ihre Rechte laut DSGVO</h3>
 			<p>Sie haben nach Maßgabe der DSGVO insbesondere folgende Rechte:</p>
 			<ul>
 				<li>Auskunft über die verarbeiteten personenbezogenen Daten gemäß Art. 15 DSGVO.</li>
@@ -102,7 +105,7 @@ import Layout from '../layouts/Layout.astro';
 				<a href="https://www.dsb.gv.at/" target="_blank" rel="noopener noreferrer">https://www.dsb.gv.at/</a>.
 			</p>
 
-			<h2>Österreichische Datenschutzbehörde</h2>
+			<h3>Österreichische Datenschutzbehörde</h3>
 			<p>
 				<strong>Leiter:</strong> Dr. Matthias Schmidl<br />
 				<strong>Adresse:</strong> Barichgasse 40-42, 1030 Wien<br />
@@ -113,14 +116,14 @@ import Layout from '../layouts/Layout.astro';
 				<a href="https://www.dsb.gv.at/" target="_blank" rel="noopener noreferrer">https://www.dsb.gv.at/</a>
 			</p>
 
-			<h2>TLS-Verschlüsselung mit HTTPS</h2>
+			<h3>TLS-Verschlüsselung mit HTTPS</h3>
 			<p>
 				Diese Website wird über HTTPS bereitgestellt. Dadurch ist die Übertragung zwischen Ihrem Browser und dem
 				Webserver verschlüsselt. Sie erkennen dies am Schlosssymbol in der Adresszeile Ihres Browsers und am
 				Schema <code>https://</code>.
 			</p>
 
-			<h2>Kommunikation</h2>
+			<h3>Kommunikation</h3>
 			<table>
 				<tbody>
 					<tr>
@@ -140,7 +143,7 @@ import Layout from '../layouts/Layout.astro';
 				gesetzlichen Aufbewahrungspflichten entgegenstehen.
 			</p>
 
-			<h2>Cookies</h2>
+			<h3>Cookies</h3>
 			<p>
 				Diese Website setzt derzeit keine eigenen Tracking- oder Marketing-Cookies. Es wird kein Cookie-Banner
 				angezeigt, weil keine einwilligungspflichtigen Trackingdienste eingebunden sind. Ihr Browser kann
@@ -148,7 +151,7 @@ import Layout from '../layouts/Layout.astro';
 				übermitteln.
 			</p>
 
-			<h2>Webhosting und Server-Logfiles</h2>
+			<h3>Webhosting und Server-Logfiles</h3>
 			<table>
 				<tbody>
 					<tr>
@@ -169,7 +172,7 @@ import Layout from '../layouts/Layout.astro';
 				Betrieb abzusichern.
 			</p>
 
-			<h2>GitHub Pages</h2>
+			<h3>GitHub Pages</h3>
 			<p>
 				Sofern diese Website über GitHub Pages ausgeliefert wird, ist Anbieter GitHub, Inc., 88 Colin P. Kelly
 				Jr. Street, San Francisco, CA 94107, USA. Beim Besuch einer GitHub-Pages-Website kann Ihre IP-Adresse aus
@@ -189,51 +192,55 @@ import Layout from '../layouts/Layout.astro';
 				</li>
 			</ul>
 
-			<h2>Amazon CloudFront</h2>
+			<h3>Amazon CloudFront</h3>
 			<p>
-				Für Projektbilder werden Dateien von <code>https://d29l6egdxvgg9c.cloudfront.net/</code> geladen. Dabei
-				handelt es sich um eine Amazon-CloudFront-Adresse. Anbieter ist Amazon Web Services, Inc. bzw. die
-				jeweils zuständige AWS-Konzerngesellschaft. Beim Laden dieser Bilder können technische Zugriffsdaten wie
-				IP-Adresse, Browserinformationen, angeforderte Datei sowie Datum und Uhrzeit verarbeitet werden.
+				Die Projektbilder stammen ursprünglich von der Amazon-CloudFront-Adresse
+				<code>https://d29l6egdxvgg9c.cloudfront.net/</code>. Sie werden allerdings bereits beim Erstellen der
+				Website verarbeitet und in optimierter Größe gemeinsam mit der Website ausgeliefert. Beim Ansehen dieser
+				Website wird dafür also keine Verbindung zu Amazon Web Services aufgebaut, und es werden keine Daten
+				dorthin übermittelt.
 			</p>
 			<p>
-				Die Nutzung erfolgt auf Grundlage unseres berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO, die
-				Website schnell, stabil und mit optimierten Medieninhalten bereitzustellen. Weitere Informationen finden
-				Sie in den Datenschutzinformationen von AWS:
+				Eine Verbindung zu CloudFront entsteht nur, wenn Sie einen der verlinkten PDF-Projektberichte öffnen.
+				Dabei können technische Zugriffsdaten wie IP-Adresse, Browserinformationen, angeforderte Datei sowie
+				Datum und Uhrzeit verarbeitet werden. Anbieter ist Amazon Web Services, Inc. bzw. die jeweils zuständige
+				AWS-Konzerngesellschaft. Rechtsgrundlage ist unser berechtigtes Interesse gemäß Art. 6 Abs. 1 lit. f
+				DSGVO, diese Dokumente bereitzustellen. Weitere Informationen finden Sie in den Datenschutzinformationen
+				von AWS:
 				<a href="https://aws.amazon.com/privacy/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/privacy/</a>.
 			</p>
 
-			<h2>Externe Links</h2>
+			<h3>Externe Links</h3>
 			<p>
 				Auf dieser Website befinden sich Links zu externen Websites, darunter Projektseiten, GitHub-Repositories
-				und ein PDF-Projektbericht. Wenn Sie diese Links öffnen, verlassen Sie diese Website. Für die dortige
+				und PDF-Projektberichte. Wenn Sie diese Links öffnen, verlassen Sie diese Website. Für die dortige
 				Datenverarbeitung sind die jeweiligen Anbieter verantwortlich.
 			</p>
 
-			<h2>EU-Streitschlichtung</h2>
+			<h3>EU-Streitschlichtung</h3>
 			<p>
 				Die frühere Europäische Plattform für Online-Streitbeilegung (OS-Plattform) wurde am 20. Juli 2025
 				eingestellt. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
 				Verbraucherschlichtungsstelle teilzunehmen.
 			</p>
 
-			<h2>Erklärung verwendeter Begriffe</h2>
-			<h3>Personenbezogene Daten</h3>
+			<h3>Erklärung verwendeter Begriffe</h3>
+			<h4>Personenbezogene Daten</h4>
 			<p>
 				Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare
 				natürliche Person beziehen, zum Beispiel Name, E-Mail-Adresse oder IP-Adresse.
 			</p>
-			<h3>Verarbeitung</h3>
+			<h4>Verarbeitung</h4>
 			<p>
 				Verarbeitung bezeichnet jeden Vorgang im Zusammenhang mit personenbezogenen Daten, zum Beispiel das
 				Erheben, Speichern, Verwenden, Übermitteln oder Löschen.
 			</p>
-			<h3>Verantwortlicher</h3>
+			<h4>Verantwortlicher</h4>
 			<p>
 				Verantwortlicher ist die Person oder Stelle, die über Zwecke und Mittel der Verarbeitung personenbezogener
 				Daten entscheidet.
 			</p>
-			<h3>Auftragsverarbeiter</h3>
+			<h4>Auftragsverarbeiter</h4>
 			<p>
 				Auftragsverarbeiter sind Dienstleister, die personenbezogene Daten im Auftrag eines Verantwortlichen
 				verarbeiten.

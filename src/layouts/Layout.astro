@@ -1,21 +1,93 @@
 ---
 import '../styles/global.css';
+import { defaultLocale, htmlLang, localePath, locales, stripLocaleFromPathname, ui, type Locale } from '../i18n';
+
+type Props = {
+	title?: string;
+	description?: string;
+	locale?: Locale;
+	/** Off for pages that exist in one language only, so they claim no alternates. */
+	translated?: boolean;
+	/** The 404 page is also reachable at /404/, where it answers 200 and would be indexable. */
+	noindex?: boolean;
+};
 
 const {
 	title = 'Manuel Veigel | Software Developer',
 	description = 'Portfolio of Manuel Veigel, a software developer building clean and useful digital products.',
-	lang = 'en',
+	locale = defaultLocale,
+	translated = true,
+	noindex = false,
 } = Astro.props;
+
+const t = ui[locale];
+
+// Routes build to directory format, and GitHub Pages 301s the slashless form to
+// the trailing-slash one. That redirect target is the URL to declare, here and
+// in the sitemap, so nothing points a search engine at a redirect.
+const withTrailingSlash = (path: string) => (path.endsWith('/') ? path : `${path}/`);
+
+const normalizedPath = withTrailingSlash(Astro.url.pathname);
+const canonical = new URL(normalizedPath, Astro.site);
+
+const alternateFor = (alternateLocale: Locale) =>
+	new URL(withTrailingSlash(localePath(alternateLocale, stripLocaleFromPathname(normalizedPath))), Astro.site).href;
+
+const alternates = translated
+	? locales.map((alternateLocale) => ({ locale: alternateLocale, href: alternateFor(alternateLocale) }))
+	: [];
+
+/*
+ * public/og.jpg is the avatar padded onto the 1.91:1 canvas social platforms
+ * expect — they crop anything squarer, which takes the top of the portrait off.
+ * Astro's image service cannot pad (it maps `contain` to sharp's `inside`), so
+ * the card is generated from src/assets/avatar.webp and checked in. Regenerate
+ * it if the avatar ever changes:
+ *
+ *   sharp(avatar).resize(600, 600, { fit: 'inside' })  ->  composite onto a
+ *   1200x630 #f4f6f9 canvas, centred, jpeg quality 82.
+ */
+const ogImageUrl = new URL('/og.jpg', Astro.site);
+const ogImageSize = { width: 1200, height: 630 };
+
+const ogLocales: Record<Locale, string> = { en: 'en_US', de: 'de_AT' };
 ---
 
 <!doctype html>
-<html lang={lang} data-theme="portfolio">
+<html lang={htmlLang[locale]} data-theme="portfolio">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#f4f6f9" />
+		{noindex && <meta name="robots" content="noindex" />}
+
+		<link rel="canonical" href={canonical.href} />
+		{alternates.map((alternate) => <link rel="alternate" hreflang={alternate.locale} href={alternate.href} />)}
+		{translated && <link rel="alternate" hreflang="x-default" href={alternateFor(defaultLocale)} />}
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Manuel Veigel" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical.href} />
+		<meta property="og:image" content={ogImageUrl.href} />
+		<meta property="og:image:width" content={String(ogImageSize.width)} />
+		<meta property="og:image:height" content={String(ogImageSize.height)} />
+		<meta property="og:image:alt" content={t.hero.avatarAlt} />
+		<meta property="og:locale" content={ogLocales[locale]} />
+		{
+			locales
+				.filter((alternateLocale) => translated && alternateLocale !== locale)
+				.map((alternateLocale) => <meta property="og:locale:alternate" content={ogLocales[alternateLocale]} />)
+		}
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl.href} />
 
 		<link rel="preload" href="/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/fonts/source-serif-4-var-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -23,6 +95,7 @@ const {
 		<title>{title}</title>
 	</head>
 	<body class="bg-base-100 text-base-content">
+		<a class="skip-link" href="#content">{t.nav.skip}</a>
 		<slot />
 	</body>
 </html>
