@@ -26,6 +26,8 @@ export const ui = {
 			projects: 'Projects',
 			open: 'Open navigation',
 			language: 'Language',
+			main: 'Main navigation',
+			skip: 'Skip to content',
 		},
 		hero: {
 			// Split across two lines deliberately rather than left to wrap.
@@ -41,8 +43,6 @@ export const ui = {
 			title: 'Featured Projects',
 			more: 'More Projects',
 			readMore: 'View project',
-			viewDetails: 'View details for',
-			imageAlt: 'screenshot',
 			slots: {
 				website: 'Site',
 				demo: 'Demo',
@@ -84,6 +84,13 @@ export const ui = {
 		footer: {
 			legal: 'Legal Notice',
 		},
+		notFound: {
+			title: 'Page not found | Manuel Veigel',
+			eyebrow: 'Error 404',
+			heading: 'This page does not exist.',
+			description: 'The link may be out of date, or the page has moved since it was last shared.',
+			home: 'Back to the home page',
+		},
 	},
 	de: {
 		meta: {
@@ -97,6 +104,8 @@ export const ui = {
 			projects: 'Projekte',
 			open: 'Navigation öffnen',
 			language: 'Sprache',
+			main: 'Hauptnavigation',
+			skip: 'Zum Inhalt springen',
 		},
 		hero: {
 			titleTop: 'Hey, ich bin',
@@ -111,8 +120,6 @@ export const ui = {
 			title: 'Ausgewählte Projekte',
 			more: 'Weitere Projekte',
 			readMore: 'Projekt ansehen',
-			viewDetails: 'Details ansehen zu',
-			imageAlt: 'Screenshot',
 			slots: {
 				website: 'Site',
 				demo: 'Demo',
@@ -153,6 +160,13 @@ export const ui = {
 		},
 		footer: {
 			legal: 'Impressum',
+		},
+		notFound: {
+			title: 'Seite nicht gefunden | Manuel Veigel',
+			eyebrow: 'Fehler 404',
+			heading: 'Diese Seite gibt es nicht.',
+			description: 'Vielleicht ist der Link veraltet, oder die Seite ist seit dem Teilen umgezogen.',
+			home: 'Zurück zur Startseite',
 		},
 	},
 } as const;

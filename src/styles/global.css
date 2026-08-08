@@ -69,7 +69,9 @@
 	--color-navy: #0c1730;
 	--color-rule: #dce1e9;
 	--color-muted: #5b6577;
-	--color-muted-2: #838d9e;
+	/* Both muted greys clear WCAG AA (4.5:1) on base-100 — they are used at
+	   0.68–0.8rem, so they never qualify for the large-text exemption. */
+	--color-muted-2: #666f7e;
 	--color-blue-bright: #85aaff;
 }
 
@@ -119,9 +121,28 @@ a {
 
 /* Anchor targets clear the sticky header (4.25rem) so a jumped-to section
    shows its own heading rather than starting underneath the navbar. */
+main[id],
 main section[id],
 footer[id] {
 	scroll-margin-top: 5.5rem;
+}
+
+/* Off-screen until tabbed to, so keyboard users can jump the header without
+   it costing anything visually. */
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	z-index: 100;
+	padding: 0.75rem 1.25rem;
+	background: var(--color-neutral);
+	color: var(--color-neutral-content);
+	font-family: var(--font-mono);
+	font-size: 0.8rem;
+}
+
+.skip-link:focus-visible {
+	left: 1rem;
+	top: 1rem;
 }
 
 @media (max-width: 860px) {
@@ -208,8 +229,10 @@ footer[id] {
 	border-bottom-color: rgb(255 255 255 / 0.14);
 }
 
+/* These quick links are icon-only, so the border is the only thing marking out
+   the control — it has to clear the 3:1 non-text contrast minimum on its own. */
 .btn-on-dark {
-	border-color: rgb(255 255 255 / 0.22);
+	border-color: rgb(255 255 255 / 0.35);
 	background: transparent;
 	color: #fff;
 }
@@ -266,22 +289,10 @@ footer[id] {
 	white-space: nowrap;
 }
 
-.chip svg,
-.chip .chip-fallback {
+.chip svg {
 	width: 22px;
 	height: 22px;
 	flex: 0 0 auto;
-}
-
-.chip .chip-fallback {
-	display: grid;
-	place-items: center;
-	border-radius: 2px;
-	background: #eef1f6;
-	font-family: var(--font-mono);
-	font-size: 0.66rem;
-	font-weight: 500;
-	color: var(--color-muted);
 }
 
 /* ---- Header nav ------------------------------------------------------- */
@@ -364,10 +375,15 @@ footer[id] {
 
 .legal-content h1,
 .legal-content h2,
-.legal-content h3 {
+.legal-content h3,
+.legal-content h4 {
 	color: var(--color-navy);
 	font-family: var(--font-display);
 	letter-spacing: -0.02em;
+	/* Single long German compounds ("Datenschutzerklärung") are wider than the
+	   card at 320px and used to push the whole page into horizontal scroll. */
+	overflow-wrap: break-word;
+	hyphens: auto;
 }
 
 .legal-content h1 {
@@ -390,6 +406,14 @@ footer[id] {
 	margin-bottom: 0.5rem;
 	font-size: 1.1rem;
 	line-height: 1.45;
+	font-weight: 700;
+}
+
+.legal-content h4 {
+	margin-top: 1.5rem;
+	margin-bottom: 0.5rem;
+	font-size: 1rem;
+	line-height: 1.5;
 	font-weight: 700;
 }
 

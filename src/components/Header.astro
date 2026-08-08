@@ -38,7 +38,7 @@ const navItems = [
 			</a>
 		</div>
 
-		<nav class="navbar-center hidden gap-9 lg:flex" aria-label={t.nav.home}>
+		<nav class="navbar-center hidden gap-9 lg:flex" aria-label={t.nav.main}>
 			{navItems.map((item) => <a class="nav-link" href={item.href}>{item.label}</a>)}
 		</nav>
 
@@ -66,10 +66,14 @@ const navItems = [
 				)
 			}
 
-			<div class="dropdown dropdown-end lg:hidden">
-				<button class="btn btn-ghost btn-square" type="button" aria-label={t.nav.open}>
+			<!-- A <details> disclosure rather than daisyUI's :focus-within dropdown:
+			     that variant hangs on the toggle receiving focus from a click, which
+			     Safari does not reliably do for <button>. This opens on every browser
+			     without script and exposes its expanded state natively. -->
+			<details class="dropdown dropdown-end lg:hidden">
+				<summary class="btn btn-ghost btn-square list-none" aria-label={t.nav.open}>
 					<Menu size={22} />
-				</button>
+				</summary>
 				<ul class="menu dropdown-content z-50 mt-3 w-52 gap-1 rounded-box border border-base-300 bg-base-200 p-2 shadow-lg">
 					{
 						navItems.map((item) => (
@@ -105,7 +109,32 @@ const navItems = [
 						)
 					}
 				</ul>
-			</div>
+			</details>
 		</div>
 	</div>
 </header>
+
+<script>
+	// Progressive enhancement only — the disclosure opens and closes on its own
+	// without this. It adds the dismissals people expect from a menu.
+	document.querySelectorAll('details.dropdown').forEach((menu) => {
+		const summary = menu.querySelector('summary');
+		const close = () => menu.removeAttribute('open');
+
+		menu.addEventListener('keydown', (event) => {
+			if ((event as KeyboardEvent).key !== 'Escape') return;
+			close();
+			summary?.focus();
+		});
+
+		// Anchor links inside the page the menu is already on would otherwise
+		// scroll behind a menu that stays open.
+		menu.addEventListener('click', (event) => {
+			if (event.target instanceof Element && event.target.closest('a')) close();
+		});
+
+		document.addEventListener('click', (event) => {
+			if (menu.hasAttribute('open') && event.target instanceof Node && !menu.contains(event.target)) close();
+		});
+	});
+</script>
