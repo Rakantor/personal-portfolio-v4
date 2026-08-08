@@ -11,6 +11,8 @@ export type ProjectButton = {
 export type ProjectImage = {
 	src: string;
 	alt: string;
+	width: number;
+	height: number;
 };
 
 export type Project = {
@@ -29,10 +31,21 @@ export type Project = {
 
 const projectScreenshotBaseUrl = 'https://d29l6egdxvgg9c.cloudfront.net';
 const projectScreenshot = (fileName: string) => `${projectScreenshotBaseUrl}/${fileName}`;
-const projectImages = (title: string, fileNames: string[]): ProjectImage[] =>
-	fileNames.map((fileName, index) => ({
+
+/**
+ * `[fileName, width, height]`. The screenshots are served from CloudFront rather
+ * than bundled, so their intrinsic size cannot be read at build time — carrying
+ * it here is what lets the gallery reserve the right box before the first image
+ * arrives instead of reflowing the page under it.
+ */
+type ProjectImageSource = [fileName: string, width: number, height: number];
+
+const projectImages = (title: string, sources: ProjectImageSource[]): ProjectImage[] =>
+	sources.map(([fileName, width, height], index) => ({
 		src: projectScreenshot(fileName),
 		alt: `${title} screenshot ${index + 1}`,
+		width,
+		height,
 	}));
 
 export const projects: Project[] = [
@@ -70,15 +83,15 @@ export const projects: Project[] = [
 		],
 		image: projectScreenshot('torii-v2-01.jpg'),
 		images: projectImages('Torii SRS (v2)', [
-			'torii-v2-01.jpg',
-			'torii-v2-03.jpg',
-			'torii-v2-04.jpg',
-			'torii-v2-05.jpg',
-			'torii-v2-06.jpg',
-			'torii-v2-07.jpg',
-			'torii-v2-08.jpg',
-			'torii-v2-09.jpg',
-			'torii-v2-10.jpg',
+			['torii-v2-01.jpg', 750, 761],
+			['torii-v2-03.jpg', 1000, 1014],
+			['torii-v2-04.jpg', 1000, 1014],
+			['torii-v2-05.jpg', 1000, 1014],
+			['torii-v2-06.jpg', 1000, 1014],
+			['torii-v2-07.jpg', 1000, 1014],
+			['torii-v2-08.jpg', 1000, 1014],
+			['torii-v2-09.jpg', 1000, 1014],
+			['torii-v2-10.jpg', 1000, 1014],
 		]),
 		buttons: [
 			{
@@ -111,12 +124,12 @@ export const projects: Project[] = [
 		tech: ['Java', 'libGDX', 'MySQL', 'PHP', 'Amazon Web Services', 'WordPress'],
 		image: projectScreenshot('torii-v1-1.jpg'),
 		images: projectImages('Torii SRS (v1)', [
-			'torii-v1-1.jpg',
-			'torii-v1-2.png',
-			'torii-v1-3.png',
-			'torii-v1-4.png',
-			'torii-v1-5.png',
-			'torii-v1-6.png',
+			['torii-v1-1.jpg', 750, 750],
+			['torii-v1-2.png', 1082, 1119],
+			['torii-v1-3.png', 1082, 1119],
+			['torii-v1-4.png', 1082, 1119],
+			['torii-v1-5.png', 1082, 1119],
+			['torii-v1-6.png', 1082, 1119],
 		]),
 		buttons: [
 			{
@@ -148,7 +161,7 @@ export const projects: Project[] = [
 			'Product sites and app screens are almost opposite problems. Inside the app, people already know what they want; on a landing page you have a few seconds to explain why they should care at all. Learning to lead with the value instead of the feature list was the useful part here. That, and how good a site feels when it ships almost no JavaScript.',
 		tech: ['TypeScript', 'Astro', 'React', 'Tailwind CSS', 'shadcn/ui'],
 		image: projectScreenshot('torii-srs-site-1.jpg'),
-		images: projectImages('Torii SRS Landing Page', ['torii-srs-site-1.jpg']),
+		images: projectImages('Torii SRS Landing Page', [['torii-srs-site-1.jpg', 1440, 1100]]),
 		buttons: [
 			{
 				href: 'https://beta.torii-srs.com',
@@ -185,8 +198,8 @@ export const projects: Project[] = [
 		tech: ['TypeScript', 'Vitest'],
 		image: projectScreenshot('gdrive-pdf-2.webp'),
 		images: projectImages('GDrive PDF Downloader', [
-			'gdrive-pdf-1.webp',
-			'gdrive-pdf-2.webp',
+			['gdrive-pdf-1.webp', 1536, 1024],
+			['gdrive-pdf-2.webp', 1560, 1008],
 		]),
 		buttons: [
 			{
@@ -218,7 +231,7 @@ export const projects: Project[] = [
 			'The interesting part was not the code, it was noticing what makes people come back to material they find boring. Immediate feedback, a bit of competition and short rounds did more for that than any feature I could have added. It also showed me how much a managed backend buys you when the real constraint is the deadline.',
 		tech: ['JavaScript', 'Vue.js', 'Nuxt', 'Vuetify', 'Firebase'],
 		image: projectScreenshot('iu-quiz-app-2.jpg'),
-		images: projectImages('IU Quiz App', ['iu-quiz-app-2.jpg']),
+		images: projectImages('IU Quiz App', [['iu-quiz-app-2.jpg', 1000, 1000]]),
 		buttons: [
 			{
 				href: 'https://iu-quiz-app.web.app',
@@ -257,13 +270,13 @@ export const projects: Project[] = [
 		tech: ['Java', 'libGDX', 'Tiled'],
 		image: projectScreenshot('pmb-0.webp'),
 		images: projectImages('Menacing Blue', [
-			'pmb-0.webp',
-			'pmb-6.png',
-			'pmb-1.png',
-			'pmb-2.png',
-			'pmb-3.png',
-			'pmb-4.png',
-			'pmb-5.png',
+			['pmb-0.webp', 1683, 1104],
+			['pmb-6.png', 1922, 1119],
+			['pmb-1.png', 1922, 1119],
+			['pmb-2.png', 1922, 1119],
+			['pmb-3.png', 1922, 1119],
+			['pmb-4.png', 1922, 1119],
+			['pmb-5.png', 1922, 1119],
 		]),
 		buttons: [
 			{
@@ -280,7 +293,7 @@ export const projects: Project[] = [
 		description:
 			'This is the site you are on. I rebuilt it with Astro because a portfolio is mostly text and images, and shipping an entire frontend framework to render that always felt like overkill. Everything is generated as static HTML at build time, it is available in English and German, and adding a new project means editing a single data file, which is the only reason it actually stays up to date.',
 		overview: [
-			'The fourth version of my personal site, and the first one without a frontend framework running in the browser. Astro renders the pages to static HTML at build time; the only JavaScript that reaches visitors is what the project image gallery genuinely needs.',
+			'The fourth version of my personal site, and the first one without a frontend framework running in the browser. Astro renders the pages to static HTML at build time; the only JavaScript that reaches visitors is the handful of lines the navigation menu and the project image gallery genuinely need.',
 			'Content and presentation are kept apart on purpose. Projects and skills live in typed data files with their translations right next to them, and both language versions of the site are generated from that. Adding a project, a skill or a language is a content change rather than a rewrite.',
 		],
 		features: [
@@ -294,7 +307,7 @@ export const projects: Project[] = [
 			'Rebuilding the same site for the fourth time is a good way to notice what actually changes over the years, and it is never the framework. Moving the content into typed data instead of scattering it across templates is what finally made this thing pleasant to update, and it is the pattern I now reach for whenever a site grows past a handful of pages.',
 		tech: ['TypeScript', 'Astro', 'Tailwind CSS', 'daisyUI', 'GitHub Pages'],
 		image: projectScreenshot('personal-website-1.jpg'),
-		images: projectImages('Personal Website', ['personal-website-1.jpg']),
+		images: projectImages('Personal Website', [['personal-website-1.jpg', 1920, 1246]]),
 		buttons: [
 			{
 				href: 'https://mave.dev',
@@ -328,7 +341,10 @@ export const projects: Project[] = [
 			'Mobile apps live and die by things that never show up in the UI: notifications that actually arrive, state that survives the system killing your app, and screens that work one-handed while you are holding a game box in the other. The feature list was the easy part.',
 		tech: ['Java', 'Android', 'Firebase'],
 		image: projectScreenshot('iu-gamer-app-1.jpg'),
-		images: projectImages('IU Gamer App', ['iu-gamer-app-1.jpg', 'iu-gamer-app-2.jpg']),
+		images: projectImages('IU Gamer App', [
+			['iu-gamer-app-1.jpg', 1650, 1080],
+			['iu-gamer-app-2.jpg', 1650, 1080],
+		]),
 		buttons: [
 			{
 				href: projectScreenshot('iu-gamer-app-projektbericht.pdf'),
@@ -471,7 +487,7 @@ const projectTranslations = {
 			description:
 				'Das ist die Seite, auf der du gerade bist. Ich habe sie mit Astro neu gebaut, weil ein Portfolio hauptsächlich aus Text und Bildern besteht und es sich immer nach Overkill angefühlt hat, dafür ein ganzes Frontend-Framework auszuliefern. Alles wird beim Build als statisches HTML generiert, es gibt sie auf Deutsch und Englisch, und ein neues Projekt hinzuzufügen heißt: eine einzige Datei bearbeiten. Nur deshalb bleibt sie überhaupt aktuell.',
 			overview: [
-				'Die vierte Version meiner persönlichen Website und die erste ohne Frontend-Framework im Browser. Astro rendert die Seiten beim Build zu statischem HTML; das einzige JavaScript, das bei Besuchern ankommt, ist das, was die Bildergalerie in den Projekten wirklich braucht.',
+				'Die vierte Version meiner persönlichen Website und die erste ohne Frontend-Framework im Browser. Astro rendert die Seiten beim Build zu statischem HTML; das einzige JavaScript, das bei Besuchern ankommt, sind die paar Zeilen, die das Navigationsmenü und die Bildergalerie in den Projekten wirklich brauchen.',
 				'Inhalt und Darstellung sind bewusst getrennt. Projekte und Skills liegen in typisierten Datendateien, die Übersetzungen gleich daneben, und beide Sprachversionen werden daraus generiert. Ein neues Projekt, ein neuer Skill oder eine weitere Sprache sind damit eine Inhaltsänderung und kein Umbau.',
 			],
 			features: [

@@ -1,5 +1,6 @@
 ---
 import { ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
 import avatar from '../assets/avatar.webp';
 import { localePath, type Locale, ui } from '../i18n';
 
@@ -39,12 +40,15 @@ const t = ui[locale];
 	</div>
 
 	<figure class="m-0 w-full justify-self-end max-lg:order-first max-lg:w-[min(70%,17rem)] max-lg:justify-self-center">
-		<img
+		<!-- The source is 1254px square but never renders wider than 416px, so it is
+		     served as a srcset rather than shipping the full file to every visitor. -->
+		<Image
 			class="h-auto w-full"
-			src={avatar.src}
-			width={avatar.width}
-			height={avatar.height}
+			src={avatar}
+			widths={[272, 416, 544, 832]}
+			sizes="(min-width: 1024px) 26rem, min(70vw, 17rem)"
 			alt={t.hero.avatarAlt}
+			loading="eager"
 			fetchpriority="high"
 		/>
 	</figure>
