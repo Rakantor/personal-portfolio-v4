@@ -95,7 +95,7 @@ export const projects: Project[] = [
 		]),
 		buttons: [
 			{
-				href: 'https://app.torii-srs.com',
+				href: 'https://beta.torii-srs.com',
 				aria: 'Torii SRS v2 website',
 				type: 'website',
 			},
@@ -213,7 +213,7 @@ export const projects: Project[] = [
 		slug: 'iu-quiz-app',
 		title: 'IU Quiz App',
 		shortDescription:
-			'A quiz platform that lets fellow distance-learning students work through exam questions together instead of grinding through them alone.',
+			'A quiz platform that lets students work through exam questions together instead of grinding through them alone.',
 		description:
 			'A university project from my studies at IU International University, built around a problem I had myself: in distance learning, you prepare for exams largely on your own. This app makes that part social. Students work through subject-specific questions in a shared quiz format inspired by the quiz games everyone knows, solo or against each other, which makes going over the same material for the third time noticeably less painful.',
 		overview: [
@@ -286,6 +286,41 @@ export const projects: Project[] = [
 		],
 	},
 	{
+		slug: 'leave-me-be',
+		title: 'LMB (WoW)',
+		shortDescription:
+			'A World of Warcraft addon that quietly filters unwanted whispers, with automatic replies, allowlists, and blocking that switches itself on while you lead a group.',
+		description:
+			'Leave Me Be started with an annoyance: the moment you list a group in World of Warcraft\'s Premade Group Finder, your chat turns into a wall of whispers from people you have never met. The addon filters them out before they ever reach the screen, sends the sender a polite automatic reply, and lets friends, guild members, group members and anyone above a level you pick through as normal. The level threshold is there because the whispers actually worth blocking, gold sellers and scam links, come from freshly made low-level characters almost without exception. Blocked messages are not thrown away either, they are logged, so you can look at what you missed once you are done playing.',
+		overview: [
+			'WoW\'s whisper system is fine right up to the moment you become interesting to strangers. Leading a listed group is the obvious case: over the next few minutes a dozen requests pile up while you are trying to actually play. So the addon turns blocking on by itself while you are leading a listed group, and off again shortly after you stop, without you having to remember either.',
+			'It is a small Lua addon with deliberately little to it: four files, saved variables for the settings and the message log, and an options panel inside the game\'s own settings menu instead of yet another custom window. Releases are packaged and pushed to CurseForge by GitHub Actions whenever I tag a version.',
+		],
+		features: [
+			'Filters unwanted whispers out of chat entirely, instead of showing them and marking them afterwards',
+			'Turns blocking on automatically while you lead a listed Premade Group Finder group, and off again once you stop',
+			'Customizable automatic reply, throttled per player so nobody gets spammed back',
+			'Exceptions for friends, guild members, group members, conversations already in progress, and anyone above a chosen level, which is what keeps the low-level spam accounts out',
+			'Personal allowlist and blocklist, plus a log of everything that was filtered',
+			'Configured from the game\'s own options panel or a handful of slash commands',
+		],
+		learned:
+			'The interesting problem was one the game does not solve for you: an incoming whisper says almost nothing about its sender, least of all their level. Getting at it means briefly adding them to the friend list to read the value back, then cleaning up after yourself, muting the sound and swallowing the system messages that come with it. Midnight\'s messaging lockdown added a second constraint on top, where chat data can arrive as values you are not allowed to compare or even look at, so the safe path had to be letting the message through rather than guessing.',
+		tech: ['Lua', 'World of Warcraft API', 'GitHub Actions'],
+		image: projectScreenshot('lmb-1.webp'),
+		images: projectImages('LMB (WoW)', [['lmb-1.webp', 1536, 1024]]),
+		buttons: [
+			{
+				href: 'https://www.curseforge.com/wow/addons/leave-me-be',
+				type: 'website',
+			},
+			{
+				href: 'https://github.com/Rakantor/wow-leave-me-be',
+				type: 'github',
+			},
+		],
+	},
+	{
 		slug: 'personal-website',
 		title: 'Personal Website',
 		shortDescription:
@@ -306,8 +341,8 @@ export const projects: Project[] = [
 		learned:
 			'Rebuilding the same site for the fourth time is a good way to notice what actually changes over the years, and it is never the framework. Moving the content into typed data instead of scattering it across templates is what finally made this thing pleasant to update, and it is the pattern I now reach for whenever a site grows past a handful of pages.',
 		tech: ['TypeScript', 'Astro', 'Tailwind CSS', 'daisyUI', 'GitHub Pages'],
-		image: projectScreenshot('personal-website-1.jpg'),
-		images: projectImages('Personal Website', [['personal-website-1.jpg', 1920, 1246]]),
+		image: projectScreenshot('personal-website-1.webp'),
+		images: projectImages('Personal Website', [['personal-website-1.webp', 1920, 1118]]),
 		buttons: [
 			{
 				href: 'https://mave.dev',
@@ -445,7 +480,7 @@ const projectTranslations = {
 		},
 		'iu-quiz-app': {
 			shortDescription:
-				'Eine Quizplattform, auf der Mitstudierende im Fernstudium Prüfungsfragen gemeinsam durchgehen statt allein durchackern.',
+				'Eine Quizplattform, auf der Studierende Prüfungsfragen gemeinsam durchgehen statt allein durchackern.',
 			description:
 				'Ein Studienprojekt aus meiner Zeit an der IU Internationale Hochschule, entstanden aus einem Problem, das ich selbst hatte: Im Fernstudium bereitet man sich weitgehend allein auf Prüfungen vor. Diese App macht genau diesen Teil sozial. Studierende arbeiten fachspezifische Fragen in einem gemeinsamen Quizformat durch, inspiriert von den bekannten Quizspielen, allein oder gegeneinander. Das macht die dritte Runde durch denselben Stoff deutlich erträglicher.',
 			overview: [
@@ -518,6 +553,26 @@ const projectTranslations = {
 			],
 			learned:
 				'Mobile Apps stehen und fallen mit Dingen, die man im UI nie sieht: Benachrichtigungen, die tatsächlich ankommen, Zustand, der überlebt, wenn das System die App abschießt, und Bildschirme, die sich einhändig bedienen lassen, während man in der anderen Hand eine Spieleschachtel hält. Die Feature-Liste war der einfache Teil.',
+		},
+		'leave-me-be': {
+			shortDescription:
+				'Ein World-of-Warcraft-Addon, das unerwünschte Flüsternachrichten still herausfiltert, mit automatischen Antworten, Ausnahmelisten und Blockieren, das sich beim Gruppenleiten selbst einschaltet.',
+			description:
+				'Leave Me Be ist aus einem Ärgernis entstanden: Sobald man in World of Warcraft eine Gruppe im Gruppenfinder inseriert, besteht der Chat nur noch aus Flüsternachrichten von Leuten, die man nie getroffen hat. Das Addon filtert sie heraus, bevor sie überhaupt am Bildschirm ankommen, schickt dem Absender eine freundliche automatische Antwort und lässt Freunde, Gildenmitglieder, Gruppenmitglieder und alle ab einem selbst gewählten Level ganz normal durch. Die Levelgrenze gibt es, weil die Nachrichten, die man wirklich loswerden will, also Goldverkäufer und Betrugslinks, fast ausnahmslos von frisch erstellten Charakteren auf niedriger Stufe kommen. Blockierte Nachrichten sind auch nicht verloren, sie werden protokolliert, damit man nach dem Spielen nachsehen kann, was man verpasst hat.',
+			overview: [
+				'Das Flüstersystem in WoW ist völlig in Ordnung, bis man für Fremde interessant wird. Der klassische Fall: Man leitet eine inserierte Gruppe, und über die nächsten Minuten sammelt sich ein Dutzend Anfragen an, während man eigentlich spielen möchte. Das Addon schaltet das Blockieren deshalb von selbst ein, solange man eine inserierte Gruppe leitet, und kurz danach wieder aus, ohne dass man an eines von beidem denken muss.',
+				'Es ist ein kleines Lua-Addon mit bewusst wenig Umfang: vier Dateien, gespeicherte Variablen für die Einstellungen und das Nachrichtenprotokoll und ein Optionsbereich im Einstellungsmenü des Spiels statt eines weiteren eigenen Fensters. Gepackt und zu CurseForge hochgeladen werden die Releases von GitHub Actions, sobald ich eine Version tagge.',
+			],
+			features: [
+				'Filtert unerwünschte Flüsternachrichten komplett aus dem Chat, statt sie anzuzeigen und nachträglich zu markieren',
+				'Schaltet das Blockieren automatisch ein, solange man eine inserierte Gruppe im Gruppenfinder leitet, und danach wieder aus',
+				'Anpassbare automatische Antwort, pro Spieler gedrosselt, damit niemand zurückgespammt wird',
+				'Ausnahmen für Freunde, Gildenmitglieder, Gruppenmitglieder, bereits laufende Gespräche und alle ab einem selbst gewählten Level, was die Spam-Accounts auf niedriger Stufe draußen hält',
+				'Eigene Allow- und Blockliste sowie ein Protokoll aller gefilterten Nachrichten',
+				'Konfiguration über das Optionsmenü des Spiels oder eine Handvoll Chat-Befehle',
+			],
+			learned:
+				'Das spannende Problem war eines, das einem das Spiel nicht abnimmt: Eine eingehende Flüsternachricht verrät fast nichts über den Absender, am wenigsten dessen Level. Um da heranzukommen, fügt man ihn kurz zur Freundesliste hinzu, liest den Wert aus und räumt danach wieder auf, inklusive Ton stummschalten und Systemmeldungen abfangen. Dazu kam die Messaging-Sperre in Midnight, bei der Chatdaten als Werte ankommen können, die man weder vergleichen noch ansehen darf. Der sichere Weg musste also heißen: durchlassen statt raten.',
 		},
 	} satisfies Record<string, ProjectTranslation>,
 } satisfies Record<Exclude<Locale, 'en'>, Record<string, ProjectTranslation>>;
