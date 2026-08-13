@@ -52,9 +52,9 @@ const isMulticolorIcon = (icon: (typeof skillGroups)[number]['skills'][number]['
 					{t.techStack.groups[group.key]}
 				</h3>
 
-				<div class="flex flex-wrap gap-2.5">
+				<div class="tile-grid">
 					{group.skills.map((skill) => (
-						<span class="chip">
+						<span class="tile">
 							{
 								isMulticolorIcon(skill.icon) ? (
 									<svg viewBox={skill.icon.viewBox} aria-hidden="true">
@@ -68,7 +68,7 @@ const isMulticolorIcon = (icon: (typeof skillGroups)[number]['skills'][number]['
 									</svg>
 								)
 							}
-							{skill.name}
+							<span>{skill.name}</span>
 						</span>
 					))}
 				</div>

@@ -273,25 +273,48 @@ footer[id] {
 	color: rgb(255 255 255 / 0.28);
 }
 
-/* ---- Brand-icon chip (Tech Stack) ------------------------------------- */
+/* ---- Brand-icon tile (Tech Stack) ------------------------------------- */
 
-.chip {
-	display: inline-flex;
+/* Fixed 5.5rem tracks rather than fractional ones: the groups hold anywhere
+   from two to seven skills, and stretching would blow the two-item rows up
+   into oversized squares. Fixed tracks also line the tiles up column-for-
+   column down the whole section. */
+.tile-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 5.5rem);
+	gap: 0.5rem;
+}
+
+.tile {
+	display: flex;
+	aspect-ratio: 1;
+	flex-direction: column;
 	align-items: center;
-	gap: 0.6rem;
-	padding: 0.55rem 0.9rem;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.4rem 0.3rem;
 	border: 1px solid var(--color-rule);
 	border-radius: 2px;
 	background: var(--color-base-200);
-	font-size: 0.92rem;
-	font-weight: 600;
-	color: #2c3547;
-	white-space: nowrap;
+	font-family: var(--font-mono);
+	font-size: 0.65rem;
+	font-weight: 500;
+	line-height: 1.25;
+	text-align: center;
+	color: #3c4557;
+	transition:
+		border-color 0.2s ease,
+		transform 0.2s ease;
 }
 
-.chip svg {
-	width: 22px;
-	height: 22px;
+.tile:hover {
+	border-color: var(--color-primary);
+	transform: translateY(-2px);
+}
+
+.tile svg {
+	width: 48px;
+	height: 48px;
 	flex: 0 0 auto;
 }
 
