@@ -50,14 +50,68 @@ const projectImages = (title: string, sources: ProjectImageSource[]): ProjectIma
 
 export const projects: Project[] = [
 	{
-		slug: 'torii-srs-v2',
-		title: 'Torii SRS (v2)',
+		slug: 'torii-srs-web-v2',
+		title: 'Torii SRS (Web v2)',
 		shortDescription:
 			'The web-based successor to Torii SRS. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
 		description:
-			'Torii SRS (v2) is where the whole thing moved to the web. It installs like a normal app, and it keeps working without a connection: reviews are stored locally in IndexedDB and sync back up once you\'re online again. It\'s also the version where the app grew up: a built-in dictionary for adding words on the fly, several review modes, spoken audio for every single word, a forecast chart showing how much work is coming your way, and statistics that point out where you\'re actually struggling.',
+			'Torii SRS (Web v2) is the current version of Torii SRS on the web. It installs like a normal app, and it keeps working without a connection: reviews are stored locally in IndexedDB and sync back up once you\'re online again. It\'s also the version where the app grew up: a built-in dictionary for adding words on the fly, several review modes, spoken audio for every single word, a forecast chart showing how much work is coming your way, and statistics that point out where you\'re actually struggling.',
 		overview: [
-			'Torii SRS (v2) takes everything the first version did and moves it into the browser. Studying happens in five-minute gaps: on the train, waiting for a coffee. So the app had to install on a phone, start instantly, and keep going when the connection drops.',
+			'Torii SRS (Web v2) takes everything the earlier versions did and runs it in the browser. Studying happens in five-minute gaps: on the train, waiting for a coffee. So the app had to install on a phone, start instantly, and keep going when the connection drops.',
+			'The harder part was fitting more into it without making it slower. The dictionary, the forecast and the statistics are all there when you want them, but the daily loop of open, review, done stayed the shortest path through the app.',
+			'This version is a complete rewrite of the previous web app rather than an update to it: Vue 2 became Vue 3, a hand-wired Vue CLI project became Nuxt, Vuex became Pinia, the Options API became the Composition API, and Vuetify 2 became Vuetify 4. Every screen was redrawn along the way, and a long list of bugs the old codebase had learned to live with did not survive the move.',
+		],
+		features: [
+			'Fully offline studying, with reviews stored in IndexedDB and synced once you reconnect',
+			'Built-in dictionary for adding new words without leaving the app',
+			'Several review modes, from quick recognition to active recall',
+			'Pronunciation audio for every word, generated with Amazon Polly, Azure and IBM Watson text-to-speech',
+			'Forecast chart for the review workload of the coming days and weeks',
+			'Search and statistics that surface the words you keep getting wrong',
+			'Cloud-backed accounts that keep progress in sync across devices',
+		],
+		learned:
+			'Offline-first sounds simple until two devices disagree about what you studied. Getting synchronization, local persistence and conflict handling right was the most instructive part of this project. It also confirmed something the Java version had already taught me: the more an app can do, the more work it takes to keep the main path through it short.',
+		tech: [
+			'TypeScript',
+			'Vue.js',
+			'Nuxt',
+			'Vuetify',
+			'MySQL',
+			'PHP',
+			'Amazon Web Services',
+			'MS Azure',
+			'IBM Watson',
+		],
+		image: projectScreenshot('torii-v2-01.jpg'),
+		images: projectImages('Torii SRS (Web v2)', [
+			['torii-v2-01.jpg', 750, 761],
+			['torii-v2-03.jpg', 1000, 1014],
+			['torii-v2-04.jpg', 1000, 1014],
+			['torii-v2-05.jpg', 1000, 1014],
+			['torii-v2-06.jpg', 1000, 1014],
+			['torii-v2-07.jpg', 1000, 1014],
+			['torii-v2-08.jpg', 1000, 1014],
+			['torii-v2-09.jpg', 1000, 1014],
+			['torii-v2-10.jpg', 1000, 1014],
+		]),
+		buttons: [
+			{
+				href: 'https://app.torii-srs.com',
+				aria: 'Torii SRS Web v2 website',
+				type: 'website',
+			},
+		],
+	},
+	{
+		slug: 'torii-srs-web-v1',
+		title: 'Torii SRS (Web v1)',
+		shortDescription:
+			'The web-based successor to Torii SRS. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
+		description:
+			'Torii SRS (Web v1) is where the whole thing moved to the web. It installs like a normal app, and it keeps working without a connection: reviews are stored locally in IndexedDB and sync back up once you\'re online again. It\'s also the version where the app grew up: a built-in dictionary for adding words on the fly, several review modes, spoken audio for every single word, a forecast chart showing how much work is coming your way, and statistics that point out where you\'re actually struggling.',
+		overview: [
+			'Torii SRS (Web v1) takes everything the Java app did and moves it into the browser. Studying happens in five-minute gaps: on the train, waiting for a coffee. So the app had to install on a phone, start instantly, and keep going when the connection drops.',
 			'The harder part was fitting more into it without making it slower. The dictionary, the forecast and the statistics are all there when you want them, but the daily loop of open, review, done stayed the shortest path through the app.',
 		],
 		features: [
@@ -70,7 +124,7 @@ export const projects: Project[] = [
 			'Cloud-backed accounts that keep progress in sync across devices',
 		],
 		learned:
-			'Offline-first sounds simple until two devices disagree about what you studied. Getting synchronization, local persistence and conflict handling right was the most instructive part of this project. It also confirmed something v1 had already taught me: the more an app can do, the more work it takes to keep the main path through it short.',
+			'Offline-first sounds simple until two devices disagree about what you studied. Getting synchronization, local persistence and conflict handling right was the most instructive part of this project. It also confirmed something the Java version had already taught me: the more an app can do, the more work it takes to keep the main path through it short.',
 		tech: [
 			'JavaScript',
 			'Vue.js',
@@ -82,7 +136,7 @@ export const projects: Project[] = [
 			'IBM Watson',
 		],
 		image: projectScreenshot('torii-v2-01.jpg'),
-		images: projectImages('Torii SRS (v2)', [
+		images: projectImages('Torii SRS (Web v1)', [
 			['torii-v2-01.jpg', 750, 761],
 			['torii-v2-03.jpg', 1000, 1014],
 			['torii-v2-04.jpg', 1000, 1014],
@@ -96,18 +150,18 @@ export const projects: Project[] = [
 		buttons: [
 			{
 				href: 'https://beta.torii-srs.com',
-				aria: 'Torii SRS v2 website',
+				aria: 'Torii SRS Web v1 website',
 				type: 'website',
 			},
 		],
 	},
 	{
-		slug: 'torii-srs-v1',
-		title: 'Torii SRS (v1)',
+		slug: 'torii-srs-java',
+		title: 'Torii SRS (Java)',
 		shortDescription:
 			'A cross-platform app for learning Japanese vocabulary, with spaced repetition, ready-made JLPT lists, several review modes, and cloud sync.',
 		description:
-			'Torii SRS (v1) is my take on learning Japanese vocabulary without the busywork that usually comes with it. Spaced repetition takes care of scheduling your reviews, and ready-made JLPT word lists are built in, so you can start studying right away instead of building decks first. On top of that: audio for pronunciation, several review modes, different Japanese typefaces, progress stats, and automatic cloud sync, all on Windows, macOS, Linux, and Android.',
+			'Torii SRS (Java) is my take on learning Japanese vocabulary without the busywork that usually comes with it. Spaced repetition takes care of scheduling your reviews, and ready-made JLPT word lists are built in, so you can start studying right away instead of building decks first. On top of that: audio for pronunciation, several review modes, different Japanese typefaces, progress stats, and automatic cloud sync, all on Windows, macOS, Linux, and Android.',
 		overview: [
 			'The first complete version of Torii SRS: one app for Windows, macOS, Linux and Android.',
 			'The idea behind it was simple: learning Japanese vocabulary shouldn\'t fail at the preparation stage. Instead of digging around the internet for word lists or spending an evening setting up a traditional flashcard program, you get verified JLPT lists from the start, and you can still add your own words whenever you want.',
@@ -123,7 +177,7 @@ export const projects: Project[] = [
 			'What stuck with me most is how much of a product\'s quality comes down to everyday details. Fast and reliable sync, clear feedback while studying, and small interface decisions mattered just as much as the algorithm itself. Those are the things people actually notice, day after day.',
 		tech: ['Java', 'libGDX', 'MySQL', 'PHP', 'Amazon Web Services', 'WordPress'],
 		image: projectScreenshot('torii-v1-1.jpg'),
-		images: projectImages('Torii SRS (v1)', [
+		images: projectImages('Torii SRS (Java)', [
 			['torii-v1-1.jpg', 750, 750],
 			['torii-v1-2.png', 1082, 1119],
 			['torii-v1-3.png', 1082, 1119],
@@ -134,7 +188,7 @@ export const projects: Project[] = [
 		buttons: [
 			{
 				href: 'https://torii-srs.com',
-				aria: 'Torii SRS v1 website',
+				aria: 'Torii SRS Java website',
 				type: 'website',
 			},
 		],
@@ -400,13 +454,35 @@ type ProjectTranslation = Pick<
 
 const projectTranslations = {
 	de: {
-		'torii-srs-v2': {
+		'torii-srs-web-v2': {
 			shortDescription:
 				'Der webbasierte Nachfolger von Torii SRS. Funktioniert komplett offline, synchronisiert später und zeigt den Lernaufwand für die nächsten Wochen.',
 			description:
-				'Mit Torii SRS (v2) ist das Ganze ins Web übersiedelt. Die App installiert sich wie eine ganz normale App und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Worts, ein Prognosediagramm für die anstehende Lernlast und Statistiken, die zeigen, wo es wirklich hakt.',
+				'Torii SRS (Web v2) ist die aktuelle Webversion von Torii SRS. Die App installiert sich wie eine ganz normale App und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Worts, ein Prognosediagramm für die anstehende Lernlast und Statistiken, die zeigen, wo es wirklich hakt.',
 			overview: [
-				'Torii SRS (v2) nimmt alles aus der ersten Version mit und übersiedelt es in den Browser. Gelernt wird in Fünf-Minuten-Lücken: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
+				'Torii SRS (Web v2) nimmt alles aus den früheren Versionen mit und lässt es im Browser laufen. Gelernt wird in Fünf-Minuten-Lücken: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
+				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne dass es langsamer wird. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also aufmachen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
+				'Diese Version ist keine Aktualisierung der bisherigen Web-App, sondern eine komplette Neuentwicklung: Aus Vue 2 wurde Vue 3, aus einem handverdrahteten Vue-CLI-Projekt Nuxt, aus Vuex Pinia, aus der Options API die Composition API und aus Vuetify 2 Vuetify 4. Dabei wurde jeder Bildschirm neu gezeichnet, und eine lange Liste an Fehlern, mit denen die alte Codebasis zu leben gelernt hatte, hat den Umzug nicht überlebt.',
+			],
+			features: [
+				'Komplettes Offline-Lernen: Reviews liegen lokal in IndexedDB und synchronisieren sich später',
+				'Integriertes Wörterbuch, um neue Vokabeln ohne Umweg hinzuzufügen',
+				'Mehrere Review-Modi, vom schnellen Wiedererkennen bis zum aktiven Abrufen',
+				'Aussprache-Audio zu jedem Wort, erzeugt mit Text-to-Speech von Amazon Polly, Azure und IBM Watson',
+				'Prognosediagramm für den Lernaufwand der nächsten Tage und Wochen',
+				'Suche und Statistiken, die zeigen, welche Wörter immer wieder danebengehen',
+				'Cloud-Architektur für Konten und geräteübergreifende Synchronisierung',
+			],
+			learned:
+				'Offline-first klingt einfach, bis zwei Geräte unterschiedlicher Meinung sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon die Java-Version gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit steckt darin, den Hauptweg durch sie kurz zu halten.',
+		},
+		'torii-srs-web-v1': {
+			shortDescription:
+				'Der webbasierte Nachfolger von Torii SRS. Funktioniert komplett offline, synchronisiert später und zeigt den Lernaufwand für die nächsten Wochen.',
+			description:
+				'Mit Torii SRS (Web v1) ist das Ganze ins Web übersiedelt. Die App installiert sich wie eine ganz normale App und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Worts, ein Prognosediagramm für die anstehende Lernlast und Statistiken, die zeigen, wo es wirklich hakt.',
+			overview: [
+				'Torii SRS (Web v1) nimmt alles aus der Java-App mit und übersiedelt es in den Browser. Gelernt wird in Fünf-Minuten-Lücken: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
 				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne dass es langsamer wird. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also aufmachen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
 			],
 			features: [
@@ -419,13 +495,13 @@ const projectTranslations = {
 				'Cloud-Architektur für Konten und geräteübergreifende Synchronisierung',
 			],
 			learned:
-				'Offline-first klingt einfach, bis zwei Geräte unterschiedlicher Meinung sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon v1 gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit steckt darin, den Hauptweg durch sie kurz zu halten.',
+				'Offline-first klingt einfach, bis zwei Geräte unterschiedlicher Meinung sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon die Java-Version gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit steckt darin, den Hauptweg durch sie kurz zu halten.',
 		},
-		'torii-srs-v1': {
+		'torii-srs-java': {
 			shortDescription:
 				'Eine plattformübergreifende App zum Japanisch-Lernen, mit Spaced Repetition, fertigen JLPT-Listen, mehreren Review-Modi und Cloud-Sync.',
 			description:
-				'Torii SRS (v1) ist mein Versuch, japanische Vokabeln zu lernen, ohne vorher stundenlang Karteikarten anzulegen. Spaced Repetition übernimmt die Planung der Wiederholungen, fertige JLPT-Vokabellisten sind schon dabei, man kann also sofort loslegen. Dazu kommen Audio für die richtige Aussprache, mehrere Review-Modi, unterschiedliche Schriftvarianten der japanischen Zeichen, eine Fortschrittsanzeige und automatische Cloud-Synchronisierung. Egal ob unter Windows, macOS, Linux oder auf Android.',
+				'Torii SRS (Java) ist mein Versuch, japanische Vokabeln zu lernen, ohne vorher stundenlang Karteikarten anzulegen. Spaced Repetition übernimmt die Planung der Wiederholungen, fertige JLPT-Vokabellisten sind schon dabei, man kann also sofort loslegen. Dazu kommen Audio für die richtige Aussprache, mehrere Review-Modi, unterschiedliche Schriftvarianten der japanischen Zeichen, eine Fortschrittsanzeige und automatische Cloud-Synchronisierung. Egal ob unter Windows, macOS, Linux oder auf Android.',
 			overview: [
 				'Die erste vollständige Version von Torii SRS: eine App für Windows, macOS, Linux und Android.',
 				'Die Idee dahinter war simpel: Japanisch lernen soll nicht schon an der Vorbereitung scheitern. Statt sich Vokabellisten mühsam im Internet zusammenzusuchen oder einen Abend lang ein klassisches Karteikarten-Programm einzurichten, sind geprüfte JLPT-Listen von Anfang an dabei. Eigene Wörter kann man trotzdem jederzeit ergänzen.',
@@ -622,8 +698,8 @@ export const getLocalizedProjects = (locale: Locale = 'en') => projects.map((pro
  * Everything else falls through to the compact "More Projects" index.
  */
 export const featuredSlugs = [
-	'torii-srs-v2',
-	'torii-srs-v1',
+	'torii-srs-web-v2',
+	'torii-srs-java',
 	'menacing-blue',
 	'google-drive-pdf-downloader',
 ] as const;

@@ -6,6 +6,15 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://mave.dev',
+	// The three Torii app entries were renamed from v1/v2/v3 to Java/Web v1/Web
+	// v2. Their old detail pages are live and indexed, so each keeps a stub that
+	// forwards to the new slug — a static build emits these as meta-refresh pages.
+	redirects: {
+		'/projects/torii-srs-v1': '/projects/torii-srs-java',
+		'/projects/torii-srs-v2': '/projects/torii-srs-web-v1',
+		'/de/projects/torii-srs-v1': '/de/projects/torii-srs-java',
+		'/de/projects/torii-srs-v2': '/de/projects/torii-srs-web-v1',
+	},
 	integrations: [
 		sitemap({
 			// Locale keys are the path prefix, values the hreflang code emitted.
