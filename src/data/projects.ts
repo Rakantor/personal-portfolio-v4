@@ -89,6 +89,7 @@ export const projects: Project[] = [
 			['torii-v3-02.webp', 1440, 1024],
 			['torii-v3-03.webp', 1440, 1024],
 			['torii-v3-04.webp', 1440, 1024],
+			['torii-v3-08.webp', 1440, 1024],
 			['torii-v3-05.webp', 1440, 1024],
 			['torii-v3-06.webp', 1440, 1024],
 			['torii-v3-07.webp', 1440, 1024],
