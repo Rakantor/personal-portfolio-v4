@@ -96,7 +96,7 @@ export const ui = {
 		meta: {
 			homeTitle: 'Manuel Veigel | Softwareentwickler',
 			homeDescription:
-				'Portfolio von Manuel Veigel, Softwareentwickler aus Wien. Web- und Desktop-Apps, von Lernplattformen über Browser-Tools bis hin zu Spielen.',
+				'Portfolio von Manuel Veigel, Softwareentwickler aus Wien. Web- und Desktop-Apps, von Sprachlernplattformen über Browser-Tools bis hin zu Spielen.',
 		},
 		nav: {
 			home: 'Start',
@@ -111,7 +111,7 @@ export const ui = {
 			titleTop: 'Hey, ich bin',
 			titleBottom: 'Manuel.',
 			description:
-				'Softwareentwickler aus Wien. Ich baue Web- und Desktop-Apps und kümmere mich am liebsten um die kleinen Details, die entscheiden, ob Leute dranbleiben.',
+				'Softwareentwickler aus Wien. Ich entwickle Web- und Desktop-Apps – am wichtigsten sind mir dabei die kleinen Details, die darüber entscheiden, ob man eine App gerne benutzt.',
 			projects: 'Projekte ansehen',
 			contact: 'Kontakt',
 			avatarAlt: 'Portrait-Illustration von Manuel',
@@ -121,7 +121,7 @@ export const ui = {
 			more: 'Weitere Projekte',
 			readMore: 'Projekt ansehen',
 			slots: {
-				website: 'Site',
+				website: 'Seite',
 				demo: 'Demo',
 				github: 'Code',
 				pdf: 'PDF',
@@ -150,7 +150,7 @@ export const ui = {
 		projectDetail: {
 			next: 'Nächstes Projekt',
 			links: 'Projektlinks',
-			tech: 'Gebaut mit',
+			tech: 'Umgesetzt mit',
 			overview: 'Überblick',
 			features: 'Die wichtigsten Funktionen',
 			learned: 'Was ich gelernt habe',

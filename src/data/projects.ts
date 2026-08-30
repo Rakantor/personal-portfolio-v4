@@ -53,7 +53,7 @@ export const projects: Project[] = [
 		slug: 'torii-srs-web-v2',
 		title: 'Torii SRS (Web v2)',
 		shortDescription:
-			'The web-based successor to Torii SRS. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
+			'The current web version of Torii SRS, rebuilt from the ground up. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
 		description:
 			'Torii SRS (Web v2) is the current version of Torii SRS on the web. It installs like a normal app, and it keeps working without a connection: reviews are stored locally in IndexedDB and sync back up once you\'re online again. It\'s also the version where the app grew up: a built-in dictionary for adding words on the fly, several review modes, spoken audio for every single word, a forecast chart showing how much work is coming your way, and statistics that point out where you\'re actually struggling.',
 		overview: [
@@ -455,92 +455,92 @@ const projectTranslations = {
 	de: {
 		'torii-srs-web-v2': {
 			shortDescription:
-				'Der webbasierte Nachfolger von Torii SRS. Funktioniert komplett offline, synchronisiert später und zeigt den Lernaufwand für die nächsten Wochen.',
+				'Die aktuelle Webversion von Torii SRS, komplett neu entwickelt. Funktioniert vollständig offline, synchronisiert sich, sobald wieder Verbindung da ist, und zeigt das Lernpensum der nächsten Wochen.',
 			description:
-				'Torii SRS (Web v2) ist die aktuelle Webversion von Torii SRS. Die App installiert sich wie eine ganz normale App und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Worts, ein Prognosediagramm für die anstehende Lernlast und Statistiken, die zeigen, wo es wirklich hakt.',
+				'Torii SRS (Web v2) ist die aktuelle Webversion von Torii SRS. Sie lässt sich wie eine gewöhnliche App installieren und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Wortes, ein Prognosediagramm für das anstehende Lernpensum und Statistiken, die zeigen, wo es wirklich hakt.',
 			overview: [
-				'Torii SRS (Web v2) nimmt alles aus den früheren Versionen mit und lässt es im Browser laufen. Gelernt wird in Fünf-Minuten-Lücken: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
-				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne dass es langsamer wird. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also aufmachen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
-				'Diese Version ist keine Aktualisierung der bisherigen Web-App, sondern eine komplette Neuentwicklung: Aus Vue 2 wurde Vue 3, aus einem handverdrahteten Vue-CLI-Projekt Nuxt, aus Vuex Pinia, aus der Options API die Composition API und aus Vuetify 2 Vuetify 4. Dabei wurde jeder Bildschirm neu gezeichnet, und eine lange Liste an Fehlern, mit denen die alte Codebasis zu leben gelernt hatte, hat den Umzug nicht überlebt.',
+				'Torii SRS (Web v2) nimmt alles aus den früheren Versionen mit und lässt es im Browser laufen. Gelernt wird zwischendurch, in fünf freien Minuten: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
+				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne die App dabei langsamer zu machen. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also öffnen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
+				'Diese Version ist keine Aktualisierung der bisherigen Web-App, sondern eine komplette Neuentwicklung: Aus Vue 2 wurde Vue 3, aus einem selbst zusammengesteckten Vue-CLI-Projekt Nuxt, aus Vuex Pinia, aus der Options API die Composition API und aus Vuetify 2 Vuetify 4. Dabei wurde jede Ansicht neu gestaltet, und eine lange Liste von Fehlern, mit denen die alte Codebasis zu leben gelernt hatte, hat den Umzug nicht überlebt.',
 			],
 			features: [
-				'Komplettes Offline-Lernen: Reviews liegen lokal in IndexedDB und synchronisieren sich später',
-				'Integriertes Wörterbuch, um neue Vokabeln ohne Umweg hinzuzufügen',
+				'Komplettes Offline-Lernen: Reviews liegen lokal in IndexedDB und werden synchronisiert, sobald wieder Verbindung da ist',
+				'Integriertes Wörterbuch, um neue Vokabeln hinzuzufügen, ohne die App zu verlassen',
 				'Mehrere Review-Modi, vom schnellen Wiedererkennen bis zum aktiven Abrufen',
 				'Aussprache-Audio zu jedem Wort, erzeugt mit Text-to-Speech von Amazon Polly, Azure und IBM Watson',
 				'Prognosediagramm für den Lernaufwand der nächsten Tage und Wochen',
-				'Suche und Statistiken, die zeigen, welche Wörter immer wieder danebengehen',
-				'Cloud-Architektur für Konten und geräteübergreifende Synchronisierung',
+				'Suche und Statistiken, die zeigen, bei welchen Wörtern es immer wieder hakt',
+				'Konten in der Cloud, damit der Fortschritt auf allen Geräten gleich bleibt',
 			],
 			learned:
-				'Offline-first klingt einfach, bis zwei Geräte unterschiedlicher Meinung sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon die Java-Version gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit steckt darin, den Hauptweg durch sie kurz zu halten.',
+				'Offline-first klingt einfach, bis zwei Geräte sich nicht einig sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon die Java-Version gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit kostet es, den wichtigsten Weg durch die App kurz zu halten.',
 		},
 		'torii-srs-web-v1': {
 			shortDescription:
-				'Der webbasierte Nachfolger von Torii SRS. Funktioniert komplett offline, synchronisiert später und zeigt den Lernaufwand für die nächsten Wochen.',
+				'Der webbasierte Nachfolger der Java-App. Funktioniert vollständig offline, synchronisiert sich, sobald wieder Verbindung da ist, und zeigt das Lernpensum der nächsten Wochen.',
 			description:
-				'Mit Torii SRS (Web v1) ist das Ganze ins Web übersiedelt. Die App installiert sich wie eine ganz normale App und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Worts, ein Prognosediagramm für die anstehende Lernlast und Statistiken, die zeigen, wo es wirklich hakt.',
+				'Mit Torii SRS (Web v1) ist das Ganze ins Web umgezogen. Sie lässt sich wie eine gewöhnliche App installieren und funktioniert auch ohne Verbindung: Die Reviews landen lokal in IndexedDB und werden synchronisiert, sobald man wieder online ist. Es ist außerdem die Version, in der die App erwachsen geworden ist: ein integriertes Wörterbuch zum Hinzufügen neuer Wörter, mehrere Review-Modi, Audio zur Aussprache jedes einzelnen Wortes, ein Prognosediagramm für das anstehende Lernpensum und Statistiken, die zeigen, wo es wirklich hakt.',
 			overview: [
-				'Torii SRS (Web v1) nimmt alles aus der Java-App mit und übersiedelt es in den Browser. Gelernt wird in Fünf-Minuten-Lücken: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
-				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne dass es langsamer wird. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also aufmachen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
+				'Torii SRS (Web v1) nimmt alles aus der Java-App mit und bringt es in den Browser. Gelernt wird zwischendurch, in fünf freien Minuten: in der U-Bahn, beim Warten auf den Kaffee. Also musste sich die App am Handy installieren lassen, sofort starten und auch dann weiterlaufen, wenn die Verbindung wegbricht.',
+				'Die schwierigere Aufgabe war, mehr hineinzupacken, ohne die App dabei langsamer zu machen. Wörterbuch, Prognose und Statistiken sind da, wenn man sie braucht. Der tägliche Ablauf, also öffnen, wiederholen, fertig, ist trotzdem der kürzeste Weg durch die App geblieben.',
 			],
 			features: [
-				'Komplettes Offline-Lernen: Reviews liegen lokal in IndexedDB und synchronisieren sich später',
-				'Integriertes Wörterbuch, um neue Vokabeln ohne Umweg hinzuzufügen',
+				'Komplettes Offline-Lernen: Reviews liegen lokal in IndexedDB und werden synchronisiert, sobald wieder Verbindung da ist',
+				'Integriertes Wörterbuch, um neue Vokabeln hinzuzufügen, ohne die App zu verlassen',
 				'Mehrere Review-Modi, vom schnellen Wiedererkennen bis zum aktiven Abrufen',
 				'Aussprache-Audio zu jedem Wort, erzeugt mit Text-to-Speech von Amazon Polly, Azure und IBM Watson',
 				'Prognosediagramm für den Lernaufwand der nächsten Tage und Wochen',
-				'Suche und Statistiken, die zeigen, welche Wörter immer wieder danebengehen',
-				'Cloud-Architektur für Konten und geräteübergreifende Synchronisierung',
+				'Suche und Statistiken, die zeigen, bei welchen Wörtern es immer wieder hakt',
+				'Konten in der Cloud, damit der Fortschritt auf allen Geräten gleich bleibt',
 			],
 			learned:
-				'Offline-first klingt einfach, bis zwei Geräte unterschiedlicher Meinung sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon die Java-Version gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit steckt darin, den Hauptweg durch sie kurz zu halten.',
+				'Offline-first klingt einfach, bis zwei Geräte sich nicht einig sind, was man gelernt hat. Synchronisierung, lokale Speicherung und Konfliktbehandlung sauber hinzubekommen, war der lehrreichste Teil des Projekts. Und es hat bestätigt, was mir schon die Java-Version gezeigt hatte: Je mehr eine App kann, desto mehr Arbeit kostet es, den wichtigsten Weg durch die App kurz zu halten.',
 		},
 		'torii-srs-java': {
 			shortDescription:
 				'Eine plattformübergreifende App zum Japanisch-Lernen, mit Spaced Repetition, fertigen JLPT-Listen, mehreren Review-Modi und Cloud-Sync.',
 			description:
-				'Torii SRS (Java) ist mein Versuch, japanische Vokabeln zu lernen, ohne vorher stundenlang Karteikarten anzulegen. Spaced Repetition übernimmt die Planung der Wiederholungen, fertige JLPT-Vokabellisten sind schon dabei, man kann also sofort loslegen. Dazu kommen Audio für die richtige Aussprache, mehrere Review-Modi, unterschiedliche Schriftvarianten der japanischen Zeichen, eine Fortschrittsanzeige und automatische Cloud-Synchronisierung. Egal ob unter Windows, macOS, Linux oder auf Android.',
+				'Torii SRS (Java) ist mein Versuch, japanische Vokabeln zu lernen, ohne vorher stundenlang Karteikarten anzulegen. Spaced Repetition übernimmt die Planung der Wiederholungen, fertige JLPT-Vokabellisten sind schon dabei, man kann also sofort loslegen. Dazu kommen Tonaufnahmen für die richtige Aussprache, mehrere Review-Modi, verschiedene japanische Schriftarten, eine Fortschrittsanzeige und automatische Cloud-Synchronisierung – unter Windows, macOS, Linux und auf Android.',
 			overview: [
 				'Die erste vollständige Version von Torii SRS: eine App für Windows, macOS, Linux und Android.',
-				'Die Idee dahinter war simpel: Japanisch lernen soll nicht schon an der Vorbereitung scheitern. Statt sich Vokabellisten mühsam im Internet zusammenzusuchen oder einen Abend lang ein klassisches Karteikarten-Programm einzurichten, sind geprüfte JLPT-Listen von Anfang an dabei. Eigene Wörter kann man trotzdem jederzeit ergänzen.',
+				'Die Idee dahinter war simpel: Japanisch lernen soll nicht schon an der Vorbereitung scheitern. Statt Vokabellisten mühsam im Internet zusammenzusuchen oder einen Abend lang ein klassisches Karteikartenprogramm einzurichten, hat man geprüfte JLPT-Listen von Anfang an dabei. Eigene Wörter kann man trotzdem jederzeit ergänzen.',
 			],
 			features: [
 				'Eine App für Windows, macOS, Linux und Android, gebaut mit Java und libGDX',
-				'Spaced Repetition, das entscheidet, was wann wiederholt wird',
+				'Ein Spaced-Repetition-Algorithmus, der entscheidet, was wann wiederholt wird',
 				'Fertige JLPT-Vokabellisten und Platz für eigene Wörter',
-				'Audio für die richtige Aussprache, wechselnde Schriftvarianten und Fortschrittsanzeige',
+				'Tonaufnahmen für die richtige Aussprache, verschiedene japanische Schriftarten und eine Fortschrittsanzeige',
 				'Automatische Cloud-Synchronisierung über alle Geräte hinweg',
 			],
 			learned:
-				'Am meisten mitgenommen habe ich, wie stark die Qualität eines Produkts von den Alltagsdetails abhängt. Schnelle und zuverlässige Synchronisierung, klares Feedback beim Lernen und Kleinigkeiten im Interface waren am Ende genauso wichtig wie der Algorithmus selbst. Genau das fällt den Leuten nämlich täglich auf.',
+				'Am meisten mitgenommen habe ich, wie stark die Qualität eines Produkts von den Details im täglichen Gebrauch abhängt. Schnelle und zuverlässige Synchronisierung, klares Feedback beim Lernen und Kleinigkeiten im Interface waren am Ende genauso wichtig wie der Algorithmus selbst. Genau das merken die Leute nämlich Tag für Tag.',
 		},
 		'torii-srs-landing-page': {
 			shortDescription:
 				'Die Marketing-Website für Torii SRS: was das Produkt kann, was es kostet, und eine Wissensdatenbank für den Fall der Fälle.',
 			description:
-				'Die öffentliche Eingangstür zu Torii SRS. Die App kann ziemlich viel, und genau das ist auf einer Landingpage das Problem: Niemand liest eine Feature-Liste, bevor er weiß, wofür das Ganze überhaupt gut ist. Die Seite fängt deshalb beim Wesentlichen an und liefert die Details erst danach, also Funktionen, Testimonials, Preise und eine Wissensdatenbank. Alles statisch mit Astro generiert und dadurch einfach sofort da.',
+				'Das öffentliche Aushängeschild von Torii SRS. Die App kann ziemlich viel, und genau das ist auf einer Landingpage das Problem: Niemand liest eine Feature-Liste, bevor klar ist, wofür das Ganze überhaupt gut ist. Die Seite fängt deshalb beim Wesentlichen an und liefert die Details erst danach, also Funktionen, Testimonials, Preise und eine Wissensdatenbank. Alles statisch mit Astro generiert und deshalb sofort geladen.',
 			overview: [
 				'Torii SRS hatte mit der Zeit viele Funktionen bekommen, aber keinen richtigen öffentlichen Auftritt. Diese Seite ist genau das: Sie erklärt das Produkt jemandem, der noch nie davon gehört hat, und bietet einen einzigen, klaren Einstieg.',
-				'Gebaut ist sie mit Astro, React-Komponenten, Tailwind CSS und shadcn/ui. Die Ausgabe ist statisch, es gibt also praktisch nichts zu laden, und dank der Komponentenstruktur ist ein neuer Abschnitt oder ein neuer Artikel in der Wissensdatenbank eine Sache von Minuten statt ein Refactoring.',
+				'Gebaut ist sie mit Astro, React-Komponenten, Tailwind CSS und shadcn/ui. Die Ausgabe ist statisch, es gibt also praktisch nichts zu laden, und dank der Komponentenstruktur ist ein neuer Abschnitt oder ein neuer Artikel in der Wissensdatenbank eine Sache von Minuten und kein Refactoring.',
 			],
 			features: [
 				'Statische, responsive Marketingseite mit Astro und React-Komponenten',
-				'Aufgebaut nach dem, was ein neuer Besucher zuerst wissen muss',
+				'In der Reihenfolge aufgebaut, in der ein neuer Besucher die Informationen braucht',
 				'Bereiche für Funktionen, Testimonials, Preise und eine Wissensdatenbank',
 				'Einheitliches Design durch wiederverwendbare Tailwind-CSS- und shadcn/ui-Komponenten',
 				'Kurze Ladezeiten und SEO-freundliches Markup für bessere Sichtbarkeit',
 			],
 			learned:
-				'Produktseiten und App-Oberflächen sind fast gegensätzliche Aufgaben. In der App wissen die Leute schon, was sie wollen; auf einer Landingpage hat man ein paar Sekunden, um überhaupt zu erklären, warum sie sich dafür interessieren sollten. Zuerst den Nutzen zu zeigen statt der Feature-Liste war hier der wertvollste Teil. Und wie gut sich eine Seite anfühlt, die fast ohne JavaScript auskommt.',
+				'Produktseiten und App-Oberflächen sind fast gegensätzliche Aufgaben. In der App wissen die Leute schon, was sie wollen; auf einer Landingpage hat man ein paar Sekunden, um überhaupt zu erklären, warum sie sich dafür interessieren sollten. Statt der Feature-Liste zuerst den Nutzen zu zeigen war hier der wertvollste Teil. Das – und wie gut sich eine Seite anfühlt, die fast ohne JavaScript auskommt.',
 		},
 		'google-drive-pdf-downloader': {
 			shortDescription:
 				'Ein Browser-Tool, das aus Googles bildbasierter Vorschau wieder ein richtiges PDF macht, inklusive Text und Links.',
 			description:
-				'Manche PDFs werden in Google Drive nur zum Ansehen freigegeben: Lesen im Browser geht, Herunterladen und Drucken sind deaktiviert. Blöd, wenn es die eigenen Kursunterlagen sind und man sie offline braucht. Das Tool baut die Datei aus dem zusammen, was die Vorschau ohnehin schon anzeigt: Es geht die Seiten durch, erfasst jede einzelne und setzt daraus wieder ein PDF zusammen, auf Wunsch mit auswählbarem Text und funktionierenden Hyperlinks.',
+				'Manche PDFs werden in Google Drive nur zum Ansehen freigegeben: Lesen im Browser geht, Herunterladen und Drucken sind deaktiviert. Blöd, wenn es die eigenen Kursunterlagen sind und man sie offline braucht. Das Tool baut die Datei aus dem zusammen, was die Vorschau ohnehin schon anzeigt: Es geht die Seiten durch, nimmt jede einzelne auf und setzt daraus wieder ein PDF zusammen, auf Wunsch mit markierbarem Text und funktionierenden Hyperlinks.',
 			overview: [
-				'Google rendert diese Dokumente als Bilder, Seite für Seite, und lädt immer nur das, was gerade sichtbar ist. Das Tool scrollt deshalb selbst durch das Dokument, wartet, bis jede Seite fertig gerendert ist, erfasst sie und fügt am Ende alles lokal zusammen. Hochgeladen wird dabei nichts.',
+				'Google rendert diese Dokumente als Bilder, Seite für Seite, und lädt immer nur das, was gerade sichtbar ist. Das Tool scrollt deshalb selbst durch das Dokument, wartet, bis jede Seite fertig gerendert ist, nimmt sie auf und fügt am Ende alles lokal zusammen. Hochgeladen wird dabei nichts.',
 				'Es gibt zwei Varianten: ein Skript, das man bei Bedarf einmalig in die Browser-Konsole einfügt, und ein Userscript, das sich in Google Drive, Google Classroom und ähnlichen Viewern von selbst aktiviert. Dazu ein schneller und ein hochauflösender Modus, eine Fortschrittsanzeige und ein Abbrechen-Button für den Fall, dass ein Dokument länger ist als gedacht.',
 			],
 			features: [
@@ -551,32 +551,32 @@ const projectTranslations = {
 				'Läuft komplett im Browser, mit Fortschrittsanzeige und Abbruchmöglichkeit, ohne dass etwas den eigenen Rechner verlässt',
 			],
 			learned:
-				'Dieses Projekt war eine Lektion darin, mit einer Seite zu arbeiten, die dafür nie vorgesehen war: auf den richtigen Moment im Render-Zyklus warten, mit Lazy Loading umgehen und Aufnahmequalität gegen Verarbeitungszeit und Dateigröße abwägen, und das alles clientseitig, wo jede Abkürzung an anderer Stelle wehtut. Dazu geht jedes Dokument auf seine eigene Art kaputt, und „bei dem einen PDF hat es funktioniert“ war als Definition von funktionieren ziemlich unbrauchbar.',
+				'Dieses Projekt war eine Lektion darin, mit einer Seite zu arbeiten, die dafür nie vorgesehen war: auf den richtigen Moment im Render-Zyklus warten, mit Lazy Loading umgehen und Aufnahmequalität gegen Verarbeitungszeit und Dateigröße abwägen, und das alles clientseitig, wo jede Abkürzung an anderer Stelle wehtut. Dazu scheitert jedes Dokument auf seine eigene Art, und „bei dem einen PDF hat es funktioniert“ war als Definition von „funktioniert“ ziemlich unbrauchbar.',
 		},
 		'iu-quiz-app': {
 			shortDescription:
 				'Eine Quizplattform, auf der Studierende Prüfungsfragen gemeinsam durchgehen statt allein durchackern.',
 			description:
-				'Ein Studienprojekt aus meiner Zeit an der IU Internationale Hochschule, entstanden aus einem Problem, das ich selbst hatte: Im Fernstudium bereitet man sich weitgehend allein auf Prüfungen vor. Diese App macht genau diesen Teil sozial. Studierende arbeiten fachspezifische Fragen in einem gemeinsamen Quizformat durch, inspiriert von den bekannten Quizspielen, allein oder gegeneinander. Das macht die dritte Runde durch denselben Stoff deutlich erträglicher.',
+				'Ein Studienprojekt aus meiner Zeit an der IU Internationale Hochschule, entstanden aus einem Problem, das ich selbst hatte: Im Fernstudium bereitet man sich weitgehend allein auf Prüfungen vor. Diese App macht genau diesen Teil sozial. Studierende arbeiten fachspezifische Fragen in einem gemeinsamen Quizformat durch, angelehnt an die bekannten Quizspiele, allein oder gegeneinander. Das macht die dritte Runde durch denselben Stoff deutlich erträglicher.',
 			overview: [
 				'Ein Fernstudium ist flexibel, aber still. Da ist niemand, der einen am Abend vor der Prüfung abfragt, und keine Lerngruppe im Nebenraum. Die IU Quiz App füllt diese Lücke mit Fragensammlungen pro Fach, die Studierende gemeinsam durchgehen können.',
-				'Technisch ist es eine Single-Page-App mit Nuxt, dahinter Firebase für Authentifizierung, Daten und Hosting. Dadurch ist aus einem Studienprojekt nicht nebenbei ein Backend-Projekt geworden. Ein Bericht zu Konzept und Umsetzung ist unten verlinkt.',
+				'Technisch ist es eine Single-Page-App mit Nuxt, dahinter Firebase für Authentifizierung, Daten und Hosting. So ist aus einem Studienprojekt nicht nebenher ein Backend-Projekt geworden. Ein Bericht zu Konzept und Umsetzung ist unten verlinkt.',
 			],
 			features: [
 				'Gemeinsamer Quizablauf zum Lernen allein oder gegen andere Studierende',
 				'Fragensammlungen nach Fach, ausgerichtet auf die echte Prüfungsvorbereitung',
-				'Firebase für Authentifizierung, Daten und Hosting, ohne eigenes Backend zu warten',
+				'Firebase für Authentifizierung, Daten und Hosting – kein eigenes Backend, das gewartet werden muss',
 				'Responsive Single-Page-Oberfläche mit Nuxt und Vuetify',
 				'Ausführlicher Projektbericht zu Konzept, Architektur und Umsetzung',
 			],
 			learned:
-				'Das Spannende war nicht der Code, sondern die Frage, was Leute dazu bringt, zu Stoff zurückzukommen, den sie langweilig finden. Sofortiges Feedback, ein bisschen Wettbewerb und kurze Runden haben dafür mehr gebracht als jedes zusätzliche Feature. Und es hat gezeigt, wie viel einem ein fertiges Backend abnimmt, wenn die eigentliche Einschränkung die Deadline ist.',
+				'Das Spannende war nicht der Code, sondern die Frage, was Leute dazu bringt, zu Stoff zurückzukommen, den sie langweilig finden. Sofortiges Feedback, ein bisschen Wettbewerb und kurze Runden haben dafür mehr gebracht als jedes zusätzliche Feature. Und es hat gezeigt, wie viel einem ein fertiges Backend abnimmt, wenn eigentlich die Deadline der Engpass ist.',
 		},
 		'menacing-blue': {
 			shortDescription:
 				'Ein 2D-RPG im Geist der klassischen Pokémon-Spiele, von Grund auf gebaut, mit rundenbasierten Kämpfen und Online-Multiplayer.',
 			description:
-				'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Geist der Pokémon-Titel, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Darunter liegt keine Spiel-Engine: Von der Kartendarstellung bis zur Kampflogik sitzt alles direkt auf Java und libGDX.',
+				'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Geist der Pokémon-Titel, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Darunter liegt keine Spiel-Engine: Von der Kartendarstellung bis zur Kampflogik setzt alles direkt auf Java und libGDX auf.',
 			overview: [
 				'Angefangen hat das Ganze mit der Frage, ob ich ein komplettes Spiel hinbekomme und nicht nur eine Demo. Herausgekommen ist das abwechslungsreichste Projekt, an dem ich je gearbeitet habe: Bewegung und Kollision, Tile-Maps, Animation, Dialoge, ein rundenbasiertes Kampfsystem, Sound und Netzwerkcode mussten alle existieren, bevor überhaupt etwas davon Spaß gemacht hat.',
 				'Die Karten entstehen in Tiled und werden zur Laufzeit geladen. Ein neues Gebiet ist damit eine Inhaltsfrage und keine Code-Frage. Kämpfe laufen über dasselbe System, egal ob der Gegner ein NPC oder ein anderer Spieler im Netzwerk ist. Eine spielbare Demo ist unten verlinkt.',
@@ -595,7 +595,7 @@ const projectTranslations = {
 			shortDescription:
 				'Die Seite, auf der du gerade bist. Ein zweisprachiges Portfolio mit Astro, Tailwind CSS und fast ohne JavaScript im Browser.',
 			description:
-				'Das ist die Seite, auf der du gerade bist. Ich habe sie mit Astro neu gebaut, weil ein Portfolio hauptsächlich aus Text und Bildern besteht und es sich immer nach Overkill angefühlt hat, dafür ein ganzes Frontend-Framework auszuliefern. Alles wird beim Build als statisches HTML generiert, es gibt sie auf Deutsch und Englisch, und ein neues Projekt hinzuzufügen heißt: eine einzige Datei bearbeiten. Nur deshalb bleibt sie überhaupt aktuell.',
+				'Das ist die Seite, auf der du gerade bist. Ich habe sie mit Astro neu gebaut, weil ein Portfolio hauptsächlich aus Text und Bildern besteht und es mir immer übertrieben vorkam, dafür ein ganzes Frontend-Framework auszuliefern. Alles wird beim Build als statisches HTML generiert, es gibt sie auf Deutsch und Englisch, und ein neues Projekt hinzuzufügen heißt: eine einzige Datei bearbeiten. Nur deshalb bleibt sie überhaupt aktuell.',
 			overview: [
 				'Die vierte Version meiner persönlichen Website und die erste ohne Frontend-Framework im Browser. Astro rendert die Seiten beim Build zu statischem HTML; das einzige JavaScript, das bei Besuchern ankommt, sind die paar Zeilen, die das Navigationsmenü und die Bildergalerie in den Projekten wirklich brauchen.',
 				'Inhalt und Darstellung sind bewusst getrennt. Projekte und Skills liegen in typisierten Datendateien, die Übersetzungen gleich daneben, und beide Sprachversionen werden daraus generiert. Ein neues Projekt, ein neuer Skill oder eine weitere Sprache sind damit eine Inhaltsänderung und kein Umbau.',
@@ -605,7 +605,7 @@ const projectTranslations = {
 				'Vollständige deutsche und englische Version mit sprachabhängigem Routing',
 				'Projekte und Skills in typisierten Datendateien, damit Inhalte an einem Ort liegen',
 				'Responsives Layout mit Tailwind CSS und daisyUI',
-				'Automatischer Build und Deployment auf GitHub Pages bei jedem Push',
+				'Build und Deployment auf GitHub Pages laufen bei jedem Push automatisch',
 			],
 			learned:
 				'Dieselbe Website zum vierten Mal zu bauen ist ein guter Weg, um zu merken, was sich über die Jahre wirklich ändert. Und das ist nie das Framework. Die Inhalte in typisierte Daten zu verschieben, statt sie über Templates zu verteilen, hat diese Seite endlich angenehm wartbar gemacht. Das ist inzwischen das Muster, zu dem ich greife, sobald eine Website mehr als eine Handvoll Seiten hat.',
@@ -617,7 +617,7 @@ const projectTranslations = {
 				'Noch ein Projekt aus meinem Studium an der IU Internationale Hochschule, für etwas, das jede Brettspielrunde kennt: Die Organisation dauert länger als das Spiel. Die App bündelt Terminplanung, Spielvorschläge, Abstimmungen, Erinnerungen, Bewertungen und Gruppenchat an einem Ort, damit sich die Planung nicht über drei verschiedene Messenger-Verläufe verteilt.',
 			overview: [
 				'Brettspielabende scheitern auf ziemlich vorhersehbare Weise: Niemand legt sich fest, was gespielt wird, die Hälfte vergisst den Termin, und die ganze Diskussion liegt in einem Gruppenchat, in dem zwei Tage später nichts mehr auffindbar ist.',
-				'Die App ist natives Android in Java, dahinter Firebase für Authentifizierung, Daten und Chat. Am wichtigsten waren am Ende die Benachrichtigungen, denn eine Termin-App, die nicht zuverlässig erinnert, ist schlechter als gar keine App. Ein Projektbericht ist unten verlinkt.',
+				'Die App ist nativ für Android in Java geschrieben, dahinter Firebase für Authentifizierung, Daten und Chat. Am wichtigsten waren am Ende die Benachrichtigungen, denn eine Termin-App, die nicht zuverlässig erinnert, ist schlechter als gar keine App. Ein Projektbericht ist unten verlinkt.',
 			],
 			features: [
 				'Native Android-App in Java',
@@ -627,27 +627,27 @@ const projectTranslations = {
 				'Integrierter Gruppenchat und Datenspeicherung über Firebase',
 			],
 			learned:
-				'Mobile Apps stehen und fallen mit Dingen, die man im UI nie sieht: Benachrichtigungen, die tatsächlich ankommen, Zustand, der überlebt, wenn das System die App abschießt, und Bildschirme, die sich einhändig bedienen lassen, während man in der anderen Hand eine Spieleschachtel hält. Die Feature-Liste war der einfache Teil.',
+				'Mobile Apps stehen und fallen mit Dingen, die man im UI nie sieht: Benachrichtigungen, die tatsächlich ankommen, Zustand, der überlebt, wenn das System die App abschießt, und Ansichten, die sich einhändig bedienen lassen, während man in der anderen Hand eine Spieleschachtel hält. Die Feature-Liste war der einfache Teil.',
 		},
 		'leave-me-be': {
 			shortDescription:
-				'Ein World-of-Warcraft-Addon, das unerwünschte Flüsternachrichten still herausfiltert, mit automatischen Antworten, Ausnahmelisten und Blockieren, das sich beim Gruppenleiten selbst einschaltet.',
+				'Ein World-of-Warcraft-Addon, das unerwünschte Flüsternachrichten unauffällig im Hintergrund herausfiltert, mit automatischen Antworten, Ausnahmelisten und einer Blockierfunktion, die sich beim Gruppenleiten selbst einschaltet.',
 			description:
-				'Leave Me Be ist aus einem Ärgernis entstanden: Sobald man in World of Warcraft eine Gruppe im Gruppenfinder inseriert, besteht der Chat nur noch aus Flüsternachrichten von Leuten, die man nie getroffen hat. Das Addon filtert sie heraus, bevor sie überhaupt am Bildschirm ankommen, schickt dem Absender eine freundliche automatische Antwort und lässt Freunde, Gildenmitglieder, Gruppenmitglieder und alle ab einem selbst gewählten Level ganz normal durch. Die Levelgrenze gibt es, weil die Nachrichten, die man wirklich loswerden will, also Goldverkäufer und Betrugslinks, fast ausnahmslos von frisch erstellten Charakteren auf niedriger Stufe kommen. Blockierte Nachrichten sind auch nicht verloren, sie werden protokolliert, damit man nach dem Spielen nachsehen kann, was man verpasst hat.',
+				'Leave Me Be ist aus einem Ärgernis entstanden: Sobald man in World of Warcraft eine Gruppe in der Gruppensuche einträgt, besteht der Chat nur noch aus Flüsternachrichten von Leuten, die man nie getroffen hat. Das Addon filtert sie heraus, bevor sie überhaupt am Bildschirm ankommen, schickt dem Absender eine freundliche automatische Antwort und lässt Freunde, Gildenmitglieder, Gruppenmitglieder und alle ab einer selbst gewählten Stufe ganz normal durch. Die Stufengrenze gibt es, weil die Nachrichten, die man wirklich loswerden will, also Goldverkäufer und Betrugslinks, fast ausnahmslos von frisch erstellten Charakteren auf niedriger Stufe kommen. Blockierte Nachrichten sind auch nicht verloren: Sie werden protokolliert, damit man nach dem Spielen nachsehen kann, was man verpasst hat.',
 			overview: [
-				'Das Flüstersystem in WoW ist völlig in Ordnung, bis man für Fremde interessant wird. Der klassische Fall: Man leitet eine inserierte Gruppe, und über die nächsten Minuten sammelt sich ein Dutzend Anfragen an, während man eigentlich spielen möchte. Das Addon schaltet das Blockieren deshalb von selbst ein, solange man eine inserierte Gruppe leitet, und kurz danach wieder aus, ohne dass man an eines von beidem denken muss.',
+				'Das Flüstersystem in WoW ist völlig in Ordnung, bis man für Fremde interessant wird. Der klassische Fall: Man leitet eine eingetragene Gruppe, und in den nächsten Minuten sammelt sich ein Dutzend Anfragen an, während man eigentlich spielen möchte. Das Addon schaltet das Blockieren deshalb von selbst ein, solange man eine eingetragene Gruppe leitet, und kurz danach wieder aus, ohne dass man an eines von beidem denken muss.',
 				'Es ist ein kleines Lua-Addon mit bewusst wenig Umfang: vier Dateien, gespeicherte Variablen für die Einstellungen und das Nachrichtenprotokoll und ein Optionsbereich im Einstellungsmenü des Spiels statt eines weiteren eigenen Fensters. Gepackt und zu CurseForge hochgeladen werden die Releases von GitHub Actions, sobald ich eine Version tagge.',
 			],
 			features: [
 				'Filtert unerwünschte Flüsternachrichten komplett aus dem Chat, statt sie anzuzeigen und nachträglich zu markieren',
-				'Schaltet das Blockieren automatisch ein, solange man eine inserierte Gruppe im Gruppenfinder leitet, und danach wieder aus',
+				'Schaltet das Blockieren automatisch ein, solange man eine eingetragene Gruppe in der Gruppensuche leitet, und danach wieder aus',
 				'Anpassbare automatische Antwort, pro Spieler gedrosselt, damit niemand zurückgespammt wird',
-				'Ausnahmen für Freunde, Gildenmitglieder, Gruppenmitglieder, bereits laufende Gespräche und alle ab einem selbst gewählten Level, was die Spam-Accounts auf niedriger Stufe draußen hält',
+				'Ausnahmen für Freunde, Gildenmitglieder, Gruppenmitglieder, bereits laufende Gespräche und alle ab einer selbst gewählten Stufe, was die Spam-Accounts auf niedriger Stufe draußen hält',
 				'Eigene Allow- und Blockliste sowie ein Protokoll aller gefilterten Nachrichten',
 				'Konfiguration über das Optionsmenü des Spiels oder eine Handvoll Chat-Befehle',
 			],
 			learned:
-				'Das spannende Problem war eines, das einem das Spiel nicht abnimmt: Eine eingehende Flüsternachricht verrät fast nichts über den Absender, am wenigsten dessen Level. Um da heranzukommen, fügt man ihn kurz zur Freundesliste hinzu, liest den Wert aus und räumt danach wieder auf, inklusive Ton stummschalten und Systemmeldungen abfangen. Dazu kam die Messaging-Sperre in Midnight, bei der Chatdaten als Werte ankommen können, die man weder vergleichen noch ansehen darf. Der sichere Weg musste also heißen: durchlassen statt raten.',
+				'Das spannende Problem war eines, das einem das Spiel nicht abnimmt: Eine eingehende Flüsternachricht verrät fast nichts über den Absender, am wenigsten dessen Stufe. Um an diese Information heranzukommen, fügt man ihn kurz zur Freundesliste hinzu, liest den Wert aus und räumt danach wieder auf, inklusive Stummschalten des Tons und Abfangen der Systemmeldungen. Dazu kam die Messaging-Sperre in Midnight, bei der Chatdaten als Werte ankommen können, die man weder vergleichen noch ansehen darf. Der sichere Weg musste also heißen: durchlassen statt raten.',
 		},
 	} satisfies Record<string, ProjectTranslation>,
 } satisfies Record<Exclude<Locale, 'en'>, Record<string, ProjectTranslation>>;
