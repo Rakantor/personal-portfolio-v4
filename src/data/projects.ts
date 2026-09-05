@@ -18,6 +18,8 @@ export type ProjectImage = {
 export type Project = {
 	slug: string;
 	title: string;
+	/** Primary development year or range, e.g. "2022" or "2022–2024". */
+	years: string;
 	shortDescription: string;
 	description: string;
 	overview: string[];
@@ -51,6 +53,7 @@ const projectImages = (title: string, sources: ProjectImageSource[]): ProjectIma
 export const projects: Project[] = [
 	{
 		slug: 'torii-srs-web-v2',
+		years: '2025–2026',
 		title: 'Torii SRS (Web v2)',
 		shortDescription:
 			'The current web version of Torii SRS, rebuilt from the ground up. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
@@ -104,6 +107,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'torii-srs-web-v1',
+		years: '2021–2022',
 		title: 'Torii SRS (Web v1)',
 		shortDescription:
 			'The web-based successor to Torii SRS. Works fully offline, syncs when you reconnect, and shows what your review workload looks like weeks ahead.',
@@ -156,6 +160,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'torii-srs-java',
+		years: '2018–2020',
 		title: 'Torii SRS (Java)',
 		shortDescription:
 			'A cross-platform app for learning Japanese vocabulary, with spaced repetition, ready-made JLPT lists, several review modes, and cloud sync.',
@@ -194,6 +199,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'torii-srs-landing-page',
+		years: '2026',
 		title: 'Torii SRS Landing Page',
 		shortDescription:
 			'The marketing site for Torii SRS: what the product does, what it costs, and a knowledge base for when people get stuck.',
@@ -230,6 +236,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'google-drive-pdf-downloader',
+		years: '2026',
 		title: 'GDrive PDF Downloader',
 		shortDescription:
 			'A browser tool that rebuilds a proper PDF out of Google\'s image-based preview, text and links included.',
@@ -264,6 +271,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'iu-quiz-app',
+		years: '2022',
 		title: 'IU Quiz App',
 		shortDescription:
 			'A quiz platform that lets students work through exam questions together instead of grinding through them alone.',
@@ -302,6 +310,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'menacing-blue',
+		years: '2013–2017',
 		title: 'Menacing Blue',
 		shortDescription:
 			'A 2D RPG in the spirit of the classic Pokémon games, built from scratch, with turn-based battles and online multiplayer.',
@@ -340,6 +349,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'leave-me-be',
+		years: '2026',
 		title: 'LMB (WoW)',
 		shortDescription:
 			'A World of Warcraft addon that quietly filters unwanted whispers, with automatic replies, allowlists, and blocking that switches itself on while you lead a group.',
@@ -375,6 +385,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'personal-website',
+		years: '2024',
 		title: 'Personal Website',
 		shortDescription:
 			'The site you are looking at right now. A bilingual portfolio built with Astro, Tailwind CSS and almost no client-side JavaScript.',
@@ -409,6 +420,7 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'iu-gamer-app',
+		years: '2021',
 		title: 'IU Gamer App',
 		shortDescription:
 			'An Android app for board game groups: agree on a date, vote on what to play, rate it afterwards, and keep the chat in one place.',
