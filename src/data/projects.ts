@@ -270,40 +270,45 @@ export const projects: Project[] = [
 		],
 	},
 	{
-		slug: 'iu-quiz-app',
-		years: '2022',
-		title: 'IU Quiz App',
+		slug: 'word-better-pdf-export',
+		years: '2026',
+		title: 'Better PDF Export (Word)',
 		shortDescription:
-			'A quiz platform that lets students work through exam questions together instead of grinding through them alone.',
+			'A Word add-in that exports to PDF the normal way, then puts the original, uncompressed pictures back into the file.',
 		description:
-			'A university project from my studies at IU International University, built around a problem I had myself: in distance learning, you prepare for exams largely on your own. This app makes that part social. Students work through subject-specific questions in a shared quiz format inspired by the quiz games everyone knows, solo or against each other, which makes going over the same material for the third time noticeably less painful.',
+			'Word recompresses every picture when it exports a PDF, and no setting fully turns that off. Better PDF Export lets Word do the export, then goes through the resulting PDF and swaps each picture for the original that is still stored inside the .docx. Layout, text and vector graphics stay exactly as Word drew them; only the picture data changes. It runs as a task pane inside Word, nothing leaves your machine, and afterwards it tells you which pictures were restored, which were skipped, and why.',
 		overview: [
-			'Distance learning is flexible, but it is quiet. There is nobody to quiz you the evening before an exam and no study group down the hall. The IU Quiz App fills that gap with question sets per subject that students can work through together.',
-			'It is a Nuxt single-page app on top of Firebase, which handled authentication, data and hosting. That kept a student project from quietly turning into a backend project. A written report covering the concept and implementation is linked below.',
+			'It started with a familiar frustration: a document full of sharp photos comes out of Word\'s PDF export looking soft, while the originals are still sitting untouched in the document package. So instead of fighting Word\'s exporter, the add-in uses it and repairs the result afterwards.',
+			'Under the hood it collects the embedded images from the .docx along with their crop and effect settings, walks the images in the PDF, and matches the two sides visually. Uncropped JPEGs keep their exact original bytes, PNGs go in losslessly, and cropped pictures are cut from the original at full resolution. Anything Word applied an effect to at render time is left alone rather than guessed at.',
+			'The pipeline has no Office dependency, so the same code also runs as a command-line tool and in an automated test suite against real Word exports. The add-in is a thin Office.js task pane on top, served from GitHub Pages together with its landing page.',
 		],
 		features: [
-			'Shared quiz flow for studying alone or against other students',
-			'Question sets organized by subject, aimed at actual exam preparation',
-			'Firebase for authentication, data and hosting, with no custom backend to maintain',
-			'Responsive single-page interface built with Nuxt and Vuetify',
-			'Full project report documenting concept, architecture and implementation',
+			'Uses Word\'s own PDF exporter, then restores the original pictures at full resolution',
+			'Uncropped JPEGs keep their exact original bytes; PNGs are embedded losslessly',
+			'Cropped pictures are restored from the original; pictures with render-time effects are skipped rather than guessed',
+			'Visual matching between PDF and document, with a per-picture report of what was replaced, skipped or left unmatched',
+			'Runs entirely inside Word\'s task pane, so documents are never uploaded anywhere',
+			'Office-independent core that also runs as a CLI and in an automated test suite',
 		],
 		learned:
-			'The interesting part was not the code, it was noticing what makes people come back to material they find boring. Immediate feedback, a bit of competition and short rounds did more for that than any feature I could have added. It also showed me how much a managed backend buys you when the real constraint is the deadline.',
-		tech: ['JavaScript', 'Vue.js', 'Nuxt', 'Vuetify', 'Firebase'],
-		image: projectScreenshot('iu-quiz-app-2.jpg'),
-		images: projectImages('IU Quiz App', [['iu-quiz-app-2.jpg', 1000, 1000]]),
+			'This was my first Office add-in, so a lot of the learning was simply how that world works: the manifest, sideloading, the task pane, and getting Word to hand over its own PDF export. The matching was the more interesting part, and it also taught me when to stop: a picture Word has visibly altered is better left alone than replaced with a sharper, wrong one.',
+		tech: ['TypeScript', 'Webpack', 'GitHub Pages'],
+		image: projectScreenshot('word-pdf-1.webp'),
+		images: projectImages('Better PDF Export (Word)', [
+			['word-pdf-1.webp', 2423, 1440],
+			['word-pdf-2.webp', 2423, 1440],
+			['word-pdf-3.webp', 878, 1440],
+			['word-pdf-4.webp', 1800, 751],
+		]),
 		buttons: [
 			{
-				href: 'https://iu-quiz-app.web.app',
+				href: 'https://rakantor.github.io/word-better-pdf-export/',
+				aria: 'Better PDF Export for Word website',
 				type: 'website',
 			},
 			{
-				href: projectScreenshot('iu-quiz-app-projektbericht.pdf'),
-				type: 'pdf',
-			},
-			{
-				href: 'https://github.com/Rakantor/iu-quiz-app',
+				href: 'https://github.com/Rakantor/word-better-pdf-export',
+				aria: 'Better PDF Export for Word GitHub repository',
 				type: 'github',
 			},
 		],
@@ -414,6 +419,45 @@ export const projects: Project[] = [
 			},
 			{
 				href: 'https://github.com/Rakantor/personal-portfolio-v4',
+				type: 'github',
+			},
+		],
+	},
+	{
+		slug: 'iu-quiz-app',
+		years: '2022',
+		title: 'IU Quiz App',
+		shortDescription:
+			'A quiz platform that lets students work through exam questions together instead of grinding through them alone.',
+		description:
+			'A university project from my studies at IU International University, built around a problem I had myself: in distance learning, you prepare for exams largely on your own. This app makes that part social. Students work through subject-specific questions in a shared quiz format inspired by the quiz games everyone knows, solo or against each other, which makes going over the same material for the third time noticeably less painful.',
+		overview: [
+			'Distance learning is flexible, but it is quiet. There is nobody to quiz you the evening before an exam and no study group down the hall. The IU Quiz App fills that gap with question sets per subject that students can work through together.',
+			'It is a Nuxt single-page app on top of Firebase, which handled authentication, data and hosting. That kept a student project from quietly turning into a backend project. A written report covering the concept and implementation is linked below.',
+		],
+		features: [
+			'Shared quiz flow for studying alone or against other students',
+			'Question sets organized by subject, aimed at actual exam preparation',
+			'Firebase for authentication, data and hosting, with no custom backend to maintain',
+			'Responsive single-page interface built with Nuxt and Vuetify',
+			'Full project report documenting concept, architecture and implementation',
+		],
+		learned:
+			'The interesting part was not the code, it was noticing what makes people come back to material they find boring. Immediate feedback, a bit of competition and short rounds did more for that than any feature I could have added. It also showed me how much a managed backend buys you when the real constraint is the deadline.',
+		tech: ['JavaScript', 'Vue.js', 'Nuxt', 'Vuetify', 'Firebase'],
+		image: projectScreenshot('iu-quiz-app-2.jpg'),
+		images: projectImages('IU Quiz App', [['iu-quiz-app-2.jpg', 1000, 1000]]),
+		buttons: [
+			{
+				href: 'https://iu-quiz-app.web.app',
+				type: 'website',
+			},
+			{
+				href: projectScreenshot('iu-quiz-app-projektbericht.pdf'),
+				type: 'pdf',
+			},
+			{
+				href: 'https://github.com/Rakantor/iu-quiz-app',
 				type: 'github',
 			},
 		],
@@ -564,6 +608,27 @@ const projectTranslations = {
 			],
 			learned:
 				'Dieses Projekt war eine Lektion darin, mit einer Seite zu arbeiten, die dafür nie vorgesehen war: auf den richtigen Moment im Render-Zyklus warten, mit Lazy Loading umgehen und Aufnahmequalität gegen Verarbeitungszeit und Dateigröße abwägen, und das alles clientseitig, wo jede Abkürzung an anderer Stelle wehtut. Dazu scheitert jedes Dokument auf seine eigene Art, und „bei dem einen PDF hat es funktioniert“ war als Definition von „funktioniert“ ziemlich unbrauchbar.',
+		},
+		'word-better-pdf-export': {
+			shortDescription:
+				'Ein Word-Add-in, das ganz normal als PDF exportiert und anschließend die unkomprimierten Originalbilder wieder in die Datei einsetzt.',
+			description:
+				'Word komprimiert beim PDF-Export jedes Bild neu, und keine Einstellung schaltet das komplett ab. Better PDF Export überlässt Word den Export, geht danach das fertige PDF durch und ersetzt jedes Bild durch das Original, das ohnehin noch in der .docx steckt. Layout, Text und Vektorgrafiken bleiben genau so, wie Word sie ausgegeben hat, nur die Bilddaten ändern sich. Das Add-in läuft als Seitenleiste direkt in Word, nichts verlässt den eigenen Rechner, und am Ende steht, welche Bilder ersetzt wurden, welche nicht, und warum.',
+			overview: [
+				'Angefangen hat es mit einem bekannten Ärgernis: Ein Dokument voller scharfer Fotos kommt aus Words PDF-Export unscharf wieder heraus, obwohl die Originale unangetastet im Dokument liegen. Statt gegen Words Exporter anzukämpfen, nutzt das Add-in ihn einfach und repariert hinterher das Ergebnis.',
+				'Dafür holt es sich die eingebetteten Bilder samt Zuschnitt und Effekten aus der .docx, geht die Bilder im PDF durch und ordnet beide Seiten anhand ihres Aussehens einander zu. Unbeschnittene JPEGs behalten ihre Originalbytes, PNGs kommen verlustfrei hinein, beschnittene Bilder werden in voller Auflösung aus dem Original ausgeschnitten. Bilder, denen Word beim Rendern Effekte verpasst hat, bleiben lieber unangetastet, als dass am Ende etwas Falsches im PDF landet.',
+				'Die Pipeline hängt nicht von Office ab. Derselbe Code läuft deshalb auch als Kommandozeilentool und in einer automatisierten Testsuite gegen echte Word-Exporte. Das Add-in selbst ist nur eine dünne Office.js-Oberfläche darüber und wird zusammen mit der Landingpage über GitHub Pages ausgeliefert.',
+			],
+			features: [
+				'Nutzt Words eigenen PDF-Export und setzt danach die Originalbilder in voller Auflösung wieder ein',
+				'Unbeschnittene JPEGs behalten ihre Originalbytes, PNGs werden verlustfrei eingebettet',
+				'Beschnittene Bilder werden aus dem Original wiederhergestellt; Bilder mit Render-Effekten bleiben lieber unangetastet',
+				'Visuelle Zuordnung zwischen PDF und Dokument, mit einem Bericht pro Bild: ersetzt, übersprungen oder nicht zugeordnet',
+				'Läuft komplett in Word, Dokumente werden also nirgendwohin hochgeladen',
+				'Von Office unabhängiger Kern, der auch als CLI und in einer automatisierten Testsuite läuft',
+			],
+			learned:
+				'Das war mein erstes Office-Add-in, und ein Großteil des Lernens bestand darin, wie diese Welt überhaupt funktioniert: das Manifest, Sideloading, die Seitenleiste und der Weg, Word seinen eigenen PDF-Export abzuringen. Die Zuordnung war der spannendere Teil, und sie hat mir vor allem beigebracht, wann Schluss ist: Ein Bild, das Word sichtbar verändert hat, lässt man besser in Ruhe, statt es durch ein schärferes, aber falsches zu ersetzen.',
 		},
 		'iu-quiz-app': {
 			shortDescription:
