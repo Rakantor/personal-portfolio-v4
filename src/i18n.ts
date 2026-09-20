@@ -81,6 +81,8 @@ export const ui = {
 			previousImage: 'Previous image',
 			nextImage: 'Next image',
 			goToImage: 'Go to image',
+			fullscreen: 'View fullscreen',
+			close: 'Close',
 		},
 		footer: {
 			legal: 'Legal Notice',
@@ -159,6 +161,8 @@ export const ui = {
 			previousImage: 'Vorheriges Bild',
 			nextImage: 'Nächstes Bild',
 			goToImage: 'Zu Bild',
+			fullscreen: 'Vollbildansicht öffnen',
+			close: 'Schließen',
 		},
 		footer: {
 			legal: 'Impressum',

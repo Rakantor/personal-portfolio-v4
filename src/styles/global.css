@@ -389,6 +389,64 @@ footer[id] {
 	transform: translateX(0);
 }
 
+/* ---- Fullscreen gallery preview --------------------------------------- */
+
+/* A native <dialog>: the top layer, focus trapping, Escape and the inert page
+   behind all come for free. Only the fade is written by hand, and where
+   @starting-style is missing it degrades to opening and closing instantly. */
+.lightbox {
+	position: fixed;
+	inset: 0;
+	/* Only matters in a browser without `overlay`, which drops the dialog out
+	   of the top layer before the closing fade has finished. */
+	z-index: 50;
+	display: none;
+	width: auto;
+	height: auto;
+	max-width: none;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: rgb(12 23 48 / 0.98);
+	color: #fff;
+	opacity: 0;
+	transition:
+		opacity 0.25s ease,
+		display 0.25s allow-discrete,
+		overlay 0.25s allow-discrete;
+}
+
+.lightbox[open] {
+	display: flex;
+	flex-direction: column;
+	opacity: 1;
+}
+
+@starting-style {
+	.lightbox[open] {
+		opacity: 0;
+	}
+}
+
+/* The dialog covers the viewport itself, so the backdrop has nothing to add. */
+.lightbox::backdrop {
+	background: transparent;
+}
+
+/* Wheel and touch scrolling over the open preview would otherwise move the
+   page underneath it, which then comes back at a different place. */
+body:has(.lightbox:modal) {
+	overflow: hidden;
+}
+
+/* Deferred slides stay hidden until their picture has fully arrived, so one
+   jumped to before it was fetched fades in complete instead of popping in
+   as it loads. */
+[data-gallery] img[data-loading] {
+	opacity: 0;
+}
+
 /* ---- Legal page (kept until the project/legal pages are reworked) ------ */
 
 .legal-content {
