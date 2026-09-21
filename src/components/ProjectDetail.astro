@@ -5,7 +5,7 @@ import Footer from './Footer.astro';
 import Header from './Header.astro';
 import QuickLinkIcon from './QuickLinkIcon.astro';
 import Layout from '../layouts/Layout.astro';
-import { getLocalizedProject, getProjectButtonLabel, projects, type Project } from '../data/projects';
+import { getLocalizedProject, projects, type Project } from '../data/projects';
 import { localePath, type Locale, ui } from '../i18n';
 
 type Props = {
@@ -332,10 +332,10 @@ const gallery = await Promise.all(
 									href={button.href}
 									target={isExternal(button.href) ? '_blank' : undefined}
 									rel={isExternal(button.href) ? 'noreferrer' : undefined}
-									aria-label={button.aria ?? `${getProjectButtonLabel(button.type, locale)}: ${project.title}`}
+									aria-label={`${t.projects.buttons[button.type]}: ${project.title}`}
 								>
 									<QuickLinkIcon type={button.type} />
-									{getProjectButtonLabel(button.type, locale)}
+									{t.projects.buttons[button.type]}
 								</a>
 							))
 						}

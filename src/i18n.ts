@@ -49,6 +49,12 @@ export const ui = {
 				github: 'Code',
 				pdf: 'PDF',
 			},
+			buttons: {
+				website: 'Website',
+				demo: 'Play Demo',
+				github: 'Source Code',
+				pdf: 'Project Report',
+			},
 		},
 		techStack: {
 			title: 'Tech Stack',
@@ -83,6 +89,8 @@ export const ui = {
 			goToImage: 'Go to image',
 			fullscreen: 'View fullscreen',
 			close: 'Close',
+			// Image alt text is "<project title> <screenshot> <n>".
+			screenshot: 'screenshot',
 		},
 		footer: {
 			legal: 'Legal Notice',
@@ -129,6 +137,12 @@ export const ui = {
 				github: 'Code',
 				pdf: 'PDF',
 			},
+			buttons: {
+				website: 'Website',
+				demo: 'Demo spielen',
+				github: 'Source Code',
+				pdf: 'Projektbericht',
+			},
 		},
 		techStack: {
 			title: 'Tech Stack',
@@ -163,6 +177,7 @@ export const ui = {
 			goToImage: 'Zu Bild',
 			fullscreen: 'Vollbildansicht öffnen',
 			close: 'Schließen',
+			screenshot: 'Screenshot',
 		},
 		footer: {
 			legal: 'Impressum',

@@ -2,7 +2,7 @@
 import { ArrowRight } from '@lucide/astro';
 import { getImage } from 'astro:assets';
 import QuickLinkIcon from './QuickLinkIcon.astro';
-import { getProjectButtonLabel, type Project } from '../data/projects';
+import type { Project } from '../data/projects';
 import { localePath, type Locale, ui } from '../i18n';
 
 type Props = {
@@ -67,10 +67,10 @@ const shot = await getImage({ src: project.image, width: 1200, height: 750, form
 						href={button.href}
 						target="_blank"
 						rel="noreferrer"
-						aria-label={button.aria ?? `${getProjectButtonLabel(button.type, locale)}: ${project.title}`}
+						aria-label={`${t.projects.buttons[button.type]}: ${project.title}`}
 					>
 						<QuickLinkIcon type={button.type} />
-						{getProjectButtonLabel(button.type, locale)}
+						{t.projects.buttons[button.type]}
 					</a>
 				))
 			}
