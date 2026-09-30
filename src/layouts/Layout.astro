@@ -38,6 +38,12 @@ const alternates = translated
 	? locales.map((alternateLocale) => ({ locale: alternateLocale, href: alternateFor(alternateLocale) }))
 	: [];
 
+// This page's path in every locale, for the language redirect in the head.
+// Paths rather than the full URLs above, so it also works off the live domain.
+const localePaths = Object.fromEntries(
+	locales.map((pathLocale) => [pathLocale, withTrailingSlash(localePath(pathLocale, stripLocaleFromPathname(normalizedPath)))]),
+);
+
 /*
  * public/og.jpg is the social preview card: name, role and the avatar on the
  * hero's blueprint grid, at the 1.91:1 social platforms expect. It is rendered
@@ -55,6 +61,35 @@ const ogLocales: Record<Locale, string> = { en: 'en_US', de: 'de_AT' };
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--
+			Language on arrival. GitHub Pages can't negotiate it server-side, so this
+			runs first thing in the head and swaps to the page's other language when
+			that fits the visitor better: German if German comes before English in
+			the browser's languages, English otherwise. A language picked in the
+			header is remembered and always wins, and moving around the site itself
+			never redirects. Pages in one language only have nothing to swap to.
+		-->
+		{
+			translated && (
+				<script is:inline define:vars={{ locale, localePaths }}>
+					try {
+						const cameFromSite = document.referrer && new URL(document.referrer).origin === location.origin;
+						if (!cameFromSite) {
+							const chosen = localStorage.getItem('locale');
+							const preferred = (navigator.languages?.length ? navigator.languages : [navigator.language])
+								.map((language) => language.toLowerCase().split('-')[0])
+								.find((language) => language in localePaths);
+							const wanted = chosen in localePaths ? chosen : preferred === 'de' ? 'de' : 'en';
+							if (wanted !== locale) location.replace(localePaths[wanted] + location.search + location.hash);
+						}
+					} catch {
+						// Storage or referrer unavailable: stay on the page as requested.
+					}
+				</script>
+			)
+		}
+
 		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />

@@ -64,6 +64,7 @@ const navItems = [
 										item.locale === locale ? 'font-bold text-base-content' : 'font-normal text-muted',
 									]}
 									href={item.href}
+									data-locale-choice={item.locale}
 									aria-current={item.locale === locale ? 'page' : undefined}
 									aria-label={localeLabels[item.locale]}
 								>
@@ -106,6 +107,7 @@ const navItems = [
 													item.locale === locale ? 'font-bold text-primary' : 'text-muted',
 												]}
 												href={item.href}
+												data-locale-choice={item.locale}
 												aria-current={item.locale === locale ? 'page' : undefined}
 												aria-label={localeLabels[item.locale]}
 											>
@@ -125,6 +127,18 @@ const navItems = [
 </header>
 
 <script>
+	// A language picked here is remembered, so the redirect on arrival (see
+	// Layout.astro) never overrides it on a later visit.
+	document.querySelectorAll<HTMLAnchorElement>('[data-locale-choice]').forEach((link) => {
+		link.addEventListener('click', () => {
+			try {
+				localStorage.setItem('locale', link.dataset.localeChoice!);
+			} catch {
+				// Storage unavailable: the choice just isn't remembered.
+			}
+		});
+	});
+
 	// Marks the link for the section being read. A section counts as current
 	// once its top passes a line a third of the way down the viewport; at the
 	// very bottom of the page the footer wins, since it may never get that far.
