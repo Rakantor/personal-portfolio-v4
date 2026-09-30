@@ -73,6 +73,11 @@
 	   0.68–0.8rem, so they never qualify for the large-text exemption. */
 	--color-muted-2: #666f7e;
 	--color-blue-bright: #85aaff;
+
+	/* The blueprint grid's cell. In rem so it scales with the root font size
+	   exactly like the spacing does — which is what lets headings and the
+	   footer divider be placed on its lines (see `.eyebrow`). */
+	--grid: 1.5rem;
 }
 
 /* ---- Base ------------------------------------------------------------ */

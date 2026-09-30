@@ -1,0 +1,136 @@
+---
+type Props = {
+	/**
+	 * The home hero's version: a second, brighter copy of the grid is masked to
+	 * a circle around the pointer, so the lines light up where the mouse is.
+	 * Everywhere else the grid is static — only the hero moves.
+	 */
+	interactive?: boolean;
+};
+
+const { interactive = false } = Astro.props;
+---
+
+<!-- The blueprint grid behind the top of a page. The element placed after it
+     needs `position: relative`: Chromium otherwise paints the grid's masked
+     layer over unpositioned content. -->
+<div class="backdrop" data-backdrop={interactive ? 'interactive' : undefined} aria-hidden="true">
+	<div class="bp-grid"></div>
+	{interactive && <div class="bp-lit"></div>}
+</div>
+
+<style>
+	.backdrop {
+		position: absolute;
+		/* Runs up under the translucent sticky header so the grid doesn't stop
+		   at a hard line beneath it. */
+		inset: -4.25rem 0 0;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+		--mx: 70%;
+		--my: 40%;
+		mask-image: linear-gradient(to bottom, #000 72%, transparent);
+	}
+
+	.bp-grid,
+	.bp-lit {
+		position: absolute;
+		inset: 0;
+		background-position: center top;
+	}
+
+	/* Minor lines every grid cell (1.5rem), major lines every five, and a
+	   small cross at every major intersection, as on drafting paper. */
+	.bp-grid {
+		--line: rgb(47 95 224 / 0.11);
+		--fine: rgb(47 95 224 / 0.045);
+		background-image:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M0 -5v10M-5 0h10M120 115v10M115 120h10M0 115v10M-5 120h10M120 -5v10M115 0h10' stroke='%232f5fe0' stroke-opacity='.45' stroke-width='1.2'/%3E%3C/svg%3E"),
+			linear-gradient(to right, var(--line) 1px, transparent 1px),
+			linear-gradient(to bottom, var(--line) 1px, transparent 1px),
+			linear-gradient(to right, var(--fine) 1px, transparent 1px),
+			linear-gradient(to bottom, var(--fine) 1px, transparent 1px);
+		background-size:
+			calc(var(--grid) * 5) calc(var(--grid) * 5),
+			calc(var(--grid) * 5) calc(var(--grid) * 5),
+			calc(var(--grid) * 5) calc(var(--grid) * 5),
+			var(--grid) var(--grid),
+			var(--grid) var(--grid);
+		/* Strongest behind the portrait, fading out behind the headline. */
+		mask-image: radial-gradient(ellipse 65% 85% at 72% 38%, #000 25%, rgb(0 0 0 / 0.35) 60%, transparent 90%);
+	}
+
+	.bp-lit {
+		--line: rgb(47 95 224 / 0.55);
+		--fine: rgb(47 95 224 / 0.22);
+		background-image:
+			linear-gradient(to right, var(--line) 1px, transparent 1px),
+			linear-gradient(to bottom, var(--line) 1px, transparent 1px),
+			linear-gradient(to right, var(--fine) 1px, transparent 1px),
+			linear-gradient(to bottom, var(--fine) 1px, transparent 1px);
+		background-size:
+			calc(var(--grid) * 5) calc(var(--grid) * 5),
+			calc(var(--grid) * 5) calc(var(--grid) * 5),
+			var(--grid) var(--grid),
+			var(--grid) var(--grid);
+		mask-image: radial-gradient(circle 240px at var(--mx) var(--my), #000, transparent 70%);
+	}
+</style>
+
+<script>
+	const root = document.querySelector<HTMLElement>('[data-backdrop="interactive"]');
+	const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (root) {
+		// Tracked on window: the backdrop sits beneath the content and never
+		// receives pointer events itself.
+		let pointerActive = false;
+		let visible = true;
+		let frame = 0;
+
+		addEventListener(
+			'pointermove',
+			(event) => {
+				const rect = root.getBoundingClientRect();
+				const x = event.clientX - rect.left;
+				const y = event.clientY - rect.top;
+				pointerActive = event.pointerType === 'mouse' && y > 0 && y < rect.height;
+				if (!pointerActive) return;
+				root.style.setProperty('--mx', `${x}px`);
+				root.style.setProperty('--my', `${y}px`);
+			},
+			{ passive: true },
+		);
+		document.documentElement.addEventListener('pointerleave', () => (pointerActive = false));
+
+		// Without a mouse (touch, or before the first move) the lit spot wanders
+		// on its own so the effect still shows. Paused while the hero is off
+		// screen or the tab is hidden.
+		const drift = (now: number) => {
+			frame = 0;
+			if (!pointerActive) {
+				const t = now / 1000;
+				root.style.setProperty('--mx', `${(0.68 + Math.sin(t * 0.23) * 0.2) * root.clientWidth}px`);
+				root.style.setProperty('--my', `${(0.42 + Math.sin(t * 0.31 + 1) * 0.22) * root.clientHeight}px`);
+			}
+			schedule();
+		};
+
+		const schedule = () => {
+			if (reducedMotion || !visible || document.hidden) {
+				cancelAnimationFrame(frame);
+				frame = 0;
+				return;
+			}
+			if (!frame) frame = requestAnimationFrame(drift);
+		};
+
+		new IntersectionObserver(([entry]) => {
+			visible = entry.isIntersecting;
+			schedule();
+		}).observe(root);
+		document.addEventListener('visibilitychange', schedule);
+		schedule();
+	}
+</script>

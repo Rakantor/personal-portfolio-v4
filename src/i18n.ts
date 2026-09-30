@@ -119,7 +119,9 @@ export const ui = {
 			skip: 'Zum Inhalt springen',
 		},
 		hero: {
-			titleTop: 'Hey, ich bin',
+			// Non-breaking space: where the line has to wrap, it breaks after
+			// "Hey," rather than stranding "bin" on a line of its own.
+			titleTop: 'Hey, ich bin',
 			titleBottom: 'Manuel.',
 			description:
 				'Softwareentwickler aus Wien. Ich entwickle Web- und Desktop-Apps – am wichtigsten sind mir dabei die kleinen Details, die darüber entscheiden, ob man eine App gerne benutzt.',

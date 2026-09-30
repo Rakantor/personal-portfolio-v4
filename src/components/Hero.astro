@@ -1,7 +1,8 @@
 ---
-import { ArrowRight } from '@lucide/astro';
+import { ArrowDown } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import avatar from '../assets/avatar.webp';
+import Backdrop from './Backdrop.astro';
 import { localePath, type Locale, ui } from '../i18n';
 
 type Props = {
@@ -10,46 +11,94 @@ type Props = {
 
 const { locale = 'en' } = Astro.props;
 const t = ui[locale];
+
 ---
 
-<!-- Fixed-width avatar column rather than a fraction: the greeting is short, so a
-     proportional split left a large hole between the text and the portrait. -->
-<section id="home" class="shell grid items-center gap-10 py-20 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-14">
-	<div>
-		<h1 class="h-hero text-navy">
-			<span class="block">{t.hero.titleTop}</span>
-			<span class="block">{t.hero.titleBottom}</span>
-		</h1>
+<div class="relative isolate">
+	<Backdrop interactive />
+	<!-- Fixed-width avatar column rather than a fraction: the greeting is short, so a
+	     proportional split left a large hole between the text and the portrait.
+	     `relative` keeps it above the backdrop (see Backdrop.astro). -->
+	<section id="home" class="hero-grid shell relative grid items-center gap-10 py-16">
+		<div>
+			<h1 class="hero-title h-hero text-navy">
+				<span class="hero-line block" style="--i: 0">{t.hero.titleTop}</span>
+				<span class="hero-line block" style="--i: 1">{t.hero.titleBottom}</span>
+			</h1>
 
-		<p class="prose-serif mt-8 max-w-[50ch] text-[1.125rem] text-[#333c4d]">
-			{t.hero.description}
-		</p>
+			<p class="hero-in prose-serif mt-8 max-w-[50ch] text-[1.125rem] text-[#333c4d]" style="--i: 2">
+				{t.hero.description}
+			</p>
 
-		<div class="mt-10 flex flex-wrap gap-3">
-			<a class="btn btn-neutral" href={localePath(locale, '/#projects')}>
-				{t.hero.projects}
-				<ArrowRight size={17} />
-			</a>
-			<a
-				class="btn btn-outline border-base-300 hover:border-neutral hover:bg-base-200 hover:text-base-content"
-				href="mailto:maveigel@gmail.com"
-			>
-				{t.hero.contact}
-			</a>
+			<div class="hero-in mt-10 flex flex-wrap gap-3" style="--i: 3">
+				<a class="btn btn-neutral" href={localePath(locale, '/#projects')}>
+					{t.hero.projects}
+					<!-- Points down: the button scrolls further down this page. -->
+					<ArrowDown class="hero-arrow" size={17} />
+				</a>
+				<a
+					class="btn btn-outline border-base-300 bg-base-100 hover:border-neutral hover:bg-base-200 hover:text-base-content"
+					href="#contact"
+				>
+					{t.hero.contact}
+				</a>
+			</div>
 		</div>
-	</div>
 
-	<figure class="m-0 w-full justify-self-end max-lg:order-first max-lg:w-[min(70%,17rem)] max-lg:justify-self-center">
-		<!-- The source is 1254px square but never renders wider than 416px, so it is
-		     served as a srcset rather than shipping the full file to every visitor. -->
-		<Image
-			class="h-auto w-full"
-			src={avatar}
-			widths={[272, 416, 544, 832]}
-			sizes="(min-width: 1024px) 26rem, min(70vw, 17rem)"
-			alt={t.hero.avatarAlt}
-			loading="eager"
-			fetchpriority="high"
-		/>
-	</figure>
-</section>
+		<figure
+			class="hero-figure m-0 w-full justify-self-end max-lg:order-first max-lg:w-[min(70%,17rem)] max-lg:justify-self-center"
+		>
+			<!-- The source is 1254px square but never renders wider than 512px, so it is
+			     served as a srcset rather than shipping the full file to every visitor. -->
+			<Image
+				class="h-auto w-full"
+				src={avatar}
+				widths={[272, 416, 544, 832, 1024]}
+				sizes="(min-width: 1024px) 32rem, min(70vw, 17rem)"
+				alt={t.hero.avatarAlt}
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</figure>
+	</section>
+</div>
+
+<style>
+	/* Fills the viewport below the sticky header, which renders 61px tall
+	   (60px navbar + 1px border). svh rather than vh so mobile browser chrome
+	   doesn't cut the bottom of the hero off. */
+	.hero-grid {
+		min-height: calc(100svh - 61px);
+		align-content: center;
+	}
+
+	@media (min-width: 1024px) {
+		.hero-grid {
+			grid-template-columns: minmax(0, 1fr) 32rem;
+			column-gap: 3rem;
+		}
+	}
+
+	.hero-title {
+		font-size: clamp(3.2rem, 8.4vw, 7.6rem);
+	}
+
+	/* The arrow drifts a few pixels up and down, a quiet hint that the button
+	   leads further down the page. It starts once the hero has finished
+	   building in, and only for readers who haven't asked for less motion —
+	   the global reduced-motion rule would otherwise make it flicker. */
+	@media (prefers-reduced-motion: no-preference) {
+		:global(.hero-arrow) {
+			animation: hero-arrow-float 1.6s ease-in-out 1.4s infinite alternate;
+		}
+	}
+
+	@keyframes hero-arrow-float {
+		from {
+			transform: translateY(-1.5px);
+		}
+		to {
+			transform: translateY(2.5px);
+		}
+	}
+</style>
