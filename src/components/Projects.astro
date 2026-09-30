@@ -17,8 +17,8 @@ const slots = getQuickLinkSlots(more);
 const slotColumns = `grid-template-columns: repeat(${slots.length}, minmax(0, 1fr))`;
 ---
 
-<section id="projects" class="shell pb-24">
-	<h2 class="eyebrow mb-10"><span class="num">01</span> {t.projects.title}</h2>
+<section id="projects" class="shell py-24">
+	<h2 data-reveal class="eyebrow mb-10"><span class="num">02</span> {t.projects.title}</h2>
 
 	{
 		featured.map((project, index) => (
@@ -33,9 +33,10 @@ const slotColumns = `grid-template-columns: repeat(${slots.length}, minmax(0, 1f
 	}
 </section>
 
-<section id="more" class="on-dark bg-neutral py-20 text-neutral-content">
+<!-- pt-24 is four grid cells, which puts the heading rule on a grid line. -->
+<section id="more" class="on-dark bg-neutral pb-20 pt-24 text-neutral-content">
 	<div class="shell">
-		<h2 class="eyebrow mb-10"><span class="num">02</span> {t.projects.more}</h2>
+		<h2 data-reveal class="eyebrow mb-10"><span class="num">03</span> {t.projects.more}</h2>
 
 		<div class="mb-1 hidden grid-cols-[9rem_minmax(0,1fr)_10rem] gap-7 px-2 lg:grid" aria-hidden="true">
 			<span></span>

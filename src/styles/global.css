@@ -158,26 +158,58 @@ footer[id] {
 
 /* ---- Type roles ------------------------------------------------------ */
 
+/* Section headings: the section number set small in mono, sitting on the
+   title's baseline, with a rule running out to the right edge.
+   The line box is two grid cells tall and the rule sits exactly one cell down,
+   whatever the font size — so in a navy band that starts its heading a whole
+   number of cells from the top, the rule lands on a grid line. */
 .eyebrow {
 	display: flex;
-	align-items: center;
-	gap: 0.85rem;
-	font-family: var(--font-mono);
-	font-size: 0.74rem;
-	font-weight: 500;
-	letter-spacing: 0.16em;
-	text-transform: uppercase;
-	color: var(--color-muted);
+	align-items: baseline;
+	gap: 0.9rem;
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 2.4vw, 1.95rem);
+	font-weight: 700;
+	font-stretch: 108%;
+	line-height: calc(var(--grid) * 2);
+	letter-spacing: -0.022em;
+	color: var(--color-navy);
 }
 
 .eyebrow::after {
 	content: '';
 	flex: 1;
+	align-self: flex-start;
 	height: 1px;
+	margin-top: var(--grid);
+	margin-left: 0.4rem;
+	background: var(--color-rule);
+}
+
+/* Centred variant: the rule runs out to both sides. */
+.eyebrow-center {
+	justify-content: center;
+}
+
+.eyebrow-center::before {
+	content: '';
+	flex: 1;
+	align-self: flex-start;
+	height: 1px;
+	margin-top: var(--grid);
+	margin-right: 0.4rem;
 	background: var(--color-rule);
 }
 
 .eyebrow .num {
+	font-family: var(--font-mono);
+	font-size: 1rem;
+	/* A tight box, so baseline-aligning it with the title can't push the
+	   heading past its two grid cells. */
+	line-height: 1;
+	font-weight: 500;
+	font-stretch: 100%;
+	letter-spacing: 0.04em;
 	color: var(--color-primary);
 }
 
@@ -207,9 +239,10 @@ footer[id] {
 /* ---- Dark band ------------------------------------------------------- */
 
 .on-dark .eyebrow {
-	color: rgb(255 255 255 / 0.55);
+	color: #fff;
 }
 
+.on-dark .eyebrow::before,
 .on-dark .eyebrow::after {
 	background: rgb(255 255 255 / 0.14);
 }
@@ -226,12 +259,17 @@ footer[id] {
 	border-bottom: 1px solid var(--color-rule);
 }
 
+/* In the navy bands content lines would have to land exactly on the grid, and
+   most can't — their positions follow the layout and the text — while a line
+   a few pixels beside a grid line reads as a misprint. So they go transparent
+   there, keeping their width so nothing shifts. The exceptions are placed on
+   the grid on purpose: section headings (`.eyebrow`) and the footer divider. */
 .on-dark .rule-top {
-	border-top-color: rgb(255 255 255 / 0.14);
+	border-top-color: transparent;
 }
 
 .on-dark .rule-bottom {
-	border-bottom-color: rgb(255 255 255 / 0.14);
+	border-bottom-color: transparent;
 }
 
 /* These quick links are icon-only, so the border is the only thing marking out
@@ -246,6 +284,17 @@ footer[id] {
 	border-color: #fff;
 	background: rgb(255 255 255 / 0.1);
 	color: #fff;
+}
+
+/* The navy bands carry a static echo of the hero's blueprint grid. Only the
+   hero itself moves. */
+section.on-dark,
+footer.on-dark {
+	background-image:
+		linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+		linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+	background-size: var(--grid) var(--grid);
+	background-position: center top;
 }
 
 /* ---- Tech, set as text ------------------------------------------------ */
