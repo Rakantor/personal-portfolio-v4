@@ -1,13 +1,19 @@
 import type { SimpleIcon } from 'simple-icons';
 import {
 	siApachemaven,
+	siAndroid,
 	siAstro,
+	siC,
 	siCloudflare,
 	siCss,
+	siDaisyui,
 	siDocker,
 	siFirebase,
 	siGit,
+	siGithubactions,
+	siGithubpages,
 	siGradle,
+	siHetzner,
 	siHtml5,
 	siJavascript,
 	siLua,
@@ -17,11 +23,17 @@ import {
 	siNuxt,
 	siPhp,
 	siPostgresql,
+	siPython,
 	siReact,
+	siShadcnui,
 	siSpringboot,
 	siTailwindcss,
 	siTypescript,
+	siVitest,
 	siVuedotjs,
+	siVuetify,
+	siWebpack,
+	siWordpress,
 } from 'simple-icons';
 
 export type MulticolorIcon = {
@@ -36,9 +48,21 @@ export type MulticolorIcon = {
 
 export type SkillIcon = SimpleIcon | MulticolorIcon;
 
+export type SkillLevel = 1 | 2 | 3 | 4 | 5;
+
 export type Skill = {
 	name: string;
 	icon: SkillIcon;
+	/** 1 Basics · 2 Familiar · 3 Proficient · 4 Advanced · 5 Expert */
+	level: SkillLevel;
+	/** First year of real use; the years of experience are counted from it at build time. */
+	since: number;
+	/**
+	 * Projects it was used in, including ones not shown on this site. 0 means
+	 * too many to count reliably and is shown as "> 10" — a tech with no real
+	 * projects behind it doesn't make the list in the first place.
+	 */
+	projects: number;
 };
 
 export type SkillGroupKey = 'languages' | 'frontend' | 'backend' | 'databases' | 'cloudHosting' | 'buildDevops';
@@ -64,6 +88,16 @@ const siIndexeddb: SimpleIcon = {
 	source: 'https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API',
 	hex: '2563EB',
 	svg: '',
+};
+
+// simple-icons has no Slim mark, so the PHP one stands in, in Slim's brand
+// green (#719E40, from slimframework.com).
+const siSlim: SimpleIcon = {
+	...siPhp,
+	title: 'Slim',
+	slug: 'slim',
+	source: 'https://www.slimframework.com/',
+	hex: '719E40',
 };
 
 const siJavaClassic: MulticolorIcon = {
@@ -102,56 +136,84 @@ export const skillGroups: SkillGroup[] = [
 	{
 		key: 'languages',
 		skills: [
-			{ name: 'Java (8+)', icon: siJavaClassic },
-			{ name: 'JavaScript', icon: siJavascript },
-			{ name: 'TypeScript', icon: siTypescript },
-			{ name: 'PHP', icon: siPhp },
-			{ name: 'Lua', icon: siLua },
-			{ name: 'HTML', icon: siHtml5 },
-			{ name: 'CSS', icon: siCss },
+			{ name: 'Java', icon: siJavaClassic, level: 4, since: 2010, projects: 0 },
+			{ name: 'JavaScript', icon: siJavascript, level: 4, since: 2020, projects: 0 },
+			{ name: 'TypeScript', icon: siTypescript, level: 4, since: 2022, projects: 8 },
+			{ name: 'PHP', icon: siPhp, level: 3, since: 2018, projects: 4 },
+			{ name: 'Lua', icon: siLua, level: 3, since: 2023, projects: 3 },
+			{ name: 'C', icon: siC, level: 1, since: 2009, projects: 3 },
+			{ name: 'Python', icon: siPython, level: 1, since: 2025, projects: 2 },
 		],
 	},
 	{
 		key: 'frontend',
 		skills: [
-			{ name: 'Vue.js', icon: siVuedotjs },
-			{ name: 'Nuxt', icon: siNuxt },
-			{ name: 'React', icon: siReact },
-			{ name: 'Astro', icon: siAstro },
-			{ name: 'Tailwind CSS', icon: siTailwindcss },
+			{ name: 'Vue.js', icon: siVuedotjs, level: 4, since: 2020, projects: 7 },
+			{ name: 'Nuxt', icon: siNuxt, level: 3, since: 2022, projects: 3 },
+			{ name: 'React', icon: siReact, level: 2, since: 2025, projects: 2 },
+			{ name: 'Astro', icon: siAstro, level: 2, since: 2025, projects: 3 },
+			{ name: 'HTML', icon: siHtml5, level: 4, since: 2009, projects: 10 },
+			{ name: 'CSS', icon: siCss, level: 4, since: 2009, projects: 10 },
+			{ name: 'Tailwind CSS', icon: siTailwindcss, level: 2, since: 2024, projects: 4 },
 		],
 	},
 	{
 		key: 'backend',
 		skills: [
-			{ name: 'Spring Boot', icon: siSpringboot },
-			{ name: 'Node.js', icon: siNodedotjs },
+			{ name: 'Spring Boot', icon: siSpringboot, level: 4, since: 2025, projects: 3 },
+			{ name: 'Node.js', icon: siNodedotjs, level: 2, since: 2022, projects: 2 },
+			{ name: 'Slim', icon: siSlim, level: 3, since: 2018, projects: 4 },
 		],
 	},
 	{
 		key: 'databases',
 		skills: [
-			{ name: 'MySQL', icon: siMysql },
-			{ name: 'PostgreSQL', icon: siPostgresql },
-			{ name: 'IndexedDB', icon: siIndexeddb },
+			{ name: 'MySQL', icon: siMysql, level: 4, since: 2007, projects: 0 },
+			{ name: 'PostgreSQL', icon: siPostgresql, level: 4, since: 2021, projects: 3 },
+			{ name: 'IndexedDB (NoSQL)', icon: siIndexeddb, level: 3, since: 2021, projects: 2 },
+			{ name: 'Firestore (NoSQL)', icon: siFirebase, level: 3, since: 2021, projects: 2 },
 		],
 	},
 	{
 		key: 'cloudHosting',
 		skills: [
-			{ name: 'AWS', icon: siAws },
-			{ name: 'Cloudflare', icon: siCloudflare },
-			{ name: 'Firebase', icon: siFirebase },
+			{ name: 'AWS', icon: siAws, level: 3, since: 2018, projects: 5 },
+			{ name: 'Cloudflare', icon: siCloudflare, level: 3, since: 2023, projects: 5 },
+			{ name: 'Firebase', icon: siFirebase, level: 3, since: 2021, projects: 3 },
+			{ name: 'Hetzner', icon: siHetzner, level: 3, since: 2025, projects: 3 },
 		],
 	},
 	{
 		key: 'buildDevops',
 		skills: [
-			{ name: 'Maven', icon: siApachemaven },
-			{ name: 'Gradle', icon: siGradle },
-			{ name: 'npm', icon: siNpm },
-			{ name: 'Git', icon: siGit },
-			{ name: 'Docker', icon: siDocker },
+			{ name: 'Maven', icon: siApachemaven, level: 3, since: 2025, projects: 3 },
+			{ name: 'Gradle', icon: siGradle, level: 4, since: 2013, projects: 0 },
+			{ name: 'npm', icon: siNpm, level: 4, since: 2020, projects: 0 },
+			{ name: 'Git', icon: siGit, level: 4, since: 2014, projects: 0 },
+			{ name: 'Docker', icon: siDocker, level: 3, since: 2022, projects: 0 },
 		],
 	},
 ];
+
+/**
+ * Icons for the technologies projects list that are not skills of their own,
+ * plus the names projects use for skills listed under another one.
+ */
+const techIcons: Record<string, SkillIcon> = {
+	Java: siJavaClassic,
+	'Amazon Web Services': siAws,
+	Android: siAndroid,
+	daisyUI: siDaisyui,
+	'GitHub Actions': siGithubactions,
+	'GitHub Pages': siGithubpages,
+	'shadcn/ui': siShadcnui,
+	Vitest: siVitest,
+	Vuetify: siVuetify,
+	Webpack: siWebpack,
+	WordPress: siWordpress,
+};
+
+const skillIcons = new Map(skillGroups.flatMap((group) => group.skills).map((skill) => [skill.name, skill.icon]));
+
+/** The icon for a technology as a project names it, if there is one. */
+export const iconForTech = (name: string): SkillIcon | undefined => techIcons[name] ?? skillIcons.get(name);

@@ -1,0 +1,153 @@
+---
+import { Boxes, CodeXml, Database, Globe, MonitorSmartphone, Route } from '@lucide/astro';
+import { projects } from '../data/projects';
+import { localePath, type Locale, ui } from '../i18n';
+
+type Props = {
+	locale?: Locale;
+};
+
+const { locale = 'en' } = Astro.props;
+const t = ui[locale];
+const c = t.techStack.capabilities;
+
+// Each capability points at the projects that show it, so the claim links
+// straight to the evidence.
+const capabilities = [
+	{ copy: c.fullStack, Icon: CodeXml, proof: ['torii-srs-web-v2', 'iu-quiz-app'] },
+	{ copy: c.objectOriented, Icon: Boxes, proof: ['torii-srs-java', 'menacing-blue'] },
+	{ copy: c.restApis, Icon: Route, proof: ['torii-srs-web-v1'] },
+	{ copy: c.databaseDesign, Icon: Database, proof: ['torii-srs-web-v2'] },
+	{ copy: c.crossPlatform, Icon: MonitorSmartphone, proof: ['torii-srs-java', 'iu-gamer-app'] },
+	{ copy: c.deploymentHosting, Icon: Globe, proof: ['personal-website', 'leave-me-be'] },
+].map((capability) => ({
+	...capability,
+	proof: capability.proof
+		.map((slug) => projects.find((project) => project.slug === slug))
+		.filter((project) => project !== undefined)
+		.map((project) => ({ title: project.title, href: localePath(locale, `/projects/${project.slug}`) })),
+}));
+---
+
+<!-- pt-24 is four grid cells, which puts the heading rule on a grid line. -->
+<section id="what" class="on-dark bg-neutral pb-20 pt-24 text-neutral-content">
+	<div class="shell">
+		<h2 data-reveal class="eyebrow mb-6"><span class="num">01</span> {c.title}</h2>
+		<p class="what-lead">{c.lead}</p>
+
+		<ul class="cap-grid mt-12">
+			{
+				capabilities.map(({ copy, Icon, proof }, index) => (
+					<li data-reveal class="cap" style={`--i: ${index}`}>
+						<span class="cap-icon">
+							<Icon size={22} aria-hidden="true" />
+						</span>
+						<h3 class="cap-title">{copy.title}</h3>
+						<p class="cap-text">{copy.text}</p>
+						<p class="cap-proof">
+							<span>{c.seenIn}</span>
+							{proof.map((project) => (
+								<a href={project.href}>{project.title}</a>
+							))}
+						</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	/* A single sentence, so it takes the full width rather than a reading
+	   measure — a narrow column only left a lone word on a second line. Where
+	   it does have to wrap, `pretty` keeps the last line from being one word. */
+	.what-lead {
+		text-wrap: pretty;
+		font-family: var(--font-body);
+		font-size: 1.15rem;
+		line-height: 1.6;
+		color: rgb(255 255 255 / 0.7);
+	}
+
+	/* No hairlines between the cells: on the navy band the background grid is
+	   the only ruling (see `.on-dark` in global.css). The gaps carry the
+	   structure instead. */
+	.cap-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem 4rem;
+	}
+
+	.cap {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding-block: 1.5rem;
+	}
+
+	.cap-icon {
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		border: 1px solid rgb(255 255 255 / 0.2);
+		border-radius: 3px;
+		background: rgb(255 255 255 / 0.04);
+		color: var(--color-blue-bright);
+		flex: 0 0 auto;
+	}
+
+	.cap-title {
+		margin-top: 0.5rem;
+		font-family: var(--font-display);
+		font-size: 1.2rem;
+		font-weight: 700;
+		letter-spacing: -0.015em;
+		color: #fff;
+	}
+
+	.cap-text {
+		font-family: var(--font-body);
+		font-size: 1rem;
+		line-height: 1.6;
+		color: rgb(255 255 255 / 0.7);
+	}
+
+	.cap-proof {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 0.9rem;
+		margin-top: auto;
+		padding-top: 0.5rem;
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+	}
+
+	.cap-proof span {
+		color: rgb(255 255 255 / 0.55);
+	}
+
+	.cap-proof a {
+		color: var(--color-blue-bright);
+		text-decoration: underline;
+		text-decoration-color: rgb(133 170 255 / 0.35);
+		text-underline-offset: 3px;
+	}
+
+	.cap-proof a:hover {
+		text-decoration-color: currentColor;
+	}
+
+	@media (max-width: 1023px) {
+		.cap-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			column-gap: 2.5rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.cap-grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

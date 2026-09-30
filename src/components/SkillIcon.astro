@@ -1,0 +1,23 @@
+---
+import type { SkillIcon } from '../data/skills';
+
+type Props = {
+	icon: SkillIcon;
+};
+
+const { icon } = Astro.props;
+---
+
+{
+	'paths' in icon ? (
+		<svg viewBox={icon.viewBox} aria-hidden="true">
+			{icon.paths.map((path) => (
+				<path d={path.d} fill={path.fill} />
+			))}
+		</svg>
+	) : (
+		<svg viewBox="0 0 24 24" fill={`#${icon.hex}`} aria-hidden="true">
+			<path d={icon.path} />
+		</svg>
+	)
+}

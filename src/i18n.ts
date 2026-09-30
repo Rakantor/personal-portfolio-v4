@@ -58,14 +58,46 @@ export const ui = {
 		},
 		techStack: {
 			title: 'Tech Stack',
+			yearOne: '1 year',
+			yearsMany: '{n} years',
+			yearLess: '< 1 year',
+			projectOne: '1 project',
+			projectsMany: '{n} projects',
+			levels: {
+				5: 'Expert',
+				4: 'Advanced',
+				3: 'Proficient',
+				2: 'Familiar',
+				1: 'Basics',
+			},
 			capabilities: {
 				title: 'What I Do',
-				fullStack: 'Full-stack Development',
-				objectOriented: 'Object-oriented Programming',
-				restApis: 'REST APIs',
-				databaseDesign: 'Database Design',
-				crossPlatform: 'Cross-platform Apps',
-				deploymentHosting: 'Deployment and Hosting',
+				lead: 'What I bring to a team and the projects that show it.',
+				seenIn: 'Seen in',
+				fullStack: {
+					title: 'Full-stack Development',
+					text: 'I build frontends and backends and bring them together into complete applications. My current go-to technologies are Vue and Nuxt, alongside Node.js, Spring Boot, or PHP.',
+				},
+				objectOriented: {
+					title: 'Object-oriented Programming',
+					text: "I've been developing with Java since 2010. I break down complex functionality into classes with clear responsibilities, making the code easier to understand and extend.",
+				},
+				restApis: {
+					title: 'REST APIs',
+					text: 'I build APIs for exchanging data between apps and servers. This also includes syncing locally stored changes when an offline app reconnects.',
+				},
+				databaseDesign: {
+					title: 'Database Design',
+					text: 'I design data models for relational (SQL) and NoSQL databases. I also store structured data locally in the browser so applications can work offline.',
+				},
+				crossPlatform: {
+					title: 'Cross-platform Apps',
+					text: 'I build applications for desktop, web, and Android, adapting the interface and interactions to each platform.',
+				},
+				deploymentHosting: {
+					title: 'Deployment & CI/CD',
+					text: 'I deploy and run my projects on platforms including AWS, Cloudflare, and GitHub Pages. I build CI/CD pipelines with GitHub Actions to automate builds, tests, and deployments.',
+				},
 			},
 			groups: {
 				languages: 'Languages',
@@ -148,14 +180,46 @@ export const ui = {
 		},
 		techStack: {
 			title: 'Tech Stack',
+			yearOne: '1 Jahr',
+			yearsMany: '{n} Jahre',
+			yearLess: '< 1 Jahr',
+			projectOne: '1 Projekt',
+			projectsMany: '{n} Projekte',
+			levels: {
+				5: 'Experte',
+				4: 'Fortgeschritten',
+				3: 'Sicher',
+				2: 'Vertraut',
+				1: 'Grundlagen',
+			},
 			capabilities: {
 				title: 'Was ich mache',
-				fullStack: 'Full-Stack-Entwicklung',
-				objectOriented: 'Objektorientierte Programmierung',
-				restApis: 'REST-APIs',
-				databaseDesign: 'Datenbankdesign',
-				crossPlatform: 'Plattformübergreifende Apps',
-				deploymentHosting: 'Deployment und Hosting',
+				lead: 'Was ich in ein Team einbringe und welche Projekte das zeigen.',
+				seenIn: 'Beispiele',
+				fullStack: {
+					title: 'Full-Stack-Entwicklung',
+					text: 'Ich entwickle Frontend und Backend und verbinde beides zu einer vollständigen Anwendung. Dafür nutze ich derzeit bevorzugt Vue und Nuxt sowie Node.js, Spring Boot oder PHP.',
+				},
+				objectOriented: {
+					title: 'Objektorientierte Programmierung',
+					text: 'Seit 2010 entwickle ich mit Java. Ich teile komplexe Funktionen in Klassen mit klaren Aufgaben auf, damit sich der Code leichter verstehen und erweitern lässt.',
+				},
+				restApis: {
+					title: 'REST-APIs',
+					text: 'Ich entwickle Schnittstellen für den Datenaustausch zwischen App und Server. Dazu gehört auch der Abgleich lokal gespeicherter Änderungen, sobald eine Offline-App wieder eine Verbindung hat.',
+				},
+				databaseDesign: {
+					title: 'Datenbankdesign',
+					text: 'Ich entwerfe Datenmodelle für relationale Datenbanken (SQL) und NoSQL-Datenbanken. Für die Nutzung ohne Internetverbindung speichere ich Daten auch strukturiert lokal im Browser.',
+				},
+				crossPlatform: {
+					title: 'Plattformübergreifende Apps',
+					text: 'Ich entwickle Anwendungen für Desktop, Web und Android. Oberfläche und Bedienung passe ich an die jeweilige Plattform an.',
+				},
+				deploymentHosting: {
+					title: 'Deployment & CI/CD',
+					text: 'Ich veröffentliche und betreibe meine Projekte unter anderem auf AWS, Cloudflare und GitHub Pages. Mit GitHub Actions automatisiere ich Builds, Tests und Deployments in CI/CD-Pipelines.',
+				},
 			},
 			groups: {
 				languages: 'Programmiersprachen',

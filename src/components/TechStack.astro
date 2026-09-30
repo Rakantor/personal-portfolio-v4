@@ -1,5 +1,5 @@
 ---
-import { Boxes, CodeXml, Database, Globe, MonitorSmartphone, Route } from '@lucide/astro';
+import SkillIcon from './SkillIcon.astro';
 import { skillGroups } from '../data/skills';
 import { type Locale, ui } from '../i18n';
 
@@ -9,70 +9,157 @@ type Props = {
 
 const { locale = 'en' } = Astro.props;
 const t = ui[locale];
+const currentYear = new Date().getFullYear();
 
-const capabilities = [
-	{ label: t.techStack.capabilities.fullStack, Icon: CodeXml },
-	{ label: t.techStack.capabilities.objectOriented, Icon: Boxes },
-	{ label: t.techStack.capabilities.restApis, Icon: Route },
-	{ label: t.techStack.capabilities.databaseDesign, Icon: Database },
-	{ label: t.techStack.capabilities.crossPlatform, Icon: MonitorSmartphone },
-	{ label: t.techStack.capabilities.deploymentHosting, Icon: Globe },
-];
+const yearsLabel = (since: number) => {
+	const years = currentYear - since;
+	if (years < 1) return t.techStack.yearLess;
+	return years === 1 ? t.techStack.yearOne : t.techStack.yearsMany.replace('{n}', String(years));
+};
 
-const isMulticolorIcon = (icon: (typeof skillGroups)[number]['skills'][number]['icon']) => 'paths' in icon;
+// 0 means "too many to count" (see Skill.projects), shown as "> 10" to match
+// the "< 1 year" of the years label.
+const projectsLabel = (count: number) => {
+	if (count === 1) return t.techStack.projectOne;
+	return t.techStack.projectsMany.replace('{n}', count === 0 ? '> 10' : String(count));
+};
+
+// Strongest first within each group, so the list reads as a ranking.
+const groups = skillGroups.map((group) => ({
+	...group,
+	skills: [...group.skills].sort((a, b) => b.level - a.level || a.since - b.since),
+}));
 ---
 
-<section id="stack" class="shell py-20">
-	<h2 class="eyebrow mb-8"><span class="num">03</span> {t.techStack.capabilities.title}</h2>
+<section id="stack" class="shell pt-20 pb-24">
+	<h2 data-reveal class="eyebrow mb-6"><span class="num">04</span> {t.techStack.title}</h2>
 
-	<ul class="grid list-none grid-cols-1 gap-0 p-0 sm:grid-cols-2 lg:grid-cols-3">
+	<div class="stack-groups mt-12">
 		{
-			capabilities.map(({ label, Icon }) => (
-				<li class="rule-top flex items-center gap-4 py-5 pr-6 text-base font-medium">
-					<Icon class="shrink-0 text-primary" size={22} aria-hidden="true" />
-					<span>{label}</span>
-				</li>
+			groups.map((group) => (
+				<div data-reveal class="stack-group">
+					<h3 class="stack-group-title">{t.techStack.groups[group.key]}</h3>
+					<ul class="skill-list">
+						{group.skills.map((skill, row) => {
+							const levelLabel = t.techStack.levels[skill.level];
+							return (
+								<li class="skill" style={`--r: ${row}`}>
+									<SkillIcon icon={skill.icon} />
+									<span class="skill-name">{skill.name}</span>
+									<span class="skill-level">{levelLabel}</span>
+									<span class="meter" role="img" aria-label={`${levelLabel}, ${skill.level}/5`}>
+										{[1, 2, 3, 4, 5].map((step) => (
+											<i class:list={[step <= skill.level && 'on']} style={`--s: ${step - 1}`} />
+										))}
+									</span>
+									<span class="skill-meta">
+										<span>{yearsLabel(skill.since)}</span>
+										<span>{projectsLabel(skill.projects)}</span>
+									</span>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
 			))
 		}
-	</ul>
+	</div>
 </section>
 
-<section id="tech-stack" class="shell pb-24">
-	<h2 class="eyebrow mb-8"><span class="num">04</span> {t.techStack.title}</h2>
-
-	{
-		skillGroups.map((group, index) => (
-			<div
-				class:list={[
-					'rule-top grid items-start gap-4 py-6 lg:grid-cols-[10rem_minmax(0,1fr)] lg:gap-8',
-					index === skillGroups.length - 1 && 'rule-bottom',
-				]}
-			>
-				<h3 class="pt-2 font-mono text-[0.73rem] font-medium uppercase tracking-[0.14em] text-muted">
-					{t.techStack.groups[group.key]}
-				</h3>
-
-				<div class="tile-grid">
-					{group.skills.map((skill) => (
-						<span class="tile">
-							{
-								isMulticolorIcon(skill.icon) ? (
-									<svg viewBox={skill.icon.viewBox} aria-hidden="true">
-										{skill.icon.paths.map((path) => (
-											<path d={path.d} fill={path.fill} />
-										))}
-									</svg>
-								) : (
-									<svg viewBox="0 0 24 24" fill={`#${skill.icon.hex}`} aria-hidden="true">
-										<path d={skill.icon.path} />
-									</svg>
-								)
-							}
-							<span>{skill.name}</span>
-						</span>
-					))}
-				</div>
-			</div>
-		))
+<style>
+	.stack-groups {
+		display: grid;
+		gap: 3rem 4rem;
 	}
-</section>
+
+	@media (min-width: 1024px) {
+		.stack-groups {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	.stack-group-title {
+		margin-bottom: 0.9rem;
+		font-family: var(--font-mono);
+		font-size: 0.73rem;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+
+	/* One rule under the group title; the skills themselves are separated by
+	   spacing alone. */
+	.skill-list {
+		border-top: 1px solid var(--color-rule);
+	}
+
+	/* icon | name ........ level
+	   icon | ■■■■□ meter .......
+	   icon | years   projects    */
+	.skill {
+		display: grid;
+		grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+		grid-template-areas:
+			'icon name  level'
+			'icon meter meter'
+			'icon meta  meta';
+		column-gap: 0.9rem;
+		row-gap: 0.4rem;
+		align-items: center;
+		padding-block: 1.1rem;
+	}
+
+	/* The icon renders in a child component, so it needs :global to be reached. */
+	.skill :global(svg) {
+		grid-area: icon;
+		align-self: start;
+		width: 2.25rem;
+		height: 2.25rem;
+		margin-top: 0.1rem;
+	}
+
+	.skill-name {
+		grid-area: name;
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		color: var(--color-navy);
+	}
+
+	.skill-level {
+		grid-area: level;
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 500;
+		color: var(--color-primary);
+	}
+
+	/* Five discrete steps rather than a percentage bar: a rating this coarse
+	   shouldn't pretend to the precision of "78%". */
+	.meter {
+		grid-area: meter;
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 3px;
+	}
+
+	.meter i {
+		height: 6px;
+		background: var(--color-rule);
+	}
+
+	.meter i.on {
+		background: var(--color-primary);
+	}
+
+	.skill-meta {
+		grid-area: meta;
+		display: flex;
+		gap: 1.25rem;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: var(--color-muted-2);
+	}
+</style>
