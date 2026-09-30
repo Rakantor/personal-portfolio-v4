@@ -19,6 +19,7 @@ export const ui = {
 			homeTitle: 'Manuel Veigel | Software Developer',
 			homeDescription:
 				'Portfolio of Manuel Veigel, a software developer from Vienna building web and desktop apps, from Japanese learning platforms to browser tools and games.',
+			ogImageAlt: 'Manuel Veigel, software developer from Vienna, beside a portrait illustration on a blueprint grid',
 		},
 		nav: {
 			home: 'Home',
@@ -147,6 +148,7 @@ export const ui = {
 			homeTitle: 'Manuel Veigel | Softwareentwickler',
 			homeDescription:
 				'Portfolio von Manuel Veigel, Softwareentwickler aus Wien. Web- und Desktop-Apps, von Sprachlernplattformen über Browser-Tools bis hin zu Spielen.',
+			ogImageAlt: 'Manuel Veigel, Softwareentwickler aus Wien, neben einer Portrait-Illustration auf einem Blueprint-Raster',
 		},
 		nav: {
 			home: 'Start',

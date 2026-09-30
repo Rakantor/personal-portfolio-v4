@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+	The social preview card, public/og.jpg. Rendered from this page rather than
+	composited by hand so it uses the site's own fonts and grid.
+
+	To regenerate, serve the repo root over HTTP and screenshot this page at 1200x630, e.g.
+
+	  python3 -m http.server 8765
+	  npx playwright screenshot --viewport-size=1200,630 \
+	    "http://localhost:8765/scripts/og/og.html" og.png
+
+	then convert og.png to public/og.jpg (sharp, JPEG quality 85).
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>OG card</title>
+	<style>
+		@font-face {
+			font-family: 'Archivo';
+			src: url('../../public/fonts/archivo-var-latin.woff2') format('woff2-variations');
+			font-weight: 400 900;
+			font-stretch: 62% 125%;
+		}
+
+		@font-face {
+			font-family: 'Source Serif 4';
+			src: url('../../public/fonts/source-serif-4-var-latin.woff2') format('woff2-variations');
+			font-weight: 400 600;
+		}
+
+		:root {
+			--ground: #f4f6f9;
+			--ink: #0c1730;
+			--body: #333c4d;
+			--line: rgb(47 95 224 / 0.13);
+			--fine: rgb(47 95 224 / 0.055);
+			/* Larger than on the site: the card is mostly seen at a third of its size. */
+			--grid: 30px;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+		}
+
+		html,
+		body {
+			width: 1200px;
+			height: 630px;
+			overflow: hidden;
+		}
+
+		body {
+			position: relative;
+			display: flex;
+			align-items: center;
+			background: var(--ground);
+			color: var(--ink);
+			-webkit-font-smoothing: antialiased;
+		}
+
+		.grid {
+			position: absolute;
+			inset: 0;
+			background-image:
+				linear-gradient(to right, var(--line) 1px, transparent 1px),
+				linear-gradient(to bottom, var(--line) 1px, transparent 1px),
+				linear-gradient(to right, var(--fine) 1px, transparent 1px),
+				linear-gradient(to bottom, var(--fine) 1px, transparent 1px);
+			background-size:
+				calc(var(--grid) * 5) calc(var(--grid) * 5),
+				calc(var(--grid) * 5) calc(var(--grid) * 5),
+				var(--grid) var(--grid),
+				var(--grid) var(--grid);
+			/* Strongest behind the portrait, as in the hero. */
+			mask-image: radial-gradient(ellipse 62% 95% at 76% 50%, #000 30%, rgb(0 0 0 / 0.35) 65%, rgb(0 0 0 / 0.12) 100%);
+		}
+
+		/* Crosses on the major intersections, like drafting paper. */
+		.crosses {
+			position: absolute;
+			inset: 0;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cpath d='M0 -6v12M-6 0h12M150 144v12M144 150h12M0 144v12M-6 150h12M150 -6v12M144 0h12' stroke='%232f5fe0' stroke-opacity='.5' stroke-width='1.5'/%3E%3C/svg%3E");
+			background-size: 150px 150px;
+			mask-image: radial-gradient(ellipse 50% 80% at 76% 50%, #000 20%, transparent 80%);
+		}
+
+		/* Name and role as one block, centred on the card's height — the same
+		   line the portrait is centred on. */
+		.text {
+			position: relative;
+			margin-left: 96px;
+		}
+
+		h1 {
+			font-family: 'Archivo', sans-serif;
+			font-size: 132px;
+			font-weight: 800;
+			font-stretch: 112%;
+			line-height: 0.95;
+			letter-spacing: -0.035em;
+		}
+
+		.role {
+			margin-top: 34px;
+			font-family: 'Source Serif 4', serif;
+			font-size: 38px;
+			line-height: 1.2;
+			color: var(--body);
+		}
+
+		.avatar {
+			position: absolute;
+			right: 60px;
+			top: 50%;
+			width: 480px;
+			height: 480px;
+			transform: translateY(-50%);
+		}
+	</style>
+</head>
+<body>
+	<div class="grid"></div>
+	<div class="crosses"></div>
+
+	<div class="text">
+		<h1>Manuel<br />Veigel</h1>
+		<p class="role">Software developer from Vienna.</p>
+	</div>
+
+	<img class="avatar" src="../../src/assets/avatar.webp" alt="" />
+</body>
+</html>
