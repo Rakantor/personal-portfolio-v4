@@ -25,8 +25,9 @@ const shot = await getImage({ src: project.image, width: 1200, height: 750, form
 ---
 
 <article
+	data-reveal
 	class:list={[
-		'specimen grid items-center gap-13 py-13 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]',
+		'grid items-center gap-13 py-13 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]',
 		!isFirst && 'rule-top',
 		isFirst && 'pt-0',
 		isLast && 'pb-0',

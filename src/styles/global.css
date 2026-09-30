@@ -429,7 +429,6 @@ footer.on-dark {
 	box-shadow:
 		0 1px 0 rgb(13 18 32 / 0.05),
 		0 22px 48px -30px rgb(12 23 48 / 0.45);
-	transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
 .shot img {
@@ -439,8 +438,32 @@ footer.on-dark {
 	object-position: top center;
 }
 
-.specimen:hover .shot {
-	transform: translateY(-4px);
+/* The whole index row opens the project: the title link's hit area is
+   stretched over the row, and the quick links are lifted above it so they
+   still go where they say. Keyboard focus outlines the row it now stands for. */
+.index-row {
+	position: relative;
+}
+
+.index-row-link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+}
+
+.index-row-link:focus-visible {
+	outline: none;
+}
+
+.index-row-link:focus-visible::after {
+	outline: 2px solid var(--color-blue-bright);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+.index-row .btn {
+	position: relative;
+	z-index: 1;
 }
 
 .index-row .go {
