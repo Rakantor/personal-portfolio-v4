@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Reveal from '../components/Reveal.astro';
 import { defaultLocale, htmlLang, localePath, locales, stripLocaleFromPathname, ui, type Locale } from '../i18n';
 
 type Props = {
@@ -93,9 +94,17 @@ const ogLocales: Record<Locale, string> = { en: 'en_US', de: 'de_AT' };
 		<link rel="preload" href="/fonts/source-serif-4-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 
 		<title>{title}</title>
+
+		<!-- Runs before first paint. Entrance animations hide their targets only
+		     under `.js`, so without script (or if this never runs) everything is
+		     simply visible. -->
+		<script is:inline>
+			document.documentElement.classList.add('js');
+		</script>
 	</head>
 	<body class="bg-base-100 text-base-content">
 		<a class="skip-link" href="#content">{t.nav.skip}</a>
 		<slot />
+		<Reveal />
 	</body>
 </html>

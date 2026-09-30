@@ -1,0 +1,25 @@
+<!-- Adds `.is-in` to each `[data-reveal]` element the first time it scrolls
+     into view; the styles in global.css animate from there. One observer for
+     the whole page, and each element is let go once it has been revealed. -->
+<script>
+	const targets = document.querySelectorAll('[data-reveal]');
+	const reveal = (element: Element) => element.classList.add('is-in');
+
+	if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+		targets.forEach(reveal);
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue;
+					reveal(entry.target);
+					observer.unobserve(entry.target);
+				}
+			},
+			// Waits until an element is a little way into the viewport, so the
+			// motion happens where the reader is looking rather than at the edge.
+			{ rootMargin: '0px 0px -12% 0px' },
+		);
+		targets.forEach((target) => observer.observe(target));
+	}
+</script>
