@@ -24,6 +24,7 @@ export const ui = {
 			home: 'Home',
 			stack: 'Stack',
 			projects: 'Projects',
+			contact: 'Contact',
 			open: 'Open navigation',
 			language: 'Language',
 			main: 'Main navigation',
@@ -126,6 +127,12 @@ export const ui = {
 		},
 		footer: {
 			legal: 'Legal Notice',
+			title: 'Contact',
+			// Two sentences, set on a line each.
+			lead: ['Got a role or a project in mind?', "I'd like to hear about it."],
+			copy: 'Copy email address',
+			copied: 'Copied to clipboard',
+			email: 'Write an email',
 		},
 		notFound: {
 			title: 'Page not found | Manuel Veigel',
@@ -145,6 +152,7 @@ export const ui = {
 			home: 'Start',
 			stack: 'Stack',
 			projects: 'Projekte',
+			contact: 'Kontakt',
 			open: 'Navigation öffnen',
 			language: 'Sprache',
 			main: 'Hauptnavigation',
@@ -247,6 +255,11 @@ export const ui = {
 		},
 		footer: {
 			legal: 'Impressum',
+			title: 'Kontakt',
+			lead: ['Eine offene Stelle oder ein Projekt in Planung?', 'Ich freue mich über eine Nachricht.'],
+			copy: 'E-Mail-Adresse kopieren',
+			copied: 'In die Zwischenablage kopiert',
+			email: 'E-Mail schreiben',
 		},
 		notFound: {
 			title: 'Seite nicht gefunden | Manuel Veigel',

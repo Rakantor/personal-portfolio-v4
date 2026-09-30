@@ -15,10 +15,14 @@ const languageLinks = [
 	{ locale: 'de' as const, href: localizedPathFor(Astro.url.pathname, 'de'), label: 'DE' },
 ];
 
+// `sections` are the ids each link stands for when the header marks the
+// section being read (see the script below).
 const navItems = [
-	{ label: t.nav.home, href: localePath(locale, '/#home') },
-	{ label: t.nav.projects, href: localePath(locale, '/#projects') },
-	{ label: t.nav.stack, href: localePath(locale, '/#stack') },
+	{ label: t.nav.home, href: localePath(locale, '/#home'), sections: 'home what' },
+	{ label: t.nav.projects, href: localePath(locale, '/#projects'), sections: 'projects more' },
+	{ label: t.nav.stack, href: localePath(locale, '/#stack'), sections: 'stack' },
+	// Every page ends in the footer's contact block, so this stays on the page.
+	{ label: t.nav.contact, href: '#contact', sections: 'contact' },
 ];
 ---
 

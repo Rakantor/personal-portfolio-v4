@@ -1,32 +1,208 @@
 ---
-import { Mail } from '@lucide/astro';
+import { Check, Copy, Mail } from '@lucide/astro';
 import { siGithub } from 'simple-icons';
 import { type Locale, ui } from '../i18n';
 
 type Props = {
 	locale?: Locale;
+	/** Section number, for pages where the footer continues the numbered sections. */
+	number?: string;
 };
 
-const { locale = 'en' } = Astro.props;
+const { locale = 'en', number } = Astro.props;
 const t = ui[locale];
 const currentYear = new Date().getFullYear();
+const email = 'maveigel@gmail.com';
+
+// simple-icons dropped LinkedIn at the brand's request, so the mark is inlined.
+const linkedinPath =
+	'M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13Zm1.78 13.02H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0h.01Z';
 ---
 
-<footer id="contact" class="bg-neutral text-neutral-content/70">
-	<div class="shell flex flex-col items-center justify-between gap-5 py-9 text-center font-mono text-[0.76rem] tracking-wide md:flex-row md:text-left">
+<footer id="contact" class="on-dark bg-neutral text-neutral-content">
+	<!-- Everything in this block is a whole number of grid cells tall (padding,
+	     margins, line boxes), so the divider below it lands on a grid line
+	     however the text wraps. Keep to multiples of var(--grid) when editing. -->
+	<div class="shell flex flex-col items-center pb-18 pt-24 text-center">
+		<h2 data-reveal class="eyebrow eyebrow-center mb-6 self-stretch">
+			{number && <span class="num">{number}</span>}
+			{t.footer.title}
+		</h2>
+		<p data-reveal class="contact-lead" style="--i: 1">
+			{t.footer.lead.map((sentence) => <span class="block">{sentence}</span>)}
+		</p>
+
+		<!-- The address is the thing people want, so it is set large and copies
+		     on click; the mailto button below covers everyone with a mail client
+		     set up. -->
+		<button data-reveal class="contact-email" style="--i: 2" type="button" data-copy-email={email}>
+			<span>{email}</span>
+			<span class="contact-email-icon" aria-hidden="true">
+				<Copy class="icon-copy" size={22} />
+				<Check class="icon-check" size={22} />
+			</span>
+			<span class="sr-only">{t.footer.copy}</span>
+		</button>
+		<p class="contact-status" role="status" data-copy-status data-copied={t.footer.copied}></p>
+
+		<div class="contact-actions">
+			<a
+				data-reveal
+				class="btn border-0 bg-white text-navy hover:bg-blue-bright hover:text-navy"
+				style="--i: 3"
+				href={`mailto:${email}`}
+			>
+				<Mail size={17} />
+				{t.footer.email}
+			</a>
+		</div>
+	</div>
+
+	<div class="footer-bar shell flex flex-col items-center justify-between gap-4 py-6 font-mono text-[0.76rem] tracking-wide text-white/70 md:flex-row">
 		<p class="m-0">© {currentYear} Manuel Veigel</p>
 
 		<div class="flex gap-1">
-			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10" href="https://github.com/Rakantor" aria-label="GitHub">
+			<a
+				class="btn btn-ghost btn-circle text-white hover:bg-white/10"
+				href="https://github.com/Rakantor"
+				target="_blank"
+				rel="noreferrer"
+				aria-label="GitHub"
+			>
 				<svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 					<path d={siGithub.path}></path>
 				</svg>
 			</a>
-			<a class="btn btn-ghost btn-circle text-white hover:bg-white/10" href="mailto:maveigel@gmail.com" aria-label="Email">
-				<Mail size={19} />
+			<a
+				class="btn btn-ghost btn-circle text-white hover:bg-white/10"
+				href="https://www.linkedin.com/in/manuel-veigel/"
+				target="_blank"
+				rel="noreferrer"
+				aria-label="LinkedIn"
+			>
+				<svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<path d={linkedinPath}></path>
+				</svg>
 			</a>
 		</div>
 
 		<a class="transition-colors hover:text-white" href="/impressum">{t.footer.legal}</a>
 	</div>
 </footer>
+
+<style>
+	/* One line per sentence, so the break falls between the question and the
+	   answer rather than wherever the width runs out. Should a sentence itself
+	   have to wrap on a narrow screen, `balance` evens out its lines. */
+	.contact-lead {
+		margin-inline: auto;
+		text-wrap: balance;
+		font-family: var(--font-body);
+		font-size: 1.1rem;
+		line-height: var(--grid);
+		color: rgb(255 255 255 / 0.7);
+	}
+
+	.contact-email {
+		position: relative;
+		max-width: 100%;
+		margin-top: var(--grid);
+		font-family: var(--font-display);
+		font-size: clamp(1.6rem, 4.4vw, 3.2rem);
+		font-weight: 700;
+		font-stretch: 108%;
+		letter-spacing: -0.025em;
+		/* The smallest whole number of grid cells that fits the type. */
+		line-height: round(up, 1.15em, var(--grid));
+		color: #fff;
+		text-align: center;
+		overflow-wrap: anywhere;
+		cursor: copy;
+		transition: color 0.2s ease;
+	}
+
+	.contact-email:hover {
+		color: var(--color-blue-bright);
+	}
+
+	/* Hangs off the right edge rather than sitting in the flow, so the address
+	   itself stays centred. */
+	.contact-email-icon {
+		position: absolute;
+		top: 50%;
+		left: 100%;
+		display: grid;
+		margin-left: 0.8rem;
+		color: var(--color-blue-bright);
+		transform: translateY(-50%);
+	}
+
+	.contact-email-icon :global(svg) {
+		grid-area: 1 / 1;
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.contact-email-icon :global(.icon-check),
+	.contact-email.is-copied .contact-email-icon :global(.icon-copy) {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	.contact-email.is-copied .contact-email-icon :global(.icon-check) {
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Reserves its line so the button below doesn't jump when it appears. */
+	/* Two cells: the button is 2.5rem, so it sits centred in a 3rem slot. */
+	.contact-actions {
+		display: flex;
+		align-items: center;
+		height: calc(var(--grid) * 2);
+	}
+
+	/* On the grid line directly beneath the contact block. */
+	.footer-bar {
+		border-top: 1px solid rgb(255 255 255 / 0.14);
+	}
+
+	.contact-status {
+		min-height: var(--grid);
+		line-height: var(--grid);
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--color-blue-bright);
+	}
+</style>
+
+<script>
+	document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
+		const status = button.parentElement?.querySelector<HTMLElement>('[data-copy-status]');
+		let reset = 0;
+
+		button.addEventListener('click', async () => {
+			const email = button.dataset.copyEmail ?? '';
+			try {
+				await navigator.clipboard.writeText(email);
+			} catch {
+				// No clipboard access (insecure context, denied permission): select
+				// the address instead, so a Ctrl+C away is as close as it gets.
+				const range = document.createRange();
+				range.selectNodeContents(button.firstElementChild ?? button);
+				getSelection()?.removeAllRanges();
+				getSelection()?.addRange(range);
+				return;
+			}
+
+			button.classList.add('is-copied');
+			if (status) status.textContent = status.dataset.copied ?? '';
+			clearTimeout(reset);
+			reset = window.setTimeout(() => {
+				button.classList.remove('is-copied');
+				if (status) status.textContent = '';
+			}, 2400);
+		});
+	});
+</script>
