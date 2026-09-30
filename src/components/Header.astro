@@ -43,7 +43,13 @@ const navItems = [
 		</div>
 
 		<nav class="navbar-center hidden gap-9 lg:flex" aria-label={t.nav.main}>
-			{navItems.map((item) => <a class="nav-link" href={item.href}>{item.label}</a>)}
+			{
+				navItems.map((item) => (
+					<a class="nav-link" href={item.href} data-sections={item.sections}>
+						{item.label}
+					</a>
+				))
+			}
 		</nav>
 
 		<div class="navbar-end gap-1">
@@ -82,7 +88,7 @@ const navItems = [
 					{
 						navItems.map((item) => (
 							<li>
-								<a class="font-mono text-[0.8rem] uppercase tracking-wider" href={item.href}>
+								<a class="menu-link font-mono text-[0.8rem] uppercase tracking-wider" href={item.href} data-sections={item.sections}>
 									{item.label}
 								</a>
 							</li>
@@ -119,6 +125,41 @@ const navItems = [
 </header>
 
 <script>
+	// Marks the link for the section being read. A section counts as current
+	// once its top passes a line a third of the way down the viewport; at the
+	// very bottom of the page the footer wins, since it may never get that far.
+	// Only the home page has the sections, so elsewhere nothing is marked.
+	const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-sections]')];
+	const sections = [...new Set(links.flatMap((link) => link.dataset.sections!.split(' ')))]
+		.map((id) => document.getElementById(id))
+		.filter((section): section is HTMLElement => section !== null);
+
+	if (document.getElementById('home') && sections.length) {
+		let frame = 0;
+		const update = () => {
+			frame = 0;
+			const line = innerHeight / 3;
+			const atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+			let current = sections[0].id;
+			for (const section of sections) {
+				if (section.getBoundingClientRect().top <= line) current = section.id;
+			}
+			if (atBottom) current = 'contact';
+			for (const link of links) {
+				const active = link.dataset.sections!.split(' ').includes(current);
+				link.classList.toggle('is-active', active);
+				if (active) link.setAttribute('aria-current', 'location');
+				else link.removeAttribute('aria-current');
+			}
+		};
+		const schedule = () => {
+			if (!frame) frame = requestAnimationFrame(update);
+		};
+		addEventListener('scroll', schedule, { passive: true });
+		addEventListener('resize', schedule);
+		update();
+	}
+
 	// Progressive enhancement only — the disclosure opens and closes on its own
 	// without this. It adds the dismissals people expect from a menu.
 	document.querySelectorAll('details.dropdown').forEach((menu) => {

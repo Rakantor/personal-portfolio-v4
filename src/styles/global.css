@@ -406,6 +406,19 @@ footer.on-dark {
 	transform: scaleX(1);
 }
 
+/* The section being read (set by the script in Header.astro). */
+.nav-link.is-active {
+	color: var(--color-base-content);
+}
+
+.nav-link.is-active::after {
+	transform: scaleX(1);
+}
+
+.menu-link.is-active {
+	color: var(--color-primary);
+}
+
 /* ---- Project imagery --------------------------------------------------- */
 
 .shot {
