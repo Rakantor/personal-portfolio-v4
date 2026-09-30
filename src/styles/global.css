@@ -87,11 +87,19 @@ html {
 }
 
 body {
+	display: flex;
+	flex-direction: column;
 	margin: 0;
 	min-width: 320px;
 	min-height: 100vh;
 	font-family: var(--font-display);
 	-webkit-font-smoothing: antialiased;
+}
+
+/* The main column takes up any spare height, so on a page shorter than the
+   viewport (the 404) the footer still sits on the bottom edge. */
+body > main {
+	flex: 1 0 auto;
 }
 
 a {
