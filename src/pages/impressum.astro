@@ -1,4 +1,5 @@
 ---
+import Backdrop from '../components/Backdrop.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Layout from '../layouts/Layout.astro';
@@ -11,9 +12,17 @@ import Layout from '../layouts/Layout.astro';
 	description="Impressum und Datenschutzerklärung von Manuel Veigel."
 >
 	<Header locale="de" showLanguageSwitcher={false} />
-	<main id="content" class="shell py-14 lg:py-20">
-		<article class="legal-content soft-card rounded-lg p-6 sm:p-10 lg:p-12">
-			<h1>Impressum und Datenschutzerklärung</h1>
+	<main id="content">
+		<div class="relative isolate">
+			<Backdrop />
+			<div class="shell relative pb-12 pt-16 lg:pt-20">
+				<h1 class="h-hero max-w-[18ch] text-[clamp(2.2rem,5vw,3.8rem)] text-navy">
+					Impressum und Datenschutz&shy;erklärung
+				</h1>
+			</div>
+		</div>
+
+		<article class="legal-content shell pb-24">
 
 			<h2>Impressum</h2>
 			<p>Informationen über den Diensteanbieter.</p>
@@ -37,7 +46,7 @@ import Layout from '../layouts/Layout.astro';
 				und redaktionell an diese Website angepasst.
 			</p>
 
-			<h2 class="mt-14">Datenschutzerklärung</h2>
+			<h2>Datenschutzerklärung</h2>
 			<h3>Einleitung und Überblick</h3>
 			<p>
 				Wir haben diese Datenschutzerklärung verfasst, um Ihnen gemäß der Vorgaben der Datenschutz-Grundverordnung

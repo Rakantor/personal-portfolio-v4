@@ -1,5 +1,6 @@
 ---
 import { ArrowRight } from '@lucide/astro';
+import Backdrop from '../components/Backdrop.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
@@ -16,26 +17,29 @@ const de = ui.de.notFound;
 	     path that does not exist in either language. -->
 	<Header locale="en" showLanguageSwitcher={false} />
 
-	<main id="content" class="shell flex min-h-[60vh] flex-col justify-center py-20">
-		<p class="font-mono text-[0.74rem] uppercase tracking-[0.16em] text-primary">{en.eyebrow}</p>
+	<main id="content" class="relative isolate flex flex-col">
+		<Backdrop />
+		<div class="shell relative flex min-h-[60vh] flex-1 flex-col justify-center py-20">
+			<p class="font-mono text-[0.74rem] uppercase tracking-[0.16em] text-primary">{en.eyebrow}</p>
 
-		<h1 class="h-hero mt-5 max-w-[18ch] text-navy">{en.heading}</h1>
+			<h1 class="h-hero mt-5 max-w-[18ch] text-navy">{en.heading}</h1>
 
-		<p class="prose-serif mt-7 max-w-[52ch] text-[1.08rem] text-[#333c4d]">{en.description}</p>
+			<p class="prose-serif mt-7 max-w-[52ch] text-[1.08rem] text-[#333c4d]">{en.description}</p>
 
-		<div class="mt-10 flex flex-wrap gap-3">
-			<a class="btn btn-neutral" href={localePath('en', '/')}>
-				{en.home}
-				<ArrowRight size={17} />
-			</a>
+			<div class="mt-10 flex flex-wrap gap-3">
+				<a class="btn btn-neutral" href={localePath('en', '/')}>
+					{en.home}
+					<ArrowRight size={17} />
+				</a>
+			</div>
+
+			<p class="rule-top mt-14 max-w-[52ch] pt-7 text-[0.95rem] text-muted" lang="de">
+				{de.heading}{' '}
+				<a class="font-semibold text-primary underline underline-offset-4" href={localePath('de', '/')}>
+					{de.home}
+				</a>
+			</p>
 		</div>
-
-		<p class="rule-top mt-14 max-w-[52ch] pt-7 text-[0.95rem] text-muted" lang="de">
-			{de.heading}{' '}
-			<a class="font-semibold text-primary underline underline-offset-4" href={localePath('de', '/')}>
-				{de.home}
-			</a>
-		</p>
 	</main>
 
 	<Footer locale="en" />

@@ -1,11 +1,14 @@
 ---
 import { ArrowLeft, ArrowRight, Maximize2, X } from '@lucide/astro';
 import { getImage } from 'astro:assets';
+import Backdrop from './Backdrop.astro';
 import Footer from './Footer.astro';
 import Header from './Header.astro';
 import QuickLinkIcon from './QuickLinkIcon.astro';
+import SkillIcon from './SkillIcon.astro';
 import Layout from '../layouts/Layout.astro';
 import { getLocalizedProject, projects, type Project } from '../data/projects';
+import { iconForTech } from '../data/skills';
 import { localePath, type Locale, ui } from '../i18n';
 
 type Props = {
@@ -18,6 +21,8 @@ const t = ui[locale];
 
 const currentIndex = projects.findIndex((candidate) => candidate.slug === project.slug);
 const nextProject = getLocalizedProject(projects[(currentIndex + 1) % projects.length], locale);
+// Shown at ~13rem in a 16:10 crop, doubled for high-density displays.
+const nextShot = await getImage({ src: nextProject.image, width: 416, height: 260, format: 'webp', quality: 75 });
 
 const hasGallery = project.images.length > 1;
 const totalLabel = String(project.images.length).padStart(2, '0');
@@ -82,323 +87,344 @@ const gallery = await Promise.all(
 <Layout locale={locale} title={project.title} description={project.shortDescription}>
 	<Header locale={locale} />
 
-	<main id="content" class="shell">
-		<nav class="flex items-center gap-2 pt-9 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-muted-2">
-			<a
-				class="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
-				href={localePath(locale, '/#projects')}
-			>
-				<ArrowLeft size={14} />
-				{t.nav.projects}
-			</a>
-			<span class="text-base-300" aria-hidden="true">/</span>
-			<span class="text-base-content">{project.title}</span>
-		</nav>
-
-		<div class="pb-10 pt-11">
-			<h1 class="h-hero max-w-[16ch] text-[clamp(2.4rem,5.4vw,4.1rem)] text-navy">{project.title}</h1>
-		</div>
-
-		<!-- Description alongside the gallery, 40 / 60 -------------------- -->
-		<!-- 40% description / 10% gutter / 50% gallery. Explicit tracks plus
-		     space-between: the 10% left over lands entirely in the gutter. -->
-		<div class="grid items-start gap-10 lg:grid-cols-[40%_50%] lg:justify-between lg:gap-x-0">
-			<p class="prose-serif m-0 min-w-0 text-[1.08rem] text-[#333c4d]">{project.description}</p>
-
-			<!-- min-w-0: without it the scrolling thumbnail strip stretches the column. -->
-			<div
-				class:list={['grid min-w-0 gap-3', hasGallery && 'lg:grid-cols-[minmax(0,1fr)_5.25rem]']}
-				data-gallery
-			>
-				<!-- The whole frame opens the fullscreen preview; the expand button is the
-				     keyboard-reachable handle for it and the hint that it exists. -->
-				<div
-					class="relative cursor-zoom-in overflow-hidden rounded-[3px] bg-navy shadow-[0_30px_70px_-40px_rgb(12_23_48/0.6)]"
-					data-lightbox-open
-				>
-					<!-- No fixed aspect ratio: the first screenshot sets the frame height and the
-					     rest are contained inside it. Within a project the shots share nearly the
-					     same ratio, so this removes the letterboxing a fixed frame would cause.
-					     Its intrinsic size is declared so the box is reserved up front — without
-					     it the frame started at zero height and shoved the article down on load. -->
-					<img
-						data-slide="0"
-						class="block h-auto w-full opacity-100 transition-opacity duration-300"
-						src={gallery[0].slide}
-						alt={gallery[0].alt}
-						width={gallery[0].width}
-						height={gallery[0].height}
-						loading="eager"
-						fetchpriority="high"
-					/>
-
-					<!-- These sit inside the visible frame, so `loading="lazy"` would never
-					     defer them. Holding the URL back until a slide is first shown does. -->
-					{
-						gallery.slice(1).map((image, offset) => (
-							<img
-								data-slide={offset + 1}
-								class="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-300"
-								src={BLANK_PIXEL}
-								data-src={image.slide}
-								alt={image.alt}
-								width={image.width}
-								height={image.height}
-								loading="lazy"
-							/>
-						))
-					}
-
-					<button
-						class="btn btn-circle btn-sm absolute right-4 top-4 border-0 bg-white/90 text-navy hover:bg-white"
-						type="button"
-						aria-label={t.projectDetail.fullscreen}
+	<main id="content">
+		<!-- The static blueprint grid carries the home hero into the project pages. -->
+		<div class="relative isolate">
+			<Backdrop />
+			<div class="shell relative">
+				<nav class="flex items-center gap-2 pt-9 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-muted-2">
+					<a
+						class="inline-flex items-center gap-1.5 transition-colors hover:text-primary"
+						href={localePath(locale, '/#projects')}
 					>
-						<Maximize2 size={16} />
-					</button>
+						<ArrowLeft size={14} />
+						{t.nav.projects}
+					</a>
+					<span class="text-base-300" aria-hidden="true">/</span>
+					<span class="text-base-content">{project.title}</span>
+				</nav>
 
-					{
-						hasGallery && (
-							<>
-								<button
-									class="btn btn-circle absolute left-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
-									type="button"
-									data-gallery-step="-1"
-									aria-label={t.projectDetail.previousImage}
-								>
-									<ArrowLeft size={20} />
-								</button>
-								<button
-									class="btn btn-circle absolute right-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
-									type="button"
-									data-gallery-step="1"
-									aria-label={t.projectDetail.nextImage}
-								>
-									<ArrowRight size={20} />
-								</button>
-
-								<span
-									class="absolute bottom-4 right-4 rounded-[2px] bg-navy/80 px-2.5 py-1.5 font-mono text-[0.72rem] tracking-wider text-white backdrop-blur"
-									aria-live="polite"
-								>
-									<span data-gallery-current>01</span> / {totalLabel}
-								</span>
-							</>
-						)
-					}
+				<div class="pb-10 pt-11">
+					<h1 class="h-hero max-w-[16ch] text-[clamp(2.4rem,5.4vw,4.1rem)] text-navy">{project.title}</h1>
 				</div>
 
-				<!-- Thumbnails: horizontal strip on narrow screens, vertical rail beside the
-				     image on desktop. The inner absolute layer lets the rail scroll within
-				     the image's height rather than stretching the row. -->
-				{
-					hasGallery && (
-						<div class="relative min-h-0 min-w-0">
-							<div class="flex gap-2.5 overflow-x-auto pb-1 lg:absolute lg:inset-0 lg:flex-col lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
-								{gallery.map((image, index) => (
-									<button
-										type="button"
-										data-gallery-target={index}
-										class:list={[
-											'block w-24 shrink-0 overflow-hidden rounded-[2px] border bg-base-200 transition lg:w-full',
-											index === 0
-												? 'border-primary opacity-100 ring-2 ring-primary/25'
-												: 'border-base-300 opacity-55 hover:opacity-100',
-										]}
-										aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
-										aria-current={index === 0 ? 'true' : undefined}
-									>
-										<img
-											class="aspect-[16/10] w-full object-cover"
-											src={image.thumb}
-											alt=""
-											width={192}
-											height={120}
-											loading="lazy"
-											decoding="async"
-										/>
-									</button>
-								))}
-							</div>
-						</div>
-					)
-				}
+				<!-- Description alongside the gallery, 40 / 60 -------------------- -->
+				<!-- 40% description / 10% gutter / 50% gallery. Explicit tracks plus
+				     space-between: the 10% left over lands entirely in the gutter. -->
+				<div class="grid items-start gap-10 lg:grid-cols-[40%_50%] lg:justify-between lg:gap-x-0">
+					<p class="prose-serif m-0 min-w-0 text-[1.08rem] text-[#333c4d]">{project.description}</p>
 
-				<!-- Fullscreen preview. A native <dialog>, styled by `.lightbox` in
-				     global.css. It stacks the same slides at full size and reuses the
-				     frame's step buttons and counter, so the script drives both as one. -->
-				<dialog class="lightbox" aria-label={project.title}>
-					<div class="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
-						<div class="flex min-w-0 items-baseline gap-3 font-mono text-[0.72rem] uppercase tracking-[0.08em]">
-							<span class="truncate">{project.title}</span>
+					<!-- min-w-0: without it the scrolling thumbnail strip stretches the column. -->
+					<div
+						class:list={['grid min-w-0 gap-3', hasGallery && 'lg:grid-cols-[minmax(0,1fr)_5.25rem]']}
+						data-gallery
+					>
+						<!-- The whole frame opens the fullscreen preview; the expand button is the
+						     keyboard-reachable handle for it and the hint that it exists. -->
+						<div
+							class="relative cursor-zoom-in overflow-hidden rounded-[3px] bg-navy shadow-[0_30px_70px_-40px_rgb(12_23_48/0.6)]"
+							data-lightbox-open
+						>
+							<!-- No fixed aspect ratio: the first screenshot sets the frame height and the
+							     rest are contained inside it. Within a project the shots share nearly the
+							     same ratio, so this removes the letterboxing a fixed frame would cause.
+							     Its intrinsic size is declared so the box is reserved up front — without
+							     it the frame started at zero height and shoved the article down on load. -->
+							<img
+								data-slide="0"
+								class="block h-auto w-full opacity-100 transition-opacity duration-300"
+								src={gallery[0].slide}
+								alt={gallery[0].alt}
+								width={gallery[0].width}
+								height={gallery[0].height}
+								loading="eager"
+								fetchpriority="high"
+							/>
+
+							<!-- These sit inside the visible frame, so `loading="lazy"` would never
+							     defer them. Holding the URL back until a slide is first shown does. -->
+							{
+								gallery.slice(1).map((image, offset) => (
+									<img
+										data-slide={offset + 1}
+										class="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-300"
+										src={BLANK_PIXEL}
+										data-src={image.slide}
+										alt={image.alt}
+										width={image.width}
+										height={image.height}
+										loading="lazy"
+									/>
+								))
+							}
+
+							<button
+								class="btn btn-circle btn-sm absolute right-4 top-4 border-0 bg-white/90 text-navy hover:bg-white"
+								type="button"
+								aria-label={t.projectDetail.fullscreen}
+							>
+								<Maximize2 size={16} />
+							</button>
+
 							{
 								hasGallery && (
-									<span class="shrink-0 text-white/60" aria-live="polite">
-										<span data-gallery-current>01</span> / {totalLabel}
-									</span>
+									<>
+										<button
+											class="btn btn-circle absolute left-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
+											type="button"
+											data-gallery-step="-1"
+											aria-label={t.projectDetail.previousImage}
+										>
+											<ArrowLeft size={20} />
+										</button>
+										<button
+											class="btn btn-circle absolute right-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
+											type="button"
+											data-gallery-step="1"
+											aria-label={t.projectDetail.nextImage}
+										>
+											<ArrowRight size={20} />
+										</button>
+
+										<span
+											class="absolute bottom-4 right-4 rounded-[2px] bg-navy/80 px-2.5 py-1.5 font-mono text-[0.72rem] tracking-wider text-white backdrop-blur"
+											aria-live="polite"
+										>
+											<span data-gallery-current>01</span> / {totalLabel}
+										</span>
+									</>
 								)
 							}
 						</div>
-						<button
-							class="btn btn-circle shrink-0 border-0 bg-white/90 text-navy hover:bg-white"
-							type="button"
-							data-lightbox-close
-							aria-label={t.projectDetail.close}
-						>
-							<X size={20} />
-						</button>
-					</div>
 
-					<!-- Every slide sits in the one grid cell at its own size, no larger than
-					     the cell, so a tap beside the picture lands on the backdrop and closes
-					     the preview rather than on a letterboxed image box. -->
-					<div
-						class="relative grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)] place-items-center touch-pan-y touch-pinch-zoom px-4 pb-4 sm:px-20 sm:pb-6"
-						data-lightbox-stage
-					>
-						{
-							gallery.map((image, index) => (
-								<img
-									data-lightbox-slide={index}
-									class:list={[
-										'col-start-1 row-start-1 h-auto max-h-full w-auto max-w-full transition-opacity duration-300',
-										index === 0 ? 'opacity-100' : 'pointer-events-none opacity-0',
-									]}
-									src={BLANK_PIXEL}
-									data-src={image.full}
-									alt={image.alt}
-									width={image.width}
-									height={image.height}
-									decoding="async"
-								/>
-							))
-						}
-
+						<!-- Thumbnails: horizontal strip on narrow screens, vertical rail beside the
+						     image on desktop. The inner absolute layer lets the rail scroll within
+						     the image's height rather than stretching the row. -->
 						{
 							hasGallery && (
-								<>
-									<button
-										class="btn btn-circle absolute left-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
-										type="button"
-										data-gallery-step="-1"
-										aria-label={t.projectDetail.previousImage}
-									>
-										<ArrowLeft size={20} />
-									</button>
-									<button
-										class="btn btn-circle absolute right-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
-										type="button"
-										data-gallery-step="1"
-										aria-label={t.projectDetail.nextImage}
-									>
-										<ArrowRight size={20} />
-									</button>
-								</>
+								<div class="relative min-h-0 min-w-0">
+									<div class="flex gap-2.5 overflow-x-auto pb-1 lg:absolute lg:inset-0 lg:flex-col lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
+										{gallery.map((image, index) => (
+											<button
+												type="button"
+												data-gallery-target={index}
+												class:list={[
+													'block w-24 shrink-0 overflow-hidden rounded-[2px] border bg-base-200 transition lg:w-full',
+													index === 0
+														? 'border-primary opacity-100 ring-2 ring-primary/25'
+														: 'border-base-300 opacity-55 hover:opacity-100',
+												]}
+												aria-label={`${t.projectDetail.goToImage} ${index + 1}`}
+												aria-current={index === 0 ? 'true' : undefined}
+											>
+												<img
+													class="aspect-[16/10] w-full object-cover"
+													src={image.thumb}
+													alt=""
+													width={192}
+													height={120}
+													loading="lazy"
+													decoding="async"
+												/>
+											</button>
+										))}
+									</div>
+								</div>
 							)
 						}
+
+						<!-- Fullscreen preview. A native <dialog>, styled by `.lightbox` in
+						     global.css. It stacks the same slides at full size and reuses the
+						     frame's step buttons and counter, so the script drives both as one. -->
+						<dialog class="lightbox" aria-label={project.title}>
+							<div class="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
+								<div class="flex min-w-0 items-baseline gap-3 font-mono text-[0.72rem] uppercase tracking-[0.08em]">
+									<span class="truncate">{project.title}</span>
+									{
+										hasGallery && (
+											<span class="shrink-0 text-white/60" aria-live="polite">
+												<span data-gallery-current>01</span> / {totalLabel}
+											</span>
+										)
+									}
+								</div>
+								<button
+									class="btn btn-circle shrink-0 border-0 bg-white/90 text-navy hover:bg-white"
+									type="button"
+									data-lightbox-close
+									aria-label={t.projectDetail.close}
+								>
+									<X size={20} />
+								</button>
+							</div>
+
+							<!-- Every slide sits in the one grid cell at its own size, no larger than
+							     the cell, so a tap beside the picture lands on the backdrop and closes
+							     the preview rather than on a letterboxed image box. -->
+							<div
+								class="relative grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)] place-items-center touch-pan-y touch-pinch-zoom px-4 pb-4 sm:px-20 sm:pb-6"
+								data-lightbox-stage
+							>
+								{
+									gallery.map((image, index) => (
+										<img
+											data-lightbox-slide={index}
+											class:list={[
+												'col-start-1 row-start-1 h-auto max-h-full w-auto max-w-full transition-opacity duration-300',
+												index === 0 ? 'opacity-100' : 'pointer-events-none opacity-0',
+											]}
+											src={BLANK_PIXEL}
+											data-src={image.full}
+											alt={image.alt}
+											width={image.width}
+											height={image.height}
+											decoding="async"
+										/>
+									))
+								}
+
+								{
+									hasGallery && (
+										<>
+											<button
+												class="btn btn-circle absolute left-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
+												type="button"
+												data-gallery-step="-1"
+												aria-label={t.projectDetail.previousImage}
+											>
+												<ArrowLeft size={20} />
+											</button>
+											<button
+												class="btn btn-circle absolute right-4 top-1/2 -translate-y-1/2 border-0 bg-white/90 text-navy hover:bg-white"
+												type="button"
+												data-gallery-step="1"
+												aria-label={t.projectDetail.nextImage}
+											>
+												<ArrowRight size={20} />
+											</button>
+										</>
+									)
+								}
+							</div>
+						</dialog>
 					</div>
-				</dialog>
+				</div>
 			</div>
 		</div>
 
-		<!-- Sticky meta rail + article ----------------------------------- -->
-		<div class="rule-top mt-18 grid gap-20 pt-13 lg:grid-cols-[17rem_minmax(0,1fr)]">
-			<aside class="self-start lg:sticky lg:top-24">
-				<div class="pb-5">
-					<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
-						{t.projectDetail.years}
-					</h2>
-					<p class="font-mono text-[0.82rem]">{project.years}</p>
-				</div>
-
-				<div class="rule-top pb-5 pt-5">
-					<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
-						{t.projectDetail.tech}
-					</h2>
-					<div class="flex flex-col gap-1.5 font-mono text-[0.82rem]">
-						{project.tech.map((tech) => <span>{tech}</span>)}
+		<div class="shell">
+			<!-- Sticky meta rail + article ----------------------------------- -->
+			<div class="rule-top mt-18 grid gap-20 pt-13 lg:grid-cols-[17rem_minmax(0,1fr)]">
+				<aside class="self-start lg:sticky lg:top-24">
+					<div class="pb-5">
+						<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
+							{t.projectDetail.years}
+						</h2>
+						<p class="font-mono text-[0.82rem]">{project.years}</p>
 					</div>
-				</div>
 
-				<div class="rule-top pt-5">
-					<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
-						{t.projectDetail.links}
-					</h2>
-					<div class="flex flex-col gap-2">
-						{
-							project.buttons.map((button) => (
-								<a
-									class="btn btn-neutral btn-sm min-h-11 justify-center"
-									href={button.href}
-									target={isExternal(button.href) ? '_blank' : undefined}
-									rel={isExternal(button.href) ? 'noreferrer' : undefined}
-									aria-label={`${t.projects.buttons[button.type]}: ${project.title}`}
-								>
-									<QuickLinkIcon type={button.type} />
-									{t.projects.buttons[button.type]}
-								</a>
-							))
-						}
+					<div class="rule-top pb-5 pt-5">
+						<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
+							{t.projectDetail.tech}
+						</h2>
+						<ul class="tech-list">
+							{
+								project.tech.map((tech) => {
+									const icon = iconForTech(tech);
+									return (
+										<li>
+											{icon ? <SkillIcon icon={icon} /> : <span class="tech-list-mark" aria-hidden="true" />}
+											{tech}
+										</li>
+									);
+								})
+							}
+						</ul>
 					</div>
-				</div>
-			</aside>
 
-			<div>
-				<section class="rule-bottom mb-13 pb-13">
-					<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
-						{t.projectDetail.overview}
-					</h2>
-					<div class="prose-serif max-w-[68ch] text-[1.08rem] text-[#333c4d]">
-						{project.overview.map((paragraph) => <p class="mb-4 last:mb-0">{paragraph}</p>)}
+					<div class="rule-top pt-5">
+						<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
+							{t.projectDetail.links}
+						</h2>
+						<div class="flex flex-col gap-2">
+							{
+								project.buttons.map((button) => (
+									<a
+										class="btn btn-neutral btn-sm min-h-11 justify-center"
+										href={button.href}
+										target={isExternal(button.href) ? '_blank' : undefined}
+										rel={isExternal(button.href) ? 'noreferrer' : undefined}
+										aria-label={`${t.projects.buttons[button.type]}: ${project.title}`}
+									>
+										<QuickLinkIcon type={button.type} />
+										{t.projects.buttons[button.type]}
+									</a>
+								))
+							}
+						</div>
 					</div>
-				</section>
+				</aside>
 
-				<section class="rule-bottom mb-13 pb-13">
-					<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
-						{t.projectDetail.features}
-					</h2>
-					<ul class="m-0 list-none p-0">
-						{
-							project.features.map((feature, index) => (
-								<li
-									class:list={[
-										'grid grid-cols-[2.6rem_minmax(0,1fr)] gap-2 py-3.5',
-										index > 0 && 'border-t border-dashed border-base-300',
-									]}
-								>
-									<span class="pt-1 font-mono text-[0.75rem] tracking-wider text-primary" aria-hidden="true">
-										{String(index + 1).padStart(2, '0')}
-									</span>
-									<span class="prose-serif text-[1.05rem] text-[#333c4d]">{feature}</span>
-								</li>
-							))
-						}
-					</ul>
-				</section>
+				<div>
+					<section class="rule-bottom mb-13 pb-13">
+						<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
+							{t.projectDetail.overview}
+						</h2>
+						<div class="prose-serif max-w-[68ch] text-[1.08rem] text-[#333c4d]">
+							{project.overview.map((paragraph) => <p class="mb-4 last:mb-0">{paragraph}</p>)}
+						</div>
+					</section>
 
-				<section>
-					<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
-						{t.projectDetail.learned}
-					</h2>
-					<p class="prose-serif max-w-[68ch] text-[1.08rem] text-[#333c4d]">{project.learned}</p>
-				</section>
+					<section class="rule-bottom mb-13 pb-13">
+						<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
+							{t.projectDetail.features}
+						</h2>
+						<ul class="m-0 list-none p-0">
+							{
+								project.features.map((feature, index) => (
+									<li
+										class:list={[
+											'grid grid-cols-[1.6rem_minmax(0,1fr)] gap-2 py-3.5',
+											index > 0 && 'border-t border-dashed border-base-300',
+										]}
+									>
+										<!-- A plain marker, not a number: the features are a set, not a sequence. -->
+										<span class="feature-mark" aria-hidden="true"></span>
+										<span class="prose-serif text-[1.05rem] text-[#333c4d]">{feature}</span>
+									</li>
+								))
+							}
+						</ul>
+					</section>
+
+					<section>
+						<h2 class="mb-5 font-display text-[1.35rem] font-bold tracking-tight text-navy">
+							{t.projectDetail.learned}
+						</h2>
+						<p class="prose-serif max-w-[68ch] text-[1.08rem] text-[#333c4d]">{project.learned}</p>
+					</section>
+				</div>
 			</div>
-		</div>
 
-		<a
-			class="group rule-top rule-bottom mt-20 flex items-center justify-between gap-8 py-11"
-			href={localePath(locale, `/projects/${nextProject.slug}`)}
-		>
-			<div>
-				<span class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted-2">
-					{t.projectDetail.next}
+			<a
+				class="group rule-top rule-bottom mt-20 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-8 py-11 sm:grid-cols-[13rem_minmax(0,1fr)_auto]"
+				href={localePath(locale, `/projects/${nextProject.slug}`)}
+			>
+				<span class="shot max-sm:hidden" aria-hidden="true">
+					<img src={nextShot.src} alt="" width={416} height={260} loading="lazy" decoding="async" />
 				</span>
-				<div class="mt-2 font-display text-[clamp(1.5rem,3vw,2.15rem)] font-bold tracking-tight text-navy transition-colors group-hover:text-primary">
-					{nextProject.title}
+				<div>
+					<span class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted-2">
+						{t.projectDetail.next}
+					</span>
+					<div class="mt-2 font-display text-[clamp(1.5rem,3vw,2.15rem)] font-bold tracking-tight text-navy transition-colors group-hover:text-primary">
+						{nextProject.title}
+					</div>
+					<p class="prose-serif mt-2 max-w-[52ch] text-[1rem] text-[#3c4557]">{nextProject.shortDescription}</p>
 				</div>
-			</div>
-			<ArrowRight class="shrink-0 text-primary transition-transform group-hover:translate-x-1" size={28} />
-		</a>
+				<ArrowRight class="shrink-0 text-primary transition-transform group-hover:translate-x-1" size={28} />
+			</a>
+		</div>
 	</main>
 
 	<div class="mt-20"></div>
@@ -564,3 +590,42 @@ const gallery = await Promise.all(
 		});
 	</script>
 </Layout>
+
+<style>
+	.tech-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+		font-family: var(--font-mono);
+		font-size: 0.82rem;
+	}
+
+	.tech-list li {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+	}
+
+	/* The icon renders in a child component, so it needs :global to be reached. */
+	.tech-list :global(svg),
+	.tech-list-mark {
+		width: 1.05rem;
+		height: 1.05rem;
+		flex: 0 0 auto;
+	}
+
+	/* Stands in for technologies without a usable logo, so the names still
+	   line up in one column. */
+	.tech-list-mark {
+		border: 1px solid var(--color-rule);
+		border-radius: 2px;
+		background: var(--color-base-200);
+	}
+
+	.feature-mark {
+		width: 0.45rem;
+		height: 0.45rem;
+		margin-top: 0.62rem;
+		background: var(--color-primary);
+	}
+</style>
