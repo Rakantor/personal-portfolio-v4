@@ -2,6 +2,7 @@ import type { SimpleIcon } from 'simple-icons';
 import {
 	siApachemaven,
 	siAndroid,
+	siAngular,
 	siAstro,
 	siC,
 	siCloudflare,
@@ -152,9 +153,10 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Nuxt', icon: siNuxt, level: 3, since: 2022, projects: 3 },
 			{ name: 'React', icon: siReact, level: 2, since: 2025, projects: 2 },
 			{ name: 'Astro', icon: siAstro, level: 2, since: 2025, projects: 3 },
-			{ name: 'HTML', icon: siHtml5, level: 4, since: 2009, projects: 10 },
-			{ name: 'CSS', icon: siCss, level: 4, since: 2009, projects: 10 },
+			{ name: 'HTML', icon: siHtml5, level: 4, since: 2009, projects: 0 },
+			{ name: 'CSS', icon: siCss, level: 4, since: 2009, projects: 0 },
 			{ name: 'Tailwind CSS', icon: siTailwindcss, level: 2, since: 2024, projects: 4 },
+			{ name: 'Angular', icon: siAngular, level: 1, since: 2026, projects: 1 },
 		],
 	},
 	{
