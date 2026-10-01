@@ -9,6 +9,7 @@ import {
 	siCss,
 	siDaisyui,
 	siDocker,
+	siFigma,
 	siFirebase,
 	siGit,
 	siGithubactions,
@@ -66,11 +67,24 @@ export type Skill = {
 	projects: number;
 };
 
-export type SkillGroupKey = 'languages' | 'frontend' | 'backend' | 'databases' | 'cloudHosting' | 'buildDevops';
+export type SkillGroupKey = 'languages' | 'frontend' | 'backend' | 'databases';
 
 export type SkillGroup = {
 	key: SkillGroupKey;
 	skills: Skill[];
+};
+
+/** Platforms and tools: listed by name only, without a rating. */
+export type Tool = {
+	name: string;
+	icon: SkillIcon;
+};
+
+export type ToolGroupKey = 'cloudHosting' | 'buildDevops' | 'design';
+
+export type ToolGroup = {
+	key: ToolGroupKey;
+	tools: Tool[];
 };
 
 const siAws: SimpleIcon = {
@@ -176,24 +190,31 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Firestore (NoSQL)', icon: siFirebase, level: 3, since: 2021, projects: 2 },
 		],
 	},
+];
+
+export const toolGroups: ToolGroup[] = [
 	{
 		key: 'cloudHosting',
-		skills: [
-			{ name: 'AWS', icon: siAws, level: 3, since: 2018, projects: 5 },
-			{ name: 'Cloudflare', icon: siCloudflare, level: 3, since: 2023, projects: 5 },
-			{ name: 'Firebase', icon: siFirebase, level: 3, since: 2021, projects: 3 },
-			{ name: 'Hetzner', icon: siHetzner, level: 3, since: 2025, projects: 3 },
+		tools: [
+			{ name: 'AWS', icon: siAws },
+			{ name: 'Cloudflare', icon: siCloudflare },
+			{ name: 'Firebase', icon: siFirebase },
+			{ name: 'Hetzner', icon: siHetzner },
 		],
 	},
 	{
 		key: 'buildDevops',
-		skills: [
-			{ name: 'Maven', icon: siApachemaven, level: 3, since: 2025, projects: 3 },
-			{ name: 'Gradle', icon: siGradle, level: 4, since: 2013, projects: 0 },
-			{ name: 'npm', icon: siNpm, level: 4, since: 2020, projects: 0 },
-			{ name: 'Git', icon: siGit, level: 4, since: 2014, projects: 0 },
-			{ name: 'Docker', icon: siDocker, level: 3, since: 2022, projects: 0 },
+		tools: [
+			{ name: 'Git', icon: siGit },
+			{ name: 'Docker', icon: siDocker },
+			{ name: 'npm', icon: siNpm },
+			{ name: 'Gradle', icon: siGradle },
+			{ name: 'Maven', icon: siApachemaven },
 		],
+	},
+	{
+		key: 'design',
+		tools: [{ name: 'Figma', icon: siFigma }],
 	},
 ];
 
@@ -215,7 +236,12 @@ const techIcons: Record<string, SkillIcon> = {
 	WordPress: siWordpress,
 };
 
-const skillIcons = new Map(skillGroups.flatMap((group) => group.skills).map((skill) => [skill.name, skill.icon]));
+const skillIcons = new Map(
+	[...skillGroups.flatMap((group) => group.skills), ...toolGroups.flatMap((group) => group.tools)].map((item) => [
+		item.name,
+		item.icon,
+	]),
+);
 
 /** The icon for a technology as a project names it, if there is one. */
 export const iconForTech = (name: string): SkillIcon | undefined => techIcons[name] ?? skillIcons.get(name);

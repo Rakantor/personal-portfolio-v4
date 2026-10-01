@@ -1,6 +1,6 @@
 ---
 import SkillIcon from './SkillIcon.astro';
-import { skillGroups } from '../data/skills';
+import { skillGroups, toolGroups } from '../data/skills';
 import { type Locale, ui } from '../i18n';
 
 type Props = {
@@ -64,7 +64,28 @@ const groups = skillGroups.map((group) => ({
 			))
 		}
 	</div>
+
+	<!-- Platforms and tools, in the same columns as the skills but without a
+	     rating: for these, whether I use them matters more than how well. -->
+	<div data-reveal class="tools-groups mt-16">
+		{
+			toolGroups.map((group) => (
+				<div>
+					<h3 class="stack-group-title">{t.techStack.groups[group.key]}</h3>
+					<ul class="skill-list tool-list">
+						{group.tools.map((tool) => (
+							<li class="tool">
+								<SkillIcon icon={tool.icon} />
+								<span>{tool.name}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+	</div>
 </section>
+
 
 <style>
 	.stack-groups {
@@ -152,6 +173,41 @@ const groups = skillGroups.map((group) => ({
 
 	.meter i.on {
 		background: var(--color-primary);
+	}
+
+	.tools-groups {
+		display: grid;
+		gap: 3rem 4rem;
+	}
+
+	@media (min-width: 1024px) {
+		.tools-groups {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	/* Names only, so two to a row. */
+	.tool-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 2rem;
+	}
+
+	.tool {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		padding-block: 0.8rem;
+		font-family: var(--font-display);
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: var(--color-navy);
+	}
+
+	.tool :global(svg) {
+		width: 1.6rem;
+		height: 1.6rem;
+		flex: 0 0 auto;
 	}
 
 	.skill-meta {

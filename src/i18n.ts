@@ -108,6 +108,7 @@ export const ui = {
 				databases: 'Databases',
 				cloudHosting: 'Cloud & Hosting',
 				buildDevops: 'Build & DevOps',
+				design: 'Design',
 			},
 		},
 		projectDetail: {
@@ -238,6 +239,7 @@ export const ui = {
 				databases: 'Datenbanken',
 				cloudHosting: 'Cloud & Hosting',
 				buildDevops: 'Build & DevOps',
+				design: 'Design',
 			},
 		},
 		projectDetail: {
