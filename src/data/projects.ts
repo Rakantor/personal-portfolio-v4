@@ -462,6 +462,69 @@ export const projects: ProjectEntry[] = [
 		],
 	},
 	{
+		slug: 'turnip-tycoon',
+		years: '2026',
+		title: 'Turnip Tycoon',
+		text: {
+			en: {
+				shortDescription:
+					'A turnip price forecaster for Animal Crossing: New Horizons that you share with friends, so everyone knows whose island to sell on.',
+				description:
+					'In Animal Crossing, turnip prices change twice a day and differ from island to island, so the best price of the week is usually on someone else\'s. Turnip Tycoon forecasts where your prices are heading, and groups put your friends\' prices and forecasts right next to yours. There is no sign-up: you open it, type in your prices, and share a group code with whoever you play with.',
+				overview: [
+					'Turnip calculators already exist, but they only know about your own island. The whole point of the turnip market is that a friend\'s island might be paying twice as much this afternoon. So the app is built around groups: create one, send the code to your friends, and everyone\'s week shows up on one board.',
+					'Forecasts run in the browser on the prediction engine behind Turnip Prophet. Prices are stored locally and synced through Cloudflare Workers backed by PostgreSQL, so the app keeps working offline and catches up once you reconnect.',
+				],
+				features: [
+					'Groups that show everyone\'s prices and forecasts side by side, joined with a single shareable code',
+					'Price forecasts with possible ranges and the probability of each selling pattern',
+					'No account or login: a profile is created silently the first time you enter a price',
+					'Device pairing and optional recovery codes, so your island follows you to another phone',
+					'Installable app that keeps working offline and syncs your edits when you reconnect',
+				],
+				learned:
+					'Identity without accounts. Creating a profile silently, pairing devices and recovering access without an email address took more care than the forecasts did.',
+			},
+			de: {
+				shortDescription:
+					'Rübenpreis-Prognosen für Animal Crossing: New Horizons, die man mit Freunden teilt, damit alle wissen, auf welcher Insel sich das Verkaufen lohnt.',
+				description:
+					'In Animal Crossing ändern sich die Rübenpreise zweimal am Tag und sind auf jeder Insel anders. Der beste Preis der Woche liegt also meistens auf der Insel von jemand anderem. Turnip Tycoon sagt voraus, wohin sich die eigenen Preise entwickeln, und in Gruppen stehen die Preise und Prognosen der Freunde direkt daneben. Registrieren muss man sich nicht: App öffnen, Preise eintragen, Gruppencode an die Leute schicken, mit denen man spielt.',
+				overview: [
+					'Rübenrechner gibt es schon, aber die kennen nur die eigene Insel. Dabei lebt der Rübenmarkt gerade davon, dass bei Freunden heute Nachmittag vielleicht doppelt so viel gezahlt wird. Deshalb dreht sich die App um Gruppen: eine anlegen, den Code an die Freunde schicken, und schon steht die Woche von allen auf einer Übersicht.',
+					'Die Prognosen laufen direkt im Browser, mit der Vorhersage-Engine von Turnip Prophet. Die Preise werden lokal gespeichert und über Cloudflare Workers mit PostgreSQL synchronisiert. Die App funktioniert also auch offline und holt alles nach, sobald wieder Verbindung da ist.',
+				],
+				features: [
+					'Gruppen, in denen die Preise und Prognosen aller nebeneinanderstehen – zum Beitreten reicht ein Code',
+					'Preisprognosen mit möglichen Spannen und der Wahrscheinlichkeit jedes Preisverlaufs',
+					'Kein Konto, kein Login: Das Profil entsteht im Hintergrund, sobald man den ersten Preis einträgt',
+					'Geräte-Kopplung und optionale Wiederherstellungscodes, damit die eigene Insel aufs neue Handy mitkommt',
+					'Installierbare App, die offline weiterläuft und Änderungen bei der nächsten Verbindung synchronisiert',
+				],
+				learned:
+					'Identität ohne Konten. Ein Profil unbemerkt anzulegen, Geräte zu koppeln und den Zugang ohne E-Mail-Adresse wiederherzustellen, hat mehr Sorgfalt gebraucht als die Prognosen.',
+			},
+		},
+		tech: ['TypeScript', 'React', 'PostgreSQL', 'Vitest', 'Supabase', 'Cloudflare', 'GitHub Pages'],
+		image: projectScreenshot('turnip-tycoon-1.webp'),
+		images: projectImages([
+			['turnip-tycoon-1.webp', 1536, 1024],
+			['turnip-tycoon-2.webp', 1536, 1024],
+			['turnip-tycoon-3.webp', 1536, 1024],
+			['turnip-tycoon-4.webp', 1536, 1024],
+		]),
+		buttons: [
+			{
+				href: 'https://rakantor.github.io/turnip-tycoon/',
+				type: 'website',
+			},
+			{
+				href: 'https://github.com/Rakantor/turnip-tycoon',
+				type: 'github',
+			},
+		],
+	},
+	{
 		slug: 'menacing-blue',
 		years: '2013–2017',
 		title: 'Menacing Blue',

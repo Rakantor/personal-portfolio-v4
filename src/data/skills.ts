@@ -29,6 +29,7 @@ import {
 	siReact,
 	siShadcnui,
 	siSpringboot,
+	siSupabase,
 	siTailwindcss,
 	siTypescript,
 	siVitest,
@@ -153,7 +154,7 @@ export const skillGroups: SkillGroup[] = [
 		skills: [
 			{ name: 'Java', icon: siJavaClassic, level: 4, since: 2010, projects: 0 },
 			{ name: 'JavaScript', icon: siJavascript, level: 4, since: 2020, projects: 0 },
-			{ name: 'TypeScript', icon: siTypescript, level: 4, since: 2022, projects: 8 },
+			{ name: 'TypeScript', icon: siTypescript, level: 4, since: 2022, projects: 9 },
 			{ name: 'PHP', icon: siPhp, level: 3, since: 2018, projects: 4 },
 			{ name: 'Lua', icon: siLua, level: 3, since: 2023, projects: 3 },
 			{ name: 'C', icon: siC, level: 1, since: 2009, projects: 3 },
@@ -165,7 +166,7 @@ export const skillGroups: SkillGroup[] = [
 		skills: [
 			{ name: 'Vue.js', icon: siVuedotjs, level: 4, since: 2020, projects: 7 },
 			{ name: 'Nuxt', icon: siNuxt, level: 3, since: 2022, projects: 3 },
-			{ name: 'React', icon: siReact, level: 2, since: 2025, projects: 2 },
+			{ name: 'React', icon: siReact, level: 2, since: 2025, projects: 3 },
 			{ name: 'Astro', icon: siAstro, level: 2, since: 2025, projects: 3 },
 			{ name: 'HTML', icon: siHtml5, level: 4, since: 2009, projects: 0 },
 			{ name: 'CSS', icon: siCss, level: 4, since: 2009, projects: 0 },
@@ -185,7 +186,7 @@ export const skillGroups: SkillGroup[] = [
 		key: 'databases',
 		skills: [
 			{ name: 'MySQL', icon: siMysql, level: 4, since: 2007, projects: 0 },
-			{ name: 'PostgreSQL', icon: siPostgresql, level: 4, since: 2021, projects: 3 },
+			{ name: 'PostgreSQL', icon: siPostgresql, level: 4, since: 2021, projects: 4 },
 			{ name: 'IndexedDB (NoSQL)', icon: siIndexeddb, level: 3, since: 2021, projects: 2 },
 			{ name: 'Firestore (NoSQL)', icon: siFirebase, level: 3, since: 2021, projects: 2 },
 		],
@@ -198,6 +199,7 @@ export const toolGroups: ToolGroup[] = [
 		tools: [
 			{ name: 'AWS', icon: siAws },
 			{ name: 'Cloudflare', icon: siCloudflare },
+			{ name: 'Supabase', icon: siSupabase },
 			{ name: 'Firebase', icon: siFirebase },
 			{ name: 'Hetzner', icon: siHetzner },
 		],
