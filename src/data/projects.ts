@@ -38,6 +38,8 @@ export type ProjectEntry = {
 	image: string;
 	images: Omit<ProjectImage, 'alt'>[];
 	buttons: ProjectButton[];
+	/** Kept in the source but left off the site: no page, no listing, no "next project" link. */
+	hidden?: boolean;
 };
 
 /** A project resolved to one locale, which is what the components render. */
@@ -61,7 +63,7 @@ const projectImages = (sources: ProjectImageSource[]): ProjectEntry['images'] =>
 		height,
 	}));
 
-export const projects: ProjectEntry[] = [
+const projectEntries: ProjectEntry[] = [
 	{
 		slug: 'torii-srs-web-v2',
 		years: '2025–2026',
@@ -138,6 +140,192 @@ export const projects: ProjectEntry[] = [
 			{
 				href: 'https://app.torii-srs.com',
 				type: 'website',
+			},
+		],
+	},
+	{
+		slug: 'torii-srs-java',
+		years: '2018–2020',
+		title: 'Torii SRS (Java)',
+		text: {
+			en: {
+				shortDescription:
+					'A cross-platform app for learning Japanese vocabulary, with spaced repetition, ready-made JLPT lists, several review modes, and cloud sync.',
+				description:
+					'Torii SRS (Java) is my take on learning Japanese vocabulary without the busywork that usually comes with it. Spaced repetition takes care of scheduling your reviews, and ready-made JLPT word lists are built in, so you can start studying right away instead of building decks first. On top of that: audio for pronunciation, several review modes, different Japanese typefaces, progress stats, and automatic cloud sync, all on Windows, macOS, Linux, and Android.',
+				overview: [
+					'The first complete version of Torii SRS: one app for Windows, macOS, Linux and Android.',
+					'The idea behind it was simple: learning Japanese vocabulary shouldn\'t fail at the preparation stage. Instead of digging around the internet for word lists or spending an evening setting up a traditional flashcard program, you get verified JLPT lists from the start, and you can still add your own words whenever you want.',
+				],
+				features: [
+					'One app for Windows, macOS, Linux and Android, built with Java and libGDX',
+					'Spaced repetition that decides what you review and when',
+					'Ready-made JLPT vocabulary lists, plus room for your own words',
+					'Audio for correct pronunciation, varying Japanese typefaces, and progress tracking',
+					'Automatic cloud sync, so your progress follows you between devices',
+				],
+				learned:
+					'What stuck with me most is how much of a product\'s quality comes down to everyday details. Fast and reliable sync, clear feedback while studying, and small interface decisions mattered just as much as the algorithm itself. Those are the things people actually notice, day after day.',
+			},
+			de: {
+				shortDescription:
+					'Eine plattformübergreifende App zum Lernen japanischer Vokabeln, mit Spaced Repetition, fertigen JLPT-Listen, mehreren Review-Modi und Cloud-Sync.',
+				description:
+					'Torii SRS (Java) ist mein Ansatz, japanische Vokabeln ohne den üblichen Vorbereitungsaufwand zu lernen. Spaced Repetition plant die Wiederholungen, fertige JLPT-Vokabellisten sind eingebaut, man kann also sofort loslegen, statt erst Karteikarten anzulegen. Dazu kommen Audio zur Aussprache, mehrere Review-Modi, verschiedene japanische Schriftarten, Fortschrittsstatistiken und automatische Cloud-Synchronisierung – auf Windows, macOS, Linux und Android.',
+				overview: [
+					'Die erste vollständige Version von Torii SRS: eine App für Windows, macOS, Linux und Android.',
+					'Die Idee war einfach: Japanisch lernen soll nicht schon an der Vorbereitung scheitern. Statt Vokabellisten im Internet zusammenzusuchen oder einen Abend lang ein klassisches Karteikartenprogramm einzurichten, hat man geprüfte JLPT-Listen von Anfang an dabei – und kann trotzdem jederzeit eigene Wörter ergänzen.',
+				],
+				features: [
+					'Eine App für Windows, macOS, Linux und Android, gebaut mit Java und libGDX',
+					'Spaced Repetition, die entscheidet, was wann wiederholt wird',
+					'Fertige JLPT-Vokabellisten und Platz für eigene Wörter',
+					'Audio zur Aussprache, verschiedene japanische Schriftarten und Fortschrittsstatistiken',
+					'Automatische Cloud-Synchronisierung, damit der Fortschritt auf jedem Gerät mitkommt',
+				],
+				learned:
+					'Was mir am meisten geblieben ist: Die Qualität eines Produkts entscheidet sich an den Details im Alltag. Schnelle, zuverlässige Synchronisierung, klares Feedback beim Lernen und kleine Entscheidungen im Interface waren am Ende genauso wichtig wie der Algorithmus selbst. Genau das merken die Leute nämlich, Tag für Tag.',
+			},
+		},
+		tech: ['Java', 'libGDX', 'MySQL', 'PHP', 'Amazon Web Services', 'WordPress'],
+		image: projectScreenshot('torii-v1-1.jpg'),
+		images: projectImages([
+			['torii-v1-1.jpg', 750, 750],
+			['torii-v1-2.png', 1082, 1119],
+			['torii-v1-3.png', 1082, 1119],
+			['torii-v1-4.png', 1082, 1119],
+			['torii-v1-5.png', 1082, 1119],
+			['torii-v1-6.png', 1082, 1119],
+		]),
+		buttons: [
+			{
+				href: 'https://torii-srs.com',
+				type: 'website',
+			},
+		],
+	},
+	{
+		slug: 'menacing-blue',
+		years: '2013–2017',
+		title: 'Menacing Blue',
+		text: {
+			en: {
+				shortDescription:
+					'A 2D RPG in the spirit of the classic Pokémon games, built from scratch, with turn-based battles and online multiplayer.',
+				description:
+					'Menacing Blue is the project I built purely for the fun of it: a 2D role-playing game in the spirit of the Pokémon titles I grew up with. Animated NPCs, interactive objects, hand-built maps, turn-based battles you can also fight against another player online, sound design and several difficulty levels. There is no game engine underneath: everything from map rendering to battle logic sits directly on Java and libGDX.',
+				overview: [
+					'This started as a way to find out whether I could build a whole game rather than a demo, and it turned into the most varied thing I have worked on. Movement and collision, tile maps, animation, dialogue, a turn-based battle system, sound and networking all had to exist before any of it was fun to play.',
+					'Maps are built in Tiled and loaded at runtime, so a new area is a content problem instead of a code problem. Battles run through the same system whether the opponent is an NPC or another player across the network. A playable demo is linked below.',
+				],
+				features: [
+					'Written from scratch in Java with libGDX, no game engine involved',
+					'Hand-built maps and interactive environments created with Tiled',
+					'Animated NPCs, interactive objects and a turn-based battle system',
+					'Online multiplayer battles against other players',
+					'Sound design and multiple difficulty levels',
+				],
+				learned:
+					'Games make architecture problems impossible to ignore. State handling, asset loading, collision, input and feedback all run in the same loop many times a second, and if one of them is sloppy the whole thing feels off. Not broken, just off. Getting battles to behave identically against an NPC and across a network connection taught me more about decoupling systems than any amount of theory.',
+			},
+			de: {
+				shortDescription:
+					'Ein 2D-RPG im Stil der klassischen Pokémon-Spiele, von Grund auf selbst gebaut, mit rundenbasierten Kämpfen und Online-Multiplayer.',
+				description:
+					'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Stil der Pokémon-Spiele, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Eine Spiel-Engine gibt es darunter nicht: Vom Kartenrendering bis zur Kampflogik sitzt alles direkt auf Java und libGDX.',
+				overview: [
+					'Angefangen hat das Ganze mit der Frage, ob ich ein komplettes Spiel hinbekomme und nicht nur eine Demo. Herausgekommen ist das abwechslungsreichste Projekt, an dem ich je gearbeitet habe: Bewegung und Kollision, Tile-Maps, Animation, Dialoge, ein rundenbasiertes Kampfsystem, Sound und Netzwerkcode – das alles musste es geben, bevor irgendetwas davon Spaß gemacht hat.',
+					'Die Karten entstehen in Tiled und werden zur Laufzeit geladen; ein neues Gebiet ist damit eine Frage des Inhalts, nicht des Codes. Kämpfe laufen über dasselbe System, egal ob der Gegner ein NPC oder ein anderer Spieler im Netzwerk ist. Eine spielbare Demo ist unten verlinkt.',
+				],
+				features: [
+					'Von Grund auf in Java mit libGDX geschrieben, ohne Spiel-Engine',
+					'Selbst gebaute Karten und interaktive Umgebungen mit Tiled',
+					'Animierte NPCs, interaktive Objekte und ein rundenbasiertes Kampfsystem',
+					'Online-Multiplayer für Kämpfe gegen andere Spieler',
+					'Sounddesign und mehrere Schwierigkeitsgrade',
+				],
+				learned:
+					'Ein Spiel macht Architekturprobleme unübersehbar. State-Handling, Asset-Loading, Kollision, Eingabe und Feedback laufen alle in derselben Schleife, viele Male pro Sekunde, und wenn eines davon schlampig ist, fühlt sich das ganze Spiel falsch an. Nicht kaputt, nur falsch. Kämpfe so hinzubekommen, dass sie gegen einen NPC und über eine Netzwerkverbindung identisch ablaufen, hat mir mehr über entkoppelte Systeme beigebracht als jede Theorie.',
+			},
+		},
+		tech: ['Java', 'libGDX', 'Tiled'],
+		image: projectScreenshot('pmb-0.webp'),
+		images: projectImages([
+			['pmb-0.webp', 1683, 1104],
+			['pmb-6.png', 1922, 1119],
+			['pmb-1.png', 1922, 1119],
+			['pmb-2.png', 1922, 1119],
+			['pmb-3.png', 1922, 1119],
+			['pmb-4.png', 1922, 1119],
+			['pmb-5.png', 1922, 1119],
+		]),
+		buttons: [
+			{
+				href: 'https://pmb-demo.mave.dev',
+				type: 'demo',
+			},
+		],
+	},
+	{
+		slug: 'turnip-tycoon',
+		years: '2026',
+		title: 'Turnip Tycoon',
+		text: {
+			en: {
+				shortDescription:
+					'A turnip price forecaster for Animal Crossing: New Horizons that you share with friends, so everyone knows whose island to sell on.',
+				description:
+					'In Animal Crossing, turnip prices change twice a day and differ from island to island, so the best price of the week is usually on someone else\'s. Turnip Tycoon forecasts where your prices are heading, and groups put your friends\' prices and forecasts right next to yours. There is no sign-up: you open it, type in your prices, and share a group code with whoever you play with.',
+				overview: [
+					'Turnip calculators already exist, but they only know about your own island. The whole point of the turnip market is that a friend\'s island might be paying twice as much this afternoon. So the app is built around groups: create one, send the code to your friends, and everyone\'s week shows up on one board.',
+					'Forecasts run in the browser on the prediction engine behind Turnip Prophet. Prices are stored locally and synced through Cloudflare Workers backed by PostgreSQL, so the app keeps working offline and catches up once you reconnect.',
+				],
+				features: [
+					'Groups that show everyone\'s prices and forecasts side by side, joined with a single shareable code',
+					'Price forecasts with possible ranges and the probability of each selling pattern',
+					'No account or login: a profile is created silently the first time you enter a price',
+					'Device pairing and optional recovery codes, so your island follows you to another phone',
+					'Installable app that keeps working offline and syncs your edits when you reconnect',
+				],
+				learned:
+					'Identity without accounts. Creating a profile silently, pairing devices and recovering access without an email address took more care than the forecasts did.',
+			},
+			de: {
+				shortDescription:
+					'Rübenpreis-Prognosen für Animal Crossing: New Horizons, die man mit Freunden teilt, damit alle wissen, auf welcher Insel sich das Verkaufen lohnt.',
+				description:
+					'In Animal Crossing ändern sich die Rübenpreise zweimal am Tag und sind auf jeder Insel anders. Der beste Preis der Woche liegt also meistens auf der Insel von jemand anderem. Turnip Tycoon sagt voraus, wohin sich die eigenen Preise entwickeln, und in Gruppen stehen die Preise und Prognosen der Freunde direkt daneben. Registrieren muss man sich nicht: App öffnen, Preise eintragen, Gruppencode an die Leute schicken, mit denen man spielt.',
+				overview: [
+					'Rübenrechner gibt es schon, aber die kennen nur die eigene Insel. Dabei lebt der Rübenmarkt gerade davon, dass bei Freunden heute Nachmittag vielleicht doppelt so viel gezahlt wird. Deshalb dreht sich die App um Gruppen: eine anlegen, den Code an die Freunde schicken, und schon steht die Woche von allen auf einer Übersicht.',
+					'Die Prognosen laufen direkt im Browser, mit der Vorhersage-Engine von Turnip Prophet. Die Preise werden lokal gespeichert und über Cloudflare Workers mit PostgreSQL synchronisiert. Die App funktioniert also auch offline und holt alles nach, sobald wieder Verbindung da ist.',
+				],
+				features: [
+					'Gruppen, in denen die Preise und Prognosen aller nebeneinanderstehen – zum Beitreten reicht ein Code',
+					'Preisprognosen mit möglichen Spannen und der Wahrscheinlichkeit jedes Preisverlaufs',
+					'Kein Konto, kein Login: Das Profil entsteht im Hintergrund, sobald man den ersten Preis einträgt',
+					'Geräte-Kopplung und optionale Wiederherstellungscodes, damit die eigene Insel aufs neue Handy mitkommt',
+					'Installierbare App, die offline weiterläuft und Änderungen bei der nächsten Verbindung synchronisiert',
+				],
+				learned:
+					'Identität ohne Konten. Ein Profil unbemerkt anzulegen, Geräte zu koppeln und den Zugang ohne E-Mail-Adresse wiederherzustellen, hat mehr Sorgfalt gebraucht als die Prognosen.',
+			},
+		},
+		tech: ['TypeScript', 'React', 'PostgreSQL', 'Vitest', 'Supabase', 'Cloudflare', 'GitHub Pages'],
+		image: projectScreenshot('turnip-tycoon-1.webp'),
+		images: projectImages([
+			['turnip-tycoon-1.webp', 1536, 1024],
+			['turnip-tycoon-2.webp', 1536, 1024],
+			['turnip-tycoon-3.webp', 1536, 1024],
+			['turnip-tycoon-4.webp', 1536, 1024],
+		]),
+		buttons: [
+			{
+				href: 'https://turniptycoon.app',
+				type: 'website',
+			},
+			{
+				href: 'https://github.com/Rakantor/turnip-tycoon',
+				type: 'github',
 			},
 		],
 	},
@@ -219,125 +407,6 @@ export const projects: ProjectEntry[] = [
 		],
 	},
 	{
-		slug: 'torii-srs-java',
-		years: '2018–2020',
-		title: 'Torii SRS (Java)',
-		text: {
-			en: {
-				shortDescription:
-					'A cross-platform app for learning Japanese vocabulary, with spaced repetition, ready-made JLPT lists, several review modes, and cloud sync.',
-				description:
-					'Torii SRS (Java) is my take on learning Japanese vocabulary without the busywork that usually comes with it. Spaced repetition takes care of scheduling your reviews, and ready-made JLPT word lists are built in, so you can start studying right away instead of building decks first. On top of that: audio for pronunciation, several review modes, different Japanese typefaces, progress stats, and automatic cloud sync, all on Windows, macOS, Linux, and Android.',
-				overview: [
-					'The first complete version of Torii SRS: one app for Windows, macOS, Linux and Android.',
-					'The idea behind it was simple: learning Japanese vocabulary shouldn\'t fail at the preparation stage. Instead of digging around the internet for word lists or spending an evening setting up a traditional flashcard program, you get verified JLPT lists from the start, and you can still add your own words whenever you want.',
-				],
-				features: [
-					'One app for Windows, macOS, Linux and Android, built with Java and libGDX',
-					'Spaced repetition that decides what you review and when',
-					'Ready-made JLPT vocabulary lists, plus room for your own words',
-					'Audio for correct pronunciation, varying Japanese typefaces, and progress tracking',
-					'Automatic cloud sync, so your progress follows you between devices',
-				],
-				learned:
-					'What stuck with me most is how much of a product\'s quality comes down to everyday details. Fast and reliable sync, clear feedback while studying, and small interface decisions mattered just as much as the algorithm itself. Those are the things people actually notice, day after day.',
-			},
-			de: {
-				shortDescription:
-					'Eine plattformübergreifende App zum Lernen japanischer Vokabeln, mit Spaced Repetition, fertigen JLPT-Listen, mehreren Review-Modi und Cloud-Sync.',
-				description:
-					'Torii SRS (Java) ist mein Ansatz, japanische Vokabeln ohne den üblichen Vorbereitungsaufwand zu lernen. Spaced Repetition plant die Wiederholungen, fertige JLPT-Vokabellisten sind eingebaut, man kann also sofort loslegen, statt erst Karteikarten anzulegen. Dazu kommen Audio zur Aussprache, mehrere Review-Modi, verschiedene japanische Schriftarten, Fortschrittsstatistiken und automatische Cloud-Synchronisierung – auf Windows, macOS, Linux und Android.',
-				overview: [
-					'Die erste vollständige Version von Torii SRS: eine App für Windows, macOS, Linux und Android.',
-					'Die Idee war einfach: Japanisch lernen soll nicht schon an der Vorbereitung scheitern. Statt Vokabellisten im Internet zusammenzusuchen oder einen Abend lang ein klassisches Karteikartenprogramm einzurichten, hat man geprüfte JLPT-Listen von Anfang an dabei – und kann trotzdem jederzeit eigene Wörter ergänzen.',
-				],
-				features: [
-					'Eine App für Windows, macOS, Linux und Android, gebaut mit Java und libGDX',
-					'Spaced Repetition, die entscheidet, was wann wiederholt wird',
-					'Fertige JLPT-Vokabellisten und Platz für eigene Wörter',
-					'Audio zur Aussprache, verschiedene japanische Schriftarten und Fortschrittsstatistiken',
-					'Automatische Cloud-Synchronisierung, damit der Fortschritt auf jedem Gerät mitkommt',
-				],
-				learned:
-					'Was mir am meisten geblieben ist: Die Qualität eines Produkts entscheidet sich an den Details im Alltag. Schnelle, zuverlässige Synchronisierung, klares Feedback beim Lernen und kleine Entscheidungen im Interface waren am Ende genauso wichtig wie der Algorithmus selbst. Genau das merken die Leute nämlich, Tag für Tag.',
-			},
-		},
-		tech: ['Java', 'libGDX', 'MySQL', 'PHP', 'Amazon Web Services', 'WordPress'],
-		image: projectScreenshot('torii-v1-1.jpg'),
-		images: projectImages([
-			['torii-v1-1.jpg', 750, 750],
-			['torii-v1-2.png', 1082, 1119],
-			['torii-v1-3.png', 1082, 1119],
-			['torii-v1-4.png', 1082, 1119],
-			['torii-v1-5.png', 1082, 1119],
-			['torii-v1-6.png', 1082, 1119],
-		]),
-		buttons: [
-			{
-				href: 'https://torii-srs.com',
-				type: 'website',
-			},
-		],
-	},
-	{
-		slug: 'torii-srs-landing-page',
-		years: '2026',
-		title: 'Torii SRS Landing Page',
-		text: {
-			en: {
-				shortDescription:
-					'The marketing site for Torii SRS: what the product does, what it costs, and a knowledge base for when people get stuck.',
-				description:
-					'The public front door for Torii SRS. The app can do a lot, and on a landing page that is exactly the problem: nobody reads a feature list before they know what the thing is for. So the site leads with the pitch and backs it up afterwards with feature highlights, testimonials, pricing and a knowledge base. All of it is statically generated with Astro, which means it is simply there when you open it.',
-				overview: [
-					'Torii SRS had grown a lot of functionality but no proper public face. This site is that face: it explains the product to someone who has never heard of it and gives them one obvious way in.',
-					'It runs on Astro with React components, Tailwind CSS and shadcn/ui. The output is static, so there is next to nothing to load, and the component structure makes adding a new section or knowledge-base article a five-minute job instead of a refactor.',
-				],
-				features: [
-					'Static, responsive marketing site built with Astro and React components',
-					'Structured around what a first-time visitor needs to know, in that order',
-					'Sections for features, testimonials, pricing and a knowledge base',
-					'Consistent styling through reusable Tailwind CSS and shadcn/ui components',
-					'Fast page loads and SEO-friendly markup for organic reach',
-				],
-				learned:
-					'Product sites and app screens are almost opposite problems. Inside the app, people already know what they want; on a landing page you have a few seconds to explain why they should care at all. Learning to lead with the value instead of the feature list was the useful part here. That, and how good a site feels when it ships almost no JavaScript.',
-			},
-			de: {
-				shortDescription:
-					'Die Marketing-Website für Torii SRS: was das Produkt kann, was es kostet, und eine Wissensdatenbank für alle, die nicht weiterkommen.',
-				description:
-					'Das öffentliche Aushängeschild von Torii SRS. Die App kann viel, und genau das ist auf einer Landingpage das Problem: Niemand liest eine Feature-Liste, bevor klar ist, wofür das Ganze gut ist. Die Seite fängt deshalb mit dem Pitch an und belegt ihn erst danach mit Funktionen, Testimonials, Preisen und einer Wissensdatenbank. Alles statisch mit Astro generiert – die Seite ist einfach da, wenn man sie öffnet.',
-				overview: [
-					'Torii SRS hatte mit der Zeit viele Funktionen bekommen, aber keinen richtigen öffentlichen Auftritt. Diese Seite ist genau das: Sie erklärt das Produkt jemandem, der noch nie davon gehört hat, und bietet einen einzigen, klaren Einstieg.',
-					'Gebaut ist sie mit Astro, React-Komponenten, Tailwind CSS und shadcn/ui. Die Ausgabe ist statisch, es gibt also praktisch nichts zu laden, und dank der Komponentenstruktur ist ein neuer Abschnitt oder ein neuer Artikel in der Wissensdatenbank eine Sache von fünf Minuten, kein Refactoring.',
-				],
-				features: [
-					'Statische, responsive Marketingseite mit Astro und React-Komponenten',
-					'Aufgebaut in der Reihenfolge, in der ein neuer Besucher die Informationen braucht',
-					'Bereiche für Funktionen, Testimonials, Preise und eine Wissensdatenbank',
-					'Einheitliches Design durch wiederverwendbare Tailwind-CSS- und shadcn/ui-Komponenten',
-					'Kurze Ladezeiten und SEO-freundliches Markup für bessere Sichtbarkeit',
-				],
-				learned:
-					'Produktseiten und App-Oberflächen sind fast gegensätzliche Aufgaben. In der App wissen die Leute schon, was sie wollen; auf einer Landingpage hat man ein paar Sekunden, um zu erklären, warum sie sich überhaupt dafür interessieren sollten. Zu lernen, mit dem Nutzen anzufangen statt mit der Feature-Liste, war hier das Wertvolle. Das, und wie gut sich eine Seite anfühlt, die fast ohne JavaScript auskommt.',
-			},
-		},
-		tech: ['TypeScript', 'Astro', 'React', 'Tailwind CSS', 'shadcn/ui'],
-		image: projectScreenshot('torii-srs-site-1.jpg'),
-		images: projectImages([['torii-srs-site-1.jpg', 1440, 1100]]),
-		buttons: [
-			{
-				href: 'https://beta.torii-srs.com',
-				type: 'website',
-			},
-			{
-				href: 'https://github.com/Rakantor/torii-srs-site',
-				type: 'github',
-			},
-		],
-	},
-	{
 		slug: 'google-drive-pdf-downloader',
 		years: '2026',
 		title: 'GDrive PDF Downloader',
@@ -397,7 +466,7 @@ export const projects: ProjectEntry[] = [
 	{
 		slug: 'word-better-pdf-export',
 		years: '2026',
-		title: 'Better PDF Export (Word)',
+		title: 'Word: Better PDF Export',
 		text: {
 			en: {
 				shortDescription:
@@ -462,134 +531,9 @@ export const projects: ProjectEntry[] = [
 		],
 	},
 	{
-		slug: 'turnip-tycoon',
-		years: '2026',
-		title: 'Turnip Tycoon',
-		text: {
-			en: {
-				shortDescription:
-					'A turnip price forecaster for Animal Crossing: New Horizons that you share with friends, so everyone knows whose island to sell on.',
-				description:
-					'In Animal Crossing, turnip prices change twice a day and differ from island to island, so the best price of the week is usually on someone else\'s. Turnip Tycoon forecasts where your prices are heading, and groups put your friends\' prices and forecasts right next to yours. There is no sign-up: you open it, type in your prices, and share a group code with whoever you play with.',
-				overview: [
-					'Turnip calculators already exist, but they only know about your own island. The whole point of the turnip market is that a friend\'s island might be paying twice as much this afternoon. So the app is built around groups: create one, send the code to your friends, and everyone\'s week shows up on one board.',
-					'Forecasts run in the browser on the prediction engine behind Turnip Prophet. Prices are stored locally and synced through Cloudflare Workers backed by PostgreSQL, so the app keeps working offline and catches up once you reconnect.',
-				],
-				features: [
-					'Groups that show everyone\'s prices and forecasts side by side, joined with a single shareable code',
-					'Price forecasts with possible ranges and the probability of each selling pattern',
-					'No account or login: a profile is created silently the first time you enter a price',
-					'Device pairing and optional recovery codes, so your island follows you to another phone',
-					'Installable app that keeps working offline and syncs your edits when you reconnect',
-				],
-				learned:
-					'Identity without accounts. Creating a profile silently, pairing devices and recovering access without an email address took more care than the forecasts did.',
-			},
-			de: {
-				shortDescription:
-					'Rübenpreis-Prognosen für Animal Crossing: New Horizons, die man mit Freunden teilt, damit alle wissen, auf welcher Insel sich das Verkaufen lohnt.',
-				description:
-					'In Animal Crossing ändern sich die Rübenpreise zweimal am Tag und sind auf jeder Insel anders. Der beste Preis der Woche liegt also meistens auf der Insel von jemand anderem. Turnip Tycoon sagt voraus, wohin sich die eigenen Preise entwickeln, und in Gruppen stehen die Preise und Prognosen der Freunde direkt daneben. Registrieren muss man sich nicht: App öffnen, Preise eintragen, Gruppencode an die Leute schicken, mit denen man spielt.',
-				overview: [
-					'Rübenrechner gibt es schon, aber die kennen nur die eigene Insel. Dabei lebt der Rübenmarkt gerade davon, dass bei Freunden heute Nachmittag vielleicht doppelt so viel gezahlt wird. Deshalb dreht sich die App um Gruppen: eine anlegen, den Code an die Freunde schicken, und schon steht die Woche von allen auf einer Übersicht.',
-					'Die Prognosen laufen direkt im Browser, mit der Vorhersage-Engine von Turnip Prophet. Die Preise werden lokal gespeichert und über Cloudflare Workers mit PostgreSQL synchronisiert. Die App funktioniert also auch offline und holt alles nach, sobald wieder Verbindung da ist.',
-				],
-				features: [
-					'Gruppen, in denen die Preise und Prognosen aller nebeneinanderstehen – zum Beitreten reicht ein Code',
-					'Preisprognosen mit möglichen Spannen und der Wahrscheinlichkeit jedes Preisverlaufs',
-					'Kein Konto, kein Login: Das Profil entsteht im Hintergrund, sobald man den ersten Preis einträgt',
-					'Geräte-Kopplung und optionale Wiederherstellungscodes, damit die eigene Insel aufs neue Handy mitkommt',
-					'Installierbare App, die offline weiterläuft und Änderungen bei der nächsten Verbindung synchronisiert',
-				],
-				learned:
-					'Identität ohne Konten. Ein Profil unbemerkt anzulegen, Geräte zu koppeln und den Zugang ohne E-Mail-Adresse wiederherzustellen, hat mehr Sorgfalt gebraucht als die Prognosen.',
-			},
-		},
-		tech: ['TypeScript', 'React', 'PostgreSQL', 'Vitest', 'Supabase', 'Cloudflare', 'GitHub Pages'],
-		image: projectScreenshot('turnip-tycoon-1.webp'),
-		images: projectImages([
-			['turnip-tycoon-1.webp', 1536, 1024],
-			['turnip-tycoon-2.webp', 1536, 1024],
-			['turnip-tycoon-3.webp', 1536, 1024],
-			['turnip-tycoon-4.webp', 1536, 1024],
-		]),
-		buttons: [
-			{
-				href: 'https://rakantor.github.io/turnip-tycoon/',
-				type: 'website',
-			},
-			{
-				href: 'https://github.com/Rakantor/turnip-tycoon',
-				type: 'github',
-			},
-		],
-	},
-	{
-		slug: 'menacing-blue',
-		years: '2013–2017',
-		title: 'Menacing Blue',
-		text: {
-			en: {
-				shortDescription:
-					'A 2D RPG in the spirit of the classic Pokémon games, built from scratch, with turn-based battles and online multiplayer.',
-				description:
-					'Menacing Blue is the project I built purely for the fun of it: a 2D role-playing game in the spirit of the Pokémon titles I grew up with. Animated NPCs, interactive objects, hand-built maps, turn-based battles you can also fight against another player online, sound design and several difficulty levels. There is no game engine underneath: everything from map rendering to battle logic sits directly on Java and libGDX.',
-				overview: [
-					'This started as a way to find out whether I could build a whole game rather than a demo, and it turned into the most varied thing I have worked on. Movement and collision, tile maps, animation, dialogue, a turn-based battle system, sound and networking all had to exist before any of it was fun to play.',
-					'Maps are built in Tiled and loaded at runtime, so a new area is a content problem instead of a code problem. Battles run through the same system whether the opponent is an NPC or another player across the network. A playable demo is linked below.',
-				],
-				features: [
-					'Written from scratch in Java with libGDX, no game engine involved',
-					'Hand-built maps and interactive environments created with Tiled',
-					'Animated NPCs, interactive objects and a turn-based battle system',
-					'Online multiplayer battles against other players',
-					'Sound design and multiple difficulty levels',
-				],
-				learned:
-					'Games make architecture problems impossible to ignore. State handling, asset loading, collision, input and feedback all run in the same loop many times a second, and if one of them is sloppy the whole thing feels off. Not broken, just off. Getting battles to behave identically against an NPC and across a network connection taught me more about decoupling systems than any amount of theory.',
-			},
-			de: {
-				shortDescription:
-					'Ein 2D-RPG im Stil der klassischen Pokémon-Spiele, von Grund auf selbst gebaut, mit rundenbasierten Kämpfen und Online-Multiplayer.',
-				description:
-					'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Stil der Pokémon-Spiele, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Eine Spiel-Engine gibt es darunter nicht: Vom Kartenrendering bis zur Kampflogik sitzt alles direkt auf Java und libGDX.',
-				overview: [
-					'Angefangen hat das Ganze mit der Frage, ob ich ein komplettes Spiel hinbekomme und nicht nur eine Demo. Herausgekommen ist das abwechslungsreichste Projekt, an dem ich je gearbeitet habe: Bewegung und Kollision, Tile-Maps, Animation, Dialoge, ein rundenbasiertes Kampfsystem, Sound und Netzwerkcode – das alles musste es geben, bevor irgendetwas davon Spaß gemacht hat.',
-					'Die Karten entstehen in Tiled und werden zur Laufzeit geladen; ein neues Gebiet ist damit eine Frage des Inhalts, nicht des Codes. Kämpfe laufen über dasselbe System, egal ob der Gegner ein NPC oder ein anderer Spieler im Netzwerk ist. Eine spielbare Demo ist unten verlinkt.',
-				],
-				features: [
-					'Von Grund auf in Java mit libGDX geschrieben, ohne Spiel-Engine',
-					'Selbst gebaute Karten und interaktive Umgebungen mit Tiled',
-					'Animierte NPCs, interaktive Objekte und ein rundenbasiertes Kampfsystem',
-					'Online-Multiplayer für Kämpfe gegen andere Spieler',
-					'Sounddesign und mehrere Schwierigkeitsgrade',
-				],
-				learned:
-					'Ein Spiel macht Architekturprobleme unübersehbar. State-Handling, Asset-Loading, Kollision, Eingabe und Feedback laufen alle in derselben Schleife, viele Male pro Sekunde, und wenn eines davon schlampig ist, fühlt sich das ganze Spiel falsch an. Nicht kaputt, nur falsch. Kämpfe so hinzubekommen, dass sie gegen einen NPC und über eine Netzwerkverbindung identisch ablaufen, hat mir mehr über entkoppelte Systeme beigebracht als jede Theorie.',
-			},
-		},
-		tech: ['Java', 'libGDX', 'Tiled'],
-		image: projectScreenshot('pmb-0.webp'),
-		images: projectImages([
-			['pmb-0.webp', 1683, 1104],
-			['pmb-6.png', 1922, 1119],
-			['pmb-1.png', 1922, 1119],
-			['pmb-2.png', 1922, 1119],
-			['pmb-3.png', 1922, 1119],
-			['pmb-4.png', 1922, 1119],
-			['pmb-5.png', 1922, 1119],
-		]),
-		buttons: [
-			{
-				href: 'https://pmb-demo.mave.dev',
-				type: 'demo',
-			},
-		],
-	},
-	{
 		slug: 'leave-me-be',
 		years: '2026',
-		title: 'LMB (WoW)',
+		title: 'Leave Me Be',
 		text: {
 			en: {
 				shortDescription:
@@ -642,6 +586,64 @@ export const projects: ProjectEntry[] = [
 			},
 			{
 				href: 'https://github.com/Rakantor/wow-leave-me-be',
+				type: 'github',
+			},
+		],
+	},
+	{
+		slug: 'torii-srs-landing-page',
+		years: '2026',
+		title: 'Torii SRS Landing Page',
+		text: {
+			en: {
+				shortDescription:
+					'The marketing site for Torii SRS: what the product does, what it costs, and a knowledge base for when people get stuck.',
+				description:
+					'The public front door for Torii SRS. The app can do a lot, and on a landing page that is exactly the problem: nobody reads a feature list before they know what the thing is for. So the site leads with the pitch and backs it up afterwards with feature highlights, testimonials, pricing and a knowledge base. All of it is statically generated with Astro, which means it is simply there when you open it.',
+				overview: [
+					'Torii SRS had grown a lot of functionality but no proper public face. This site is that face: it explains the product to someone who has never heard of it and gives them one obvious way in.',
+					'It runs on Astro with React components, Tailwind CSS and shadcn/ui. The output is static, so there is next to nothing to load, and the component structure makes adding a new section or knowledge-base article a five-minute job instead of a refactor.',
+				],
+				features: [
+					'Static, responsive marketing site built with Astro and React components',
+					'Structured around what a first-time visitor needs to know, in that order',
+					'Sections for features, testimonials, pricing and a knowledge base',
+					'Consistent styling through reusable Tailwind CSS and shadcn/ui components',
+					'Fast page loads and SEO-friendly markup for organic reach',
+				],
+				learned:
+					'Product sites and app screens are almost opposite problems. Inside the app, people already know what they want; on a landing page you have a few seconds to explain why they should care at all. Learning to lead with the value instead of the feature list was the useful part here. That, and how good a site feels when it ships almost no JavaScript.',
+			},
+			de: {
+				shortDescription:
+					'Die Marketing-Website für Torii SRS: was das Produkt kann, was es kostet, und eine Wissensdatenbank für alle, die nicht weiterkommen.',
+				description:
+					'Das öffentliche Aushängeschild von Torii SRS. Die App kann viel, und genau das ist auf einer Landingpage das Problem: Niemand liest eine Feature-Liste, bevor klar ist, wofür das Ganze gut ist. Die Seite fängt deshalb mit dem Pitch an und belegt ihn erst danach mit Funktionen, Testimonials, Preisen und einer Wissensdatenbank. Alles statisch mit Astro generiert – die Seite ist einfach da, wenn man sie öffnet.',
+				overview: [
+					'Torii SRS hatte mit der Zeit viele Funktionen bekommen, aber keinen richtigen öffentlichen Auftritt. Diese Seite ist genau das: Sie erklärt das Produkt jemandem, der noch nie davon gehört hat, und bietet einen einzigen, klaren Einstieg.',
+					'Gebaut ist sie mit Astro, React-Komponenten, Tailwind CSS und shadcn/ui. Die Ausgabe ist statisch, es gibt also praktisch nichts zu laden, und dank der Komponentenstruktur ist ein neuer Abschnitt oder ein neuer Artikel in der Wissensdatenbank eine Sache von fünf Minuten, kein Refactoring.',
+				],
+				features: [
+					'Statische, responsive Marketingseite mit Astro und React-Komponenten',
+					'Aufgebaut in der Reihenfolge, in der ein neuer Besucher die Informationen braucht',
+					'Bereiche für Funktionen, Testimonials, Preise und eine Wissensdatenbank',
+					'Einheitliches Design durch wiederverwendbare Tailwind-CSS- und shadcn/ui-Komponenten',
+					'Kurze Ladezeiten und SEO-freundliches Markup für bessere Sichtbarkeit',
+				],
+				learned:
+					'Produktseiten und App-Oberflächen sind fast gegensätzliche Aufgaben. In der App wissen die Leute schon, was sie wollen; auf einer Landingpage hat man ein paar Sekunden, um zu erklären, warum sie sich überhaupt dafür interessieren sollten. Zu lernen, mit dem Nutzen anzufangen statt mit der Feature-Liste, war hier das Wertvolle. Das, und wie gut sich eine Seite anfühlt, die fast ohne JavaScript auskommt.',
+			},
+		},
+		tech: ['TypeScript', 'Astro', 'React', 'Tailwind CSS', 'shadcn/ui'],
+		image: projectScreenshot('torii-srs-site-1.jpg'),
+		images: projectImages([['torii-srs-site-1.jpg', 1440, 1100]]),
+		buttons: [
+			{
+				href: 'https://beta.torii-srs.com',
+				type: 'website',
+			},
+			{
+				href: 'https://github.com/Rakantor/torii-srs-site',
 				type: 'github',
 			},
 		],
@@ -768,6 +770,7 @@ export const projects: ProjectEntry[] = [
 	},
 	{
 		slug: 'iu-gamer-app',
+		hidden: true,
 		years: '2021',
 		title: 'IU Gamer App',
 		text: {
@@ -829,6 +832,9 @@ export const projects: ProjectEntry[] = [
 	},
 ];
 
+/** Every project the site shows, in display order: the featured ones first, then "More Projects". */
+export const projects = projectEntries.filter((project) => !project.hidden);
+
 export const getLocalizedProject = ({ text, ...entry }: ProjectEntry, locale: Locale): Project => ({
 	...entry,
 	...text[locale],
@@ -848,7 +854,7 @@ export const featuredSlugs = [
 	'torii-srs-web-v2',
 	'torii-srs-java',
 	'menacing-blue',
-	'google-drive-pdf-downloader',
+	'turnip-tycoon',
 ] as const;
 
 export const getFeaturedProjects = (locale: Locale = 'en') =>
