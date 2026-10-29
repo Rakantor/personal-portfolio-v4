@@ -2,6 +2,17 @@ import { type Locale, ui } from '../i18n';
 
 export type ProjectButtonType = 'website' | 'play' | 'demo' | 'github' | 'pdf';
 
+/** The kinds of project the tags name. Their labels live in `ui[locale].projects.tags`. */
+export type ProjectTag =
+	| 'website'
+	| 'webApp'
+	| 'desktopApp'
+	| 'androidApp'
+	| 'game'
+	| 'userscript'
+	| 'officeAddIn'
+	| 'gameAddon';
+
 export type ProjectButton = {
 	href: string;
 	type: ProjectButtonType;
@@ -38,6 +49,8 @@ export type ProjectEntry = {
 	image: string;
 	images: Omit<ProjectImage, 'alt'>[];
 	buttons: ProjectButton[];
+	/** What kind of thing it is, most telling first, e.g. a game before the platforms it runs on. */
+	tags: ProjectTag[];
 	/** Kept in the source but left off the site: no page, no listing, no "next project" link. */
 	hidden?: boolean;
 };
@@ -68,6 +81,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'torii-srs-web-v2',
 		years: '2025–2026',
 		title: 'Torii SRS (Web v2)',
+		tags: ['webApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -147,6 +161,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'torii-srs-java',
 		years: '2018–2020',
 		title: 'Torii SRS (Java)',
+		tags: ['desktopApp', 'androidApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -208,6 +223,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'turnip-tycoon',
 		years: '2026',
 		title: 'Turnip Tycoon',
+		tags: ['webApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -278,6 +294,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'sabaku',
 		years: '2026',
 		title: 'Sabaku',
+		tags: ['game', 'webApp', 'androidApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -348,6 +365,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'torii-srs-web-v1',
 		years: '2021–2022',
 		title: 'Torii SRS (Web v1)',
+		tags: ['webApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -425,6 +443,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'menacing-blue',
 		years: '2013–2017',
 		title: 'Menacing Blue',
+		tags: ['game', 'desktopApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -488,6 +507,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'google-drive-pdf-downloader',
 		years: '2026',
 		title: 'GDrive PDF Downloader',
+		tags: ['userscript'],
 		text: {
 			en: {
 				shortDescription:
@@ -546,6 +566,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'word-better-pdf-export',
 		years: '2026',
 		title: 'Word: Better PDF Export',
+		tags: ['officeAddIn'],
 		text: {
 			en: {
 				shortDescription:
@@ -611,6 +632,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'leave-me-be',
 		years: '2026',
 		title: 'Leave Me Be',
+		tags: ['gameAddon'],
 		text: {
 			en: {
 				shortDescription:
@@ -672,6 +694,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'torii-srs-landing-page',
 		years: '2026',
 		title: 'Torii SRS Landing Page',
+		tags: ['website'],
 		text: {
 			en: {
 				shortDescription:
@@ -730,6 +753,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'personal-website',
 		years: '2024',
 		title: 'Personal Website',
+		tags: ['website'],
 		text: {
 			en: {
 				shortDescription:
@@ -788,6 +812,7 @@ const projectEntries: ProjectEntry[] = [
 		slug: 'iu-quiz-app',
 		years: '2022',
 		title: 'IU Quiz App',
+		tags: ['webApp'],
 		text: {
 			en: {
 				shortDescription:
@@ -851,6 +876,7 @@ const projectEntries: ProjectEntry[] = [
 		hidden: true,
 		years: '2021',
 		title: 'IU Gamer App',
+		tags: ['androidApp'],
 		text: {
 			en: {
 				shortDescription:

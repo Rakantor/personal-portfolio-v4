@@ -325,6 +325,15 @@ const gallery = await Promise.all(
 
 					<div class="rule-top pb-5 pt-5">
 						<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
+							{t.projectDetail.type}
+						</h2>
+						<ul class="tech-list">
+							{project.tags.map((tag) => <li>{t.projects.tags[tag]}</li>)}
+						</ul>
+					</div>
+
+					<div class="rule-top pb-5 pt-5">
+						<h2 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.15em] text-muted-2">
 							{t.projectDetail.tech}
 						</h2>
 						<ul class="tech-list">

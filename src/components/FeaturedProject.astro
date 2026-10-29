@@ -43,6 +43,10 @@ const shot = await getImage({ src: project.image, width: 1200, height: 750, form
 	</a>
 
 	<div>
+		<div class="tag-line mb-4">
+			{project.tags.map((tag) => <span>{t.projects.tags[tag]}</span>)}
+		</div>
+
 		<h3 class="h-project text-navy">
 			<a class="transition-colors hover:text-primary" href={href}>{project.title}</a>
 		</h3>

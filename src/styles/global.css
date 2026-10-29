@@ -465,6 +465,41 @@ footer.on-dark {
 	color: rgb(255 255 255 / 0.28);
 }
 
+/* ---- Project type, set as a kicker ------------------------------------ */
+
+/* Above a project's title in the listings: what kind of thing it is, in the
+   blue mono capitals the section numbers use, so it reads as a label rather
+   than as part of the description. */
+.tag-line {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem 0.5rem;
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	font-weight: 500;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--color-primary);
+}
+
+.tag-line span::after {
+	content: ' /';
+	color: var(--color-rule);
+}
+
+.tag-line span:last-child::after {
+	content: '';
+}
+
+.on-dark .tag-line {
+	font-size: 0.64rem;
+	color: var(--color-blue-bright);
+}
+
+.on-dark .tag-line span::after {
+	color: rgb(255 255 255 / 0.28);
+}
+
 /* ---- Header nav ------------------------------------------------------- */
 
 .nav-link {
