@@ -10,6 +10,7 @@ import {
 	siCss,
 	siDaisyui,
 	siDocker,
+	siDotnet,
 	siFigma,
 	siFirebase,
 	siGit,
@@ -118,6 +119,19 @@ const siSlim: SimpleIcon = {
 	hex: '719E40',
 };
 
+// simple-icons dropped its C# mark, so this draws the hexagon badge: a white C
+// and # on C#'s purple.
+const siCsharp: MulticolorIcon = {
+	title: 'C#',
+	slug: 'csharp',
+	viewBox: '0 0 24 24',
+	paths: [
+		{ d: 'M12 1l9.53 5.5v11L12 23l-9.53-5.5v-11Z', fill: '#68217A' },
+		{ d: 'M13.68 8.32A5.2 5.2 0 1 0 13.68 15.68L12.26 14.26A3.2 3.2 0 1 1 12.26 9.74Z', fill: '#FFFFFF' },
+		{ d: 'M15.8 9.8h.9v4.4h-.9ZM17.8 9.8h.9v4.4h-.9ZM15.2 10.7h4v.9h-4ZM15.2 12.5h4v.9h-4Z', fill: '#FFFFFF' },
+	],
+};
+
 const siJavaClassic: MulticolorIcon = {
 	title: 'Java',
 	slug: 'java',
@@ -161,6 +175,7 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Lua', icon: siLua, level: 3, since: 2023, projects: 3 },
 			{ name: 'C', icon: siC, level: 1, since: 2009, projects: 3 },
 			{ name: 'Python', icon: siPython, level: 1, since: 2025, projects: 2 },
+			{ name: 'C#', icon: siCsharp, level: 1, since: 2026, projects: 1 },
 		],
 	},
 	{
@@ -182,6 +197,7 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Spring Boot', icon: siSpringboot, level: 4, since: 2025, projects: 3 },
 			{ name: 'Node.js', icon: siNodedotjs, level: 2, since: 2022, projects: 2 },
 			{ name: 'Slim', icon: siSlim, level: 3, since: 2018, projects: 4 },
+			{ name: '.NET', icon: siDotnet, level: 1, since: 2026, projects: 1 },
 		],
 	},
 	{
