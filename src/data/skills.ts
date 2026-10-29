@@ -59,15 +59,11 @@ export type SkillLevel = 1 | 2 | 3 | 4 | 5;
 export type Skill = {
 	name: string;
 	icon: SkillIcon;
-	/** 1 Basics · 2 Familiar · 3 Proficient · 4 Advanced · 5 Expert */
+	/** 1 = Basics, 2 = Familiar, 3 = Proficient, 4 = Advanced, 5 = Expert */
 	level: SkillLevel;
-	/** First year of real use; the years of experience are counted from it at build time. */
+	/** First year of use. The years label is computed from it. */
 	since: number;
-	/**
-	 * Projects it was used in, including ones not shown on this site. 0 means
-	 * too many to count reliably and is shown as "> 10" — a tech with no real
-	 * projects behind it doesn't make the list in the first place.
-	 */
+	/** Number of projects it was used in, not only those on this site. 0 is shown as "> 10". */
 	projects: number;
 };
 
@@ -78,7 +74,7 @@ export type SkillGroup = {
 	skills: Skill[];
 };
 
-/** Platforms and tools: listed by name only, without a rating. */
+/** Platforms and tools, listed without a level. */
 export type Tool = {
 	name: string;
 	icon: SkillIcon;
@@ -109,8 +105,7 @@ const siIndexeddb: SimpleIcon = {
 	svg: '',
 };
 
-// simple-icons has no Slim mark, so the PHP one stands in, in Slim's brand
-// green (#719E40, from slimframework.com).
+// simple-icons has no Slim icon, so this is the PHP one in Slim's green.
 const siSlim: SimpleIcon = {
 	...siPhp,
 	title: 'Slim',
@@ -119,8 +114,7 @@ const siSlim: SimpleIcon = {
 	hex: '719E40',
 };
 
-// simple-icons dropped its C# mark, so this draws the hexagon badge: a white C
-// and # on C#'s purple.
+// simple-icons removed the C# icon, so the hexagon badge is drawn here.
 const siCsharp: MulticolorIcon = {
 	title: 'C#',
 	slug: 'csharp',
@@ -239,8 +233,8 @@ export const toolGroups: ToolGroup[] = [
 ];
 
 /**
- * Icons for the technologies projects list that are not skills of their own,
- * plus the names projects use for skills listed under another one.
+ * Icons for tech names used in projects.ts that have no entry above, or are
+ * named differently there.
  */
 const techIcons: Record<string, SkillIcon> = {
 	Java: siJavaClassic,
@@ -265,5 +259,5 @@ const skillIcons = new Map(
 	]),
 );
 
-/** The icon for a technology as a project names it, if there is one. */
+/** Icon for a tech name as used in projects.ts. */
 export const iconForTech = (name: string): SkillIcon | undefined => techIcons[name] ?? skillIcons.get(name);

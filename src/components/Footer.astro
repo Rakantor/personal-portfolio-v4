@@ -5,7 +5,7 @@ import { type Locale, ui } from '../i18n';
 
 type Props = {
 	locale?: Locale;
-	/** Section number, for pages where the footer continues the numbered sections. */
+	/** Section number, on pages with numbered sections. */
 	number?: string;
 };
 
@@ -14,15 +14,14 @@ const t = ui[locale];
 const currentYear = new Date().getFullYear();
 const email = 'maveigel@gmail.com';
 
-// simple-icons dropped LinkedIn at the brand's request, so the mark is inlined.
+// simple-icons no longer includes LinkedIn.
 const linkedinPath =
 	'M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13Zm1.78 13.02H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0h.01Z';
 ---
 
 <footer id="contact" class="on-dark bg-neutral text-neutral-content">
-	<!-- Everything in this block is a whole number of grid cells tall (padding,
-	     margins, line boxes), so the divider below it lands on a grid line
-	     however the text wraps. Keep to multiples of var(--grid) when editing. -->
+	<!-- All heights in here are multiples of var(--grid), so the divider below
+	     lands on a grid line. -->
 	<div class="shell flex flex-col items-center pb-18 pt-24 text-center">
 		<h2 data-reveal class="eyebrow eyebrow-center mb-6 self-stretch">
 			{number && <span class="num">{number}</span>}
@@ -32,9 +31,7 @@ const linkedinPath =
 			{t.footer.lead.map((sentence) => <span class="block">{sentence}</span>)}
 		</p>
 
-		<!-- The address is the thing people want, so it is set large and copies
-		     on click; the mailto button below covers everyone with a mail client
-		     set up. -->
+		<!-- Click to copy. The mailto link is below. -->
 		<button data-reveal class="contact-email" style="--i: 2" type="button" data-copy-email={email}>
 			<span>{email}</span>
 			<span class="contact-email-icon" aria-hidden="true">
@@ -91,9 +88,7 @@ const linkedinPath =
 </footer>
 
 <style>
-	/* One line per sentence, so the break falls between the question and the
-	   answer rather than wherever the width runs out. Should a sentence itself
-	   have to wrap on a narrow screen, `balance` evens out its lines. */
+	/* One sentence per line. balance evens out any further wrapping. */
 	.contact-lead {
 		margin-inline: auto;
 		text-wrap: balance;
@@ -112,7 +107,7 @@ const linkedinPath =
 		font-weight: 700;
 		font-stretch: 108%;
 		letter-spacing: -0.025em;
-		/* The smallest whole number of grid cells that fits the type. */
+		/* Rounded up to whole grid cells. */
 		line-height: round(up, 1.15em, var(--grid));
 		color: #fff;
 		text-align: center;
@@ -125,8 +120,7 @@ const linkedinPath =
 		color: var(--color-blue-bright);
 	}
 
-	/* Hangs off the right edge rather than sitting in the flow, so the address
-	   itself stays centred. */
+	/* Out of flow, so the address stays centred. */
 	.contact-email-icon {
 		position: absolute;
 		top: 50%;
@@ -155,8 +149,7 @@ const linkedinPath =
 		transform: none;
 	}
 
-	/* Reserves its line so the button below doesn't jump when it appears. */
-	/* Two cells: the button is 2.5rem, so it sits centred in a 3rem slot. */
+	/* Two grid cells; the 2.5rem button sits centred in them. */
 	.contact-actions {
 		display: flex;
 		align-items: center;
@@ -168,6 +161,7 @@ const linkedinPath =
 		border-top: 1px solid rgb(255 255 255 / 0.14);
 	}
 
+	/* Reserves its line, so the button below doesn't jump when the text appears. */
 	.contact-status {
 		min-height: var(--grid);
 		line-height: var(--grid);
@@ -187,8 +181,7 @@ const linkedinPath =
 			try {
 				await navigator.clipboard.writeText(email);
 			} catch {
-				// No clipboard access (insecure context, denied permission): select
-				// the address instead, so a Ctrl+C away is as close as it gets.
+				// No clipboard access (insecure context or denied). Select the address instead.
 				const range = document.createRange();
 				range.selectNodeContents(button.firstElementChild ?? button);
 				getSelection()?.removeAllRanges();

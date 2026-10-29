@@ -1,9 +1,8 @@
 ---
 type Props = {
 	/**
-	 * The home hero's version: a second, brighter copy of the grid is masked to
-	 * a circle around the pointer, so the lines light up where the mouse is.
-	 * Everywhere else the grid is static — only the hero moves.
+	 * Adds a brighter copy of the grid, masked to a circle that follows the
+	 * pointer. Only the hero uses it.
 	 */
 	interactive?: boolean;
 };
@@ -11,9 +10,8 @@ type Props = {
 const { interactive = false } = Astro.props;
 ---
 
-<!-- The blueprint grid behind the top of a page. The element placed after it
-     needs `position: relative`: Chromium otherwise paints the grid's masked
-     layer over unpositioned content. -->
+<!-- Blueprint grid behind the top of a page. The content after it needs
+     position: relative, or Chromium paints the masked grid over it. -->
 <div class="backdrop" data-backdrop={interactive ? 'interactive' : undefined} aria-hidden="true">
 	<div class="bp-grid"></div>
 	{interactive && <div class="bp-lit"></div>}
@@ -22,8 +20,7 @@ const { interactive = false } = Astro.props;
 <style>
 	.backdrop {
 		position: absolute;
-		/* Runs up under the translucent sticky header so the grid doesn't stop
-		   at a hard line beneath it. */
+		/* Extends up under the translucent header. */
 		inset: -4.25rem 0 0;
 		z-index: -1;
 		overflow: hidden;
@@ -40,8 +37,8 @@ const { interactive = false } = Astro.props;
 		background-position: center top;
 	}
 
-	/* Minor lines every grid cell (1.5rem), major lines every five, and a
-	   small cross at every major intersection, as on drafting paper. */
+	/* Minor lines every cell, major lines every five cells, and a cross at
+	   each major intersection. */
 	.bp-grid {
 		--line: rgb(47 95 224 / 0.11);
 		--fine: rgb(47 95 224 / 0.045);
@@ -83,8 +80,7 @@ const { interactive = false } = Astro.props;
 	const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	if (root) {
-		// Tracked on window: the backdrop sits beneath the content and never
-		// receives pointer events itself.
+		// On window, since the backdrop has pointer-events: none.
 		let pointerActive = false;
 		let visible = true;
 		let frame = 0;
@@ -104,9 +100,8 @@ const { interactive = false } = Astro.props;
 		);
 		document.documentElement.addEventListener('pointerleave', () => (pointerActive = false));
 
-		// Without a mouse (touch, or before the first move) the lit spot wanders
-		// on its own so the effect still shows. Paused while the hero is off
-		// screen or the tab is hidden.
+		// Without a mouse pointer the spot drifts on its own. Paused while the hero
+		// is off screen or the tab is hidden.
 		const drift = (now: number) => {
 			frame = 0;
 			if (!pointerActive) {

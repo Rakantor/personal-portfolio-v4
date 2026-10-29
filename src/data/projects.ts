@@ -2,7 +2,7 @@ import { type Locale, ui } from '../i18n';
 
 export type ProjectButtonType = 'website' | 'play' | 'demo' | 'github' | 'pdf';
 
-/** The kinds of project the tags name. Their labels live in `ui[locale].projects.tags`. */
+/** Labels are in ui[locale].projects.tags. */
 export type ProjectTag =
 	| 'website'
 	| 'webApp'
@@ -25,7 +25,7 @@ export type ProjectImage = {
 	height: number;
 };
 
-/** The copy that differs per language. */
+/** Per-language text. */
 export type ProjectText = {
 	shortDescription: string;
 	description: string;
@@ -34,11 +34,7 @@ export type ProjectText = {
 	learned: string;
 };
 
-/**
- * A project as authored: the language-independent data plus its copy in every
- * locale. `text` is keyed by `Locale`, so adding a locale or a project without
- * all of its translations is a type error rather than a silent fallback.
- */
+/** A project with its text in every locale. */
 export type ProjectEntry = {
 	slug: string;
 	title: string;
@@ -49,23 +45,21 @@ export type ProjectEntry = {
 	image: string;
 	images: Omit<ProjectImage, 'alt'>[];
 	buttons: ProjectButton[];
-	/** What kind of thing it is, most telling first, e.g. a game before the platforms it runs on. */
+	/** Most specific first, e.g. 'game' before 'webApp'. */
 	tags: ProjectTag[];
-	/** Kept in the source but left off the site: no page, no listing, no "next project" link. */
+	/** Not built at all: no page, no listing, no "next project" link. */
 	hidden?: boolean;
 };
 
-/** A project resolved to one locale, which is what the components render. */
+/** A project in one locale, as the components get it. */
 export type Project = Omit<ProjectEntry, 'text' | 'images'> & ProjectText & { images: ProjectImage[] };
 
 const projectScreenshotBaseUrl = 'https://d29l6egdxvgg9c.cloudfront.net';
 const projectScreenshot = (fileName: string) => `${projectScreenshotBaseUrl}/${fileName}`;
 
 /**
- * `[fileName, width, height]`. The screenshots are served from CloudFront rather
- * than bundled, so their intrinsic size cannot be read at build time — carrying
- * it here is what lets the gallery reserve the right box before the first image
- * arrives instead of reflowing the page under it.
+ * [fileName, width, height]. The size can't be read from a remote image at
+ * build time, and the gallery needs it for the width/height attributes.
  */
 type ProjectImageSource = [fileName: string, width: number, height: number];
 
@@ -936,7 +930,7 @@ const projectEntries: ProjectEntry[] = [
 	},
 ];
 
-/** Every project the site shows, in display order: the featured ones first, then "More Projects". */
+/** Projects shown on the site. The "next project" link follows this order. */
 export const projects = projectEntries.filter((project) => !project.hidden);
 
 export const getLocalizedProject = ({ text, ...entry }: ProjectEntry, locale: Locale): Project => ({
@@ -950,10 +944,7 @@ export const getLocalizedProject = ({ text, ...entry }: ProjectEntry, locale: Lo
 
 export const getLocalizedProjects = (locale: Locale = 'en') => projects.map((project) => getLocalizedProject(project, locale));
 
-/**
- * The projects shown large, with a screenshot, at the top of the home page.
- * Everything else falls through to the compact "More Projects" index.
- */
+/** Shown large on the home page. Everything else goes into "More Projects". */
 export const featuredSlugs = [
 	'torii-srs-web-v2',
 	'torii-srs-java',
@@ -975,10 +966,7 @@ export const getMoreProjects = (locale: Locale = 'en') =>
 /** A column of the quick-link grid in the "More Projects" index. */
 export type QuickLinkSlot = 'website' | 'github' | 'pdf';
 
-/**
- * The column each button type sits in. A project's live link goes under "Site"
- * whether it is a website, a game or a demo, so those never add columns.
- */
+/** Column per button type. Website, play and demo links share the "Site" column. */
 const quickLinkSlotOf: Record<ProjectButtonType, QuickLinkSlot> = {
 	website: 'website',
 	play: 'website',
@@ -987,11 +975,7 @@ const quickLinkSlotOf: Record<ProjectButtonType, QuickLinkSlot> = {
 	pdf: 'pdf',
 };
 
-/**
- * Column order for the quick-link grid in the "More Projects" index.
- * Columns that none of the listed projects has a link for are dropped, so a
- * column is never entirely empty.
- */
+/** Column order. getQuickLinkSlots drops the columns no listed project uses. */
 export const quickLinkSlotOrder: QuickLinkSlot[] = ['website', 'github', 'pdf'];
 
 /** The project's link for a quick-link column, if it has one. */

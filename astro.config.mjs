@@ -6,9 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://mave.dev',
-	// The three Torii app entries were renamed from v1/v2/v3 to Java/Web v1/Web
-	// v2. Their old detail pages are live and indexed, so each keeps a stub that
-	// forwards to the new slug — a static build emits these as meta-refresh pages.
+	// Old Torii slugs that are still indexed. The static build turns these into
+	// meta-refresh pages.
 	redirects: {
 		'/projects/torii-srs-v1': '/projects/torii-srs-java',
 		'/projects/torii-srs-v2': '/projects/torii-srs-web-v1',
@@ -17,9 +16,8 @@ export default defineConfig({
 	},
 	integrations: [
 		sitemap({
-			// Locale keys are the path prefix, values the hreflang code emitted.
-			// 'de' rather than 'de-AT' so the German pages target German speakers
-			// everywhere, and so this matches the tags the pages themselves render.
+			// Path prefix to hreflang code. Plain 'de', same as the alternate links
+			// in Layout.astro.
 			i18n: {
 				defaultLocale: 'en',
 				locales: { en: 'en', de: 'de' },
@@ -27,9 +25,7 @@ export default defineConfig({
 		}),
 	],
 	image: {
-		// Project screenshots live on CloudFront at full resolution. Allowing the
-		// domain lets the build emit sized derivatives instead of shipping ~1MB of
-		// originals to render a 96px thumbnail.
+		// Lets the build resize the project screenshots, which are served from CloudFront.
 		domains: ['d29l6egdxvgg9c.cloudfront.net'],
 	},
 	i18n: {

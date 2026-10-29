@@ -6,15 +6,14 @@ import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 import { localePath, ui } from '../i18n';
 
-// GitHub Pages serves this one file for every missing path, including the ones
-// under /de, so both languages are offered rather than guessing at one.
+// GitHub Pages serves this page for every missing path, including those under
+// /de, so it shows both languages.
 const en = ui.en.notFound;
 const de = ui.de.notFound;
 ---
 
 <Layout locale="en" translated={false} noindex title={en.title} description={en.description}>
-	<!-- The switcher builds its links from the current path, which on a 404 is a
-	     path that does not exist in either language. -->
+	<!-- The language switcher would link to the missing path in the other language. -->
 	<Header locale="en" showLanguageSwitcher={false} />
 
 	<main id="content" class="relative isolate flex flex-col">

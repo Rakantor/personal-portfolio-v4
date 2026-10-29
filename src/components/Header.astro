@@ -15,13 +15,12 @@ const languageLinks = [
 	{ locale: 'de' as const, href: localizedPathFor(Astro.url.pathname, 'de'), label: 'DE' },
 ];
 
-// `sections` are the ids each link stands for when the header marks the
-// section being read (see the script below).
+// sections: the ids the scroll script below maps to each link.
 const navItems = [
 	{ label: t.nav.home, href: localePath(locale, '/#home'), sections: 'home what' },
 	{ label: t.nav.projects, href: localePath(locale, '/#projects'), sections: 'projects more' },
 	{ label: t.nav.stack, href: localePath(locale, '/#stack'), sections: 'stack' },
-	// Every page ends in the footer's contact block, so this stays on the page.
+	// Same-page link. The contact block is in the footer of every page.
 	{ label: t.nav.contact, href: '#contact', sections: 'contact' },
 ];
 ---
@@ -32,7 +31,7 @@ const navItems = [
 			<a
 				class="flex items-center gap-2.5 font-display text-[0.95rem] font-bold tracking-tight"
 				href={localePath(locale, '/#home')}
-				aria-label="Manuel Veigel — home"
+				aria-label="Manuel Veigel, home"
 			>
 				<svg class="h-[30px] w-[30px] shrink-0 text-navy" viewBox="0 0 40 40" fill="none" aria-hidden="true">
 					<rect x="1.5" y="1.5" width="37" height="37" rx="8" stroke="currentColor" stroke-width="3"></rect>
@@ -77,10 +76,8 @@ const navItems = [
 				)
 			}
 
-			<!-- A <details> disclosure rather than daisyUI's :focus-within dropdown:
-			     that variant hangs on the toggle receiving focus from a click, which
-			     Safari does not reliably do for <button>. This opens on every browser
-			     without script and exposes its expanded state natively. -->
+			<!-- <details> instead of daisyUI's :focus-within dropdown, which doesn't
+			     open reliably in Safari (buttons don't get focus on click there). -->
 			<details class="dropdown dropdown-end lg:hidden">
 				<summary class="btn btn-ghost btn-square list-none" aria-label={t.nav.open}>
 					<Menu size={22} />
@@ -127,22 +124,20 @@ const navItems = [
 </header>
 
 <script>
-	// A language picked here is remembered, so the redirect on arrival (see
-	// Layout.astro) never overrides it on a later visit.
+	// Remembered for the language redirect in Layout.astro.
 	document.querySelectorAll<HTMLAnchorElement>('[data-locale-choice]').forEach((link) => {
 		link.addEventListener('click', () => {
 			try {
 				localStorage.setItem('locale', link.dataset.localeChoice!);
 			} catch {
-				// Storage unavailable: the choice just isn't remembered.
+				// localStorage may be blocked.
 			}
 		});
 	});
 
-	// Marks the link for the section being read. A section counts as current
-	// once its top passes a line a third of the way down the viewport; at the
-	// very bottom of the page the footer wins, since it may never get that far.
-	// Only the home page has the sections, so elsewhere nothing is marked.
+	// Highlights the link of the section in view: the last one whose top is
+	// above a third of the viewport, or the footer at the very bottom of the
+	// page. Only the home page has these sections.
 	const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-sections]')];
 	const sections = [...new Set(links.flatMap((link) => link.dataset.sections!.split(' ')))]
 		.map((id) => document.getElementById(id))
@@ -174,8 +169,7 @@ const navItems = [
 		update();
 	}
 
-	// Progressive enhancement only — the disclosure opens and closes on its own
-	// without this. It adds the dismissals people expect from a menu.
+	// Closes the mobile menu on Escape, on a link click and on a click outside.
 	document.querySelectorAll('details.dropdown').forEach((menu) => {
 		const summary = menu.querySelector('summary');
 		const close = () => menu.removeAttribute('open');
@@ -186,8 +180,7 @@ const navItems = [
 			summary?.focus();
 		});
 
-		// Anchor links inside the page the menu is already on would otherwise
-		// scroll behind a menu that stays open.
+		// Same-page anchor links don't navigate, so the menu would stay open.
 		menu.addEventListener('click', (event) => {
 			if (event.target instanceof Element && event.target.closest('a')) close();
 		});

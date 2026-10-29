@@ -8,7 +8,7 @@ import { localePath, type Locale, ui } from '../i18n';
 type Props = {
 	project: Project;
 	locale?: Locale;
-	/** Shared across every row so the quick links line up into columns. */
+	/** The quick-link columns, shared by all rows. */
 	slots: QuickLinkSlot[];
 	isLast?: boolean;
 };
@@ -18,7 +18,7 @@ const t = ui[locale];
 const href = localePath(locale, `/projects/${project.slug}`);
 const slotColumns = `grid-template-columns: repeat(${slots.length}, minmax(0, 1fr))`;
 
-// The index rows show these at 144–176px in a 16:10 crop.
+// Shown at 144 to 176px wide in a 16:10 crop.
 const shot = await getImage({ src: project.image, width: 400, height: 250, format: 'webp', quality: 75 });
 ---
 
@@ -55,9 +55,8 @@ const shot = await getImage({ src: project.image, width: 400, height: 250, forma
 		</div>
 	</div>
 
-	<!-- Below lg the column headings are hidden, so the fixed slots would leave a
-	     confusing gap where a project has no website. There, the links simply
-	     pack to the left instead. -->
+	<!-- Fixed columns on lg, under the headings in Projects.astro. Below that
+	     the links pack to the left. -->
 	<div class="flex flex-wrap gap-2 lg:grid" style={slotColumns}>
 		{
 			slots.map((type) => {
@@ -67,7 +66,7 @@ const shot = await getImage({ src: project.image, width: 400, height: 250, forma
 					return <span class="hidden h-10 lg:block" aria-hidden="true" />;
 				}
 
-				// The icon follows the column; the label still says what the link is.
+				// Icon by column, label by button type.
 				const label = t.projects.buttons[button.type];
 
 				return (
@@ -77,7 +76,7 @@ const shot = await getImage({ src: project.image, width: 400, height: 250, forma
 						target="_blank"
 						rel="noreferrer"
 						aria-label={`${label}: ${project.title}`}
-						title={`${label} — ${project.title}`}
+						title={`${label}: ${project.title}`}
 					>
 						<QuickLinkIcon type={type} size={17} />
 						<span class="sr-only">{label}</span>

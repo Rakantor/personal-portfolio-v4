@@ -32,7 +32,6 @@ export const ui = {
 			skip: 'Skip to content',
 		},
 		hero: {
-			// Split across two lines deliberately rather than left to wrap.
 			titleTop: "Hey, I'm",
 			titleBottom: 'Manuel.',
 			description:
@@ -135,13 +134,13 @@ export const ui = {
 			goToImage: 'Go to image',
 			fullscreen: 'View fullscreen',
 			close: 'Close',
-			// Image alt text is "<project title> <screenshot> <n>".
+			// Gallery image alt text: "<project title> screenshot <n>".
 			screenshot: 'screenshot',
 		},
 		footer: {
 			legal: 'Legal Notice',
 			title: 'Contact',
-			// Two sentences, set on a line each.
+			// One line per sentence.
 			lead: ['Got a role or a project in mind?', "I'd like to hear about it."],
 			copy: 'Copy email address',
 			copied: 'Copied to clipboard',
@@ -173,8 +172,6 @@ export const ui = {
 			skip: 'Zum Inhalt springen',
 		},
 		hero: {
-			// Non-breaking space: where the line has to wrap, it breaks after
-			// "Hey," rather than stranding "bin" on a line of its own.
 			titleTop: 'Hey, ich bin',
 			titleBottom: 'Manuel.',
 			description:

@@ -17,14 +17,13 @@ const yearsLabel = (since: number) => {
 	return years === 1 ? t.techStack.yearOne : t.techStack.yearsMany.replace('{n}', String(years));
 };
 
-// 0 means "too many to count" (see Skill.projects), shown as "> 10" to match
-// the "< 1 year" of the years label.
+// 0 projects means "> 10" (see Skill.projects).
 const projectsLabel = (count: number) => {
 	if (count === 1) return t.techStack.projectOne;
 	return t.techStack.projectsMany.replace('{n}', count === 0 ? '> 10' : String(count));
 };
 
-// Strongest first within each group, so the list reads as a ranking.
+// Highest level first, then longest used.
 const groups = skillGroups.map((group) => ({
 	...group,
 	skills: [...group.skills].sort((a, b) => b.level - a.level || a.since - b.since),
@@ -65,8 +64,7 @@ const groups = skillGroups.map((group) => ({
 		}
 	</div>
 
-	<!-- Platforms and tools, in the same columns as the skills but without a
-	     rating: for these, whether I use them matters more than how well. -->
+	<!-- Platforms and tools, without a level. -->
 	<div data-reveal class="tools-groups mt-16">
 		{
 			toolGroups.map((group) => (
@@ -109,8 +107,6 @@ const groups = skillGroups.map((group) => ({
 		color: var(--color-muted);
 	}
 
-	/* One rule under the group title; the skills themselves are separated by
-	   spacing alone. */
 	.skill-list {
 		border-top: 1px solid var(--color-rule);
 	}
@@ -131,7 +127,7 @@ const groups = skillGroups.map((group) => ({
 		padding-block: 1.1rem;
 	}
 
-	/* The icon renders in a child component, so it needs :global to be reached. */
+	/* :global, because the svg comes from SkillIcon. */
 	.skill :global(svg) {
 		grid-area: icon;
 		align-self: start;
@@ -157,8 +153,6 @@ const groups = skillGroups.map((group) => ({
 		color: var(--color-primary);
 	}
 
-	/* Five discrete steps rather than a percentage bar: a rating this coarse
-	   shouldn't pretend to the precision of "78%". */
 	.meter {
 		grid-area: meter;
 		display: grid;
@@ -186,7 +180,7 @@ const groups = skillGroups.map((group) => ({
 		}
 	}
 
-	/* Names only, so two to a row. */
+	/* Two per row. */
 	.tool-list {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));

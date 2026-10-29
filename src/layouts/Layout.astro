@@ -7,9 +7,9 @@ type Props = {
 	title?: string;
 	description?: string;
 	locale?: Locale;
-	/** Off for pages that exist in one language only, so they claim no alternates. */
+	/** False for pages that exist in one language only. */
 	translated?: boolean;
-	/** The 404 page is also reachable at /404/, where it answers 200 and would be indexable. */
+	/** For the 404 page, which GitHub Pages also serves at /404/ with a 200. */
 	noindex?: boolean;
 };
 
@@ -23,9 +23,8 @@ const {
 
 const t = ui[locale];
 
-// Routes build to directory format, and GitHub Pages 301s the slashless form to
-// the trailing-slash one. That redirect target is the URL to declare, here and
-// in the sitemap, so nothing points a search engine at a redirect.
+// GitHub Pages redirects /path to /path/, so the canonical and alternate URLs
+// carry the trailing slash.
 const withTrailingSlash = (path: string) => (path.endsWith('/') ? path : `${path}/`);
 
 const normalizedPath = withTrailingSlash(Astro.url.pathname);
@@ -38,18 +37,14 @@ const alternates = translated
 	? locales.map((alternateLocale) => ({ locale: alternateLocale, href: alternateFor(alternateLocale) }))
 	: [];
 
-// This page's path in every locale, for the language redirect in the head.
-// Paths rather than the full URLs above, so it also works off the live domain.
+// This page's path per locale, for the language redirect below. Paths, not
+// URLs, so it also works on localhost.
 const localePaths = Object.fromEntries(
 	locales.map((pathLocale) => [pathLocale, withTrailingSlash(localePath(pathLocale, stripLocaleFromPathname(normalizedPath)))]),
 );
 
-/*
- * public/og.jpg is the social preview card: name, role and the avatar on the
- * hero's blueprint grid, at the 1.91:1 social platforms expect. It is rendered
- * from scripts/og/og.html and checked in; that file says how to regenerate it,
- * which is needed whenever the avatar or the name/role on it change.
- */
+// public/og.jpg is rendered from scripts/og/og.html and checked in. Regenerate
+// it when the avatar or the name/role on it change.
 const ogImageUrl = new URL('/og.jpg', Astro.site);
 const ogImageSize = { width: 1200, height: 630 };
 
@@ -63,12 +58,9 @@ const ogLocales: Record<Locale, string> = { en: 'en_US', de: 'de_AT' };
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!--
-			Language on arrival. GitHub Pages can't negotiate it server-side, so this
-			runs first thing in the head and swaps to the page's other language when
-			that fits the visitor better: German if German comes before English in
-			the browser's languages, English otherwise. A language picked in the
-			header is remembered and always wins, and moving around the site itself
-			never redirects. Pages in one language only have nothing to swap to.
+			Language redirect. GitHub Pages can't negotiate it, so on arrival from
+			outside the site this switches to the browser's language. A language
+			picked in the header (localStorage) takes precedence.
 		-->
 		{
 			translated && (
@@ -84,7 +76,7 @@ const ogLocales: Record<Locale, string> = { en: 'en_US', de: 'de_AT' };
 							if (wanted !== locale) location.replace(localePaths[wanted] + location.search + location.hash);
 						}
 					} catch {
-						// Storage or referrer unavailable: stay on the page as requested.
+						// localStorage or the referrer may be unavailable. Stay put.
 					}
 				</script>
 			)
@@ -126,9 +118,8 @@ const ogLocales: Record<Locale, string> = { en: 'en_US', de: 'de_AT' };
 
 		<title>{title}</title>
 
-		<!-- Runs before first paint. Entrance animations hide their targets only
-		     under `.js`, so without script (or if this never runs) everything is
-		     simply visible. -->
+		<!-- The entrance animations in global.css only hide elements under html.js,
+		     so the content stays visible without JavaScript. -->
 		<script is:inline>
 			document.documentElement.classList.add('js');
 		</script>

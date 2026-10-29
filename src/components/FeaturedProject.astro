@@ -18,9 +18,7 @@ const { project, locale = 'en', index = 0, isFirst = false, isLast = false } = A
 const t = ui[locale];
 const href = localePath(locale, `/projects/${project.slug}`);
 
-// .shot crops to 16:10 anyway, so the build emits exactly that rather than a
-// ~1900px original scaled down in the browser. ~600px on screen, doubled for
-// high-density displays.
+// Shown at about 600px wide in a 16:10 crop, 2x for high-DPI screens.
 const shot = await getImage({ src: project.image, width: 1200, height: 750, format: 'webp', quality: 78 });
 ---
 

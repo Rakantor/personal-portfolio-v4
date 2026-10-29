@@ -1,6 +1,5 @@
-<!-- Adds `.is-in` to each `[data-reveal]` element the first time it scrolls
-     into view; the styles in global.css animate from there. One observer for
-     the whole page, and each element is let go once it has been revealed. -->
+<!-- Adds .is-in to [data-reveal] elements when they first scroll into view.
+     The animations are in global.css. -->
 <script>
 	const targets = document.querySelectorAll('[data-reveal]');
 	const reveal = (element: Element) => element.classList.add('is-in');
@@ -16,8 +15,7 @@
 					observer.unobserve(entry.target);
 				}
 			},
-			// Waits until an element is a little way into the viewport, so the
-			// motion happens where the reader is looking rather than at the edge.
+			// Triggers a little above the bottom edge of the viewport.
 			{ rootMargin: '0px 0px -12% 0px' },
 		);
 		targets.forEach((target) => observer.observe(target));

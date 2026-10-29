@@ -11,8 +11,7 @@ const { locale = 'en' } = Astro.props;
 const t = ui[locale];
 const c = t.techStack.capabilities;
 
-// Each capability points at the projects that show it, so the claim links
-// straight to the evidence.
+// proof: slugs of the projects that show the capability, rendered as links.
 const capabilities = [
 	{ copy: c.fullStack, Icon: CodeXml, proof: ['torii-srs-web-v2', 'iu-quiz-app'] },
 	{ copy: c.objectOriented, Icon: Boxes, proof: ['torii-srs-java', 'menacing-blue'] },
@@ -58,9 +57,7 @@ const capabilities = [
 </section>
 
 <style>
-	/* A single sentence, so it takes the full width rather than a reading
-	   measure — a narrow column only left a lone word on a second line. Where
-	   it does have to wrap, `pretty` keeps the last line from being one word. */
+	/* Full width. text-wrap: pretty avoids a one-word last line. */
 	.what-lead {
 		text-wrap: pretty;
 		font-family: var(--font-body);
@@ -69,9 +66,7 @@ const capabilities = [
 		color: rgb(255 255 255 / 0.7);
 	}
 
-	/* No hairlines between the cells: on the navy band the background grid is
-	   the only ruling (see `.on-dark` in global.css). The gaps carry the
-	   structure instead. */
+	/* No borders between the cells on the navy band, only gaps. */
 	.cap-grid {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));

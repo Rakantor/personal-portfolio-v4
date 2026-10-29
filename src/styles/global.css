@@ -17,7 +17,7 @@
 	--color-primary: #2f5fe0; /* interactive blue */
 	--color-primary-content: #ffffff;
 
-	--color-neutral: #0c1730; /* navy — dark bands and solid buttons */
+	--color-neutral: #0c1730; /* navy: dark bands and solid buttons */
 	--color-neutral-content: #ffffff;
 
 	--color-secondary: #16264f;
@@ -32,9 +32,9 @@
 	--noise: 0;
 }
 
-/* ---- Self-hosted webfonts -------------------------------------------
-   Hosted locally rather than pulled from Google so no visitor IP is sent
-   to a third party — the privacy statement in /impressum depends on it. */
+/* ---- Webfonts --------------------------------------------------------
+   Self-hosted. The privacy statement in /impressum relies on no requests
+   going to Google Fonts. */
 
 @font-face {
 	font-family: 'Archivo';
@@ -69,14 +69,12 @@
 	--color-navy: #0c1730;
 	--color-rule: #dce1e9;
 	--color-muted: #5b6577;
-	/* Both muted greys clear WCAG AA (4.5:1) on base-100 — they are used at
-	   0.68–0.8rem, so they never qualify for the large-text exemption. */
+	/* Both greys pass WCAG AA (4.5:1) on base-100. They're used for small text. */
 	--color-muted-2: #666f7e;
 	--color-blue-bright: #85aaff;
 
-	/* The blueprint grid's cell. In rem so it scales with the root font size
-	   exactly like the spacing does — which is what lets headings and the
-	   footer divider be placed on its lines (see `.eyebrow`). */
+	/* Cell size of the blueprint grid. In rem, so spacing set in rem (section
+	   headings, the footer divider) lands on grid lines. */
 	--grid: 1.5rem;
 }
 
@@ -96,8 +94,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-/* The main column takes up any spare height, so on a page shorter than the
-   viewport (the 404) the footer still sits on the bottom edge. */
+/* Keeps the footer at the bottom of short pages (404). */
 body > main {
 	flex: 1 0 auto;
 }
@@ -127,13 +124,10 @@ a {
 
 /* ---- Entrance animations ---------------------------------------------- */
 
-/* In keeping with the blueprint: rules are drawn, meters filled, and text
-   fades in quietly. Project entries only fade — anything livelier competes
-   with their screenshots.
-   Everything here is gated on `.js` (set before first paint in Layout.astro)
-   and on the reader not asking for reduced motion, so content is never left
-   hidden. `[data-reveal]` elements get `.is-in` from Reveal.astro once they
-   scroll into view; the hero plays once on load. */
+/* Everything here is gated on html.js (set in Layout.astro) and on
+   prefers-reduced-motion, so content is never left hidden without script.
+   [data-reveal] elements get .is-in from Reveal.astro when they scroll into
+   view; the hero animates on load. */
 
 @keyframes enter-fade {
 	from {
@@ -155,8 +149,7 @@ a {
 	}
 }
 
-/* The line rises out of its own baseline: revealed from the bottom up while
-   it moves into place. The negative insets leave room for descenders. */
+/* Hero lines. The negative insets leave room for descenders. */
 @keyframes enter-line {
 	from {
 		clip-path: inset(100% -5% -25% -5%);
@@ -220,10 +213,9 @@ a {
 		transform: none;
 	}
 
-	/* ---- Blocks: a short, quiet rise, staggered by --i ---- */
+	/* ---- Blocks: fade in and rise, staggered by --i ---- */
 
-	/* Only the reveal waits for its stagger; the hover transitions these
-	   elements already had stay immediate. */
+	/* The delay applies to the reveal only, not to the hover transitions. */
 	html.js [data-reveal]:not(.eyebrow, .stack-group) {
 		--reveal-delay: calc(var(--i, 0) * 90ms + 150ms);
 		opacity: 0;
@@ -262,16 +254,14 @@ a {
 	margin-inline: auto;
 }
 
-/* Anchor targets clear the sticky header (4.25rem) so a jumped-to section
-   shows its own heading rather than starting underneath the navbar. */
+/* Clears the sticky header (4.25rem) when jumping to a section. */
 main[id],
 main section[id],
 footer[id] {
 	scroll-margin-top: 5.5rem;
 }
 
-/* Off-screen until tabbed to, so keyboard users can jump the header without
-   it costing anything visually. */
+/* Off-screen until focused. */
 .skip-link {
 	position: absolute;
 	left: -9999px;
@@ -296,11 +286,9 @@ footer[id] {
 
 /* ---- Type roles ------------------------------------------------------ */
 
-/* Section headings: the section number set small in mono, sitting on the
-   title's baseline, with a rule running out to the right edge.
-   The line box is two grid cells tall and the rule sits exactly one cell down,
-   whatever the font size — so in a navy band that starts its heading a whole
-   number of cells from the top, the rule lands on a grid line. */
+/* Section headings: a small mono number on the title's baseline, and a rule
+   running out to the right edge. The line box is two grid cells tall and the
+   rule sits one cell down, so on the navy bands it lands on a grid line. */
 .eyebrow {
 	display: flex;
 	align-items: baseline;
@@ -342,8 +330,7 @@ footer[id] {
 .eyebrow .num {
 	font-family: var(--font-mono);
 	font-size: 1rem;
-	/* A tight box, so baseline-aligning it with the title can't push the
-	   heading past its two grid cells. */
+	/* Tight line box, so baseline alignment doesn't grow the heading. */
 	line-height: 1;
 	font-weight: 500;
 	font-stretch: 100%;
@@ -397,11 +384,10 @@ footer[id] {
 	border-bottom: 1px solid var(--color-rule);
 }
 
-/* In the navy bands content lines would have to land exactly on the grid, and
-   most can't — their positions follow the layout and the text — while a line
-   a few pixels beside a grid line reads as a misprint. So they go transparent
-   there, keeping their width so nothing shifts. The exceptions are placed on
-   the grid on purpose: section headings (`.eyebrow`) and the footer divider. */
+/* Hairlines on the navy bands rarely line up with the background grid and
+   look misaligned, so they're hidden. Transparent, not removed, to keep the
+   box size. Section headings and the footer divider are placed on the grid
+   and draw their own. */
 .on-dark .rule-top {
 	border-top-color: transparent;
 }
@@ -410,8 +396,7 @@ footer[id] {
 	border-bottom-color: transparent;
 }
 
-/* These quick links are icon-only, so the border is the only thing marking out
-   the control — it has to clear the 3:1 non-text contrast minimum on its own. */
+/* Icon-only buttons. The border alone has to meet the 3:1 non-text contrast ratio. */
 .btn-on-dark {
 	border-color: rgb(255 255 255 / 0.35);
 	background: transparent;
@@ -424,8 +409,7 @@ footer[id] {
 	color: #fff;
 }
 
-/* The navy bands carry a static echo of the hero's blueprint grid. Only the
-   hero itself moves. */
+/* Static blueprint grid on the navy bands. */
 section.on-dark,
 footer.on-dark {
 	background-image:
@@ -467,9 +451,7 @@ footer.on-dark {
 
 /* ---- Project type, set as a kicker ------------------------------------ */
 
-/* Above a project's title in the listings: what kind of thing it is, in the
-   blue mono capitals the section numbers use, so it reads as a label rather
-   than as part of the description. */
+/* Project type, above the title in the listings. */
 .tag-line {
 	display: flex;
 	flex-wrap: wrap;
@@ -534,7 +516,7 @@ footer.on-dark {
 	transform: scaleX(1);
 }
 
-/* The section being read (set by the script in Header.astro). */
+/* Set by the scroll script in Header.astro. */
 .nav-link.is-active {
 	color: var(--color-base-content);
 }
@@ -566,9 +548,8 @@ footer.on-dark {
 	object-position: top center;
 }
 
-/* The whole index row opens the project: the title link's hit area is
-   stretched over the row, and the quick links are lifted above it so they
-   still go where they say. Keyboard focus outlines the row it now stands for. */
+/* The title link's ::after is stretched over the whole row, so the row opens
+   the project. The quick links are stacked above it. Focus outlines the row. */
 .index-row {
 	position: relative;
 }
@@ -609,14 +590,12 @@ footer.on-dark {
 
 /* ---- Fullscreen gallery preview --------------------------------------- */
 
-/* A native <dialog>: the top layer, focus trapping, Escape and the inert page
-   behind all come for free. Only the fade is written by hand, and where
-   @starting-style is missing it degrades to opening and closing instantly. */
+/* A native <dialog> with a fade. Without @starting-style it opens and closes instantly. */
 .lightbox {
 	position: fixed;
 	inset: 0;
-	/* Only matters in a browser without `overlay`, which drops the dialog out
-	   of the top layer before the closing fade has finished. */
+	/* For browsers without `overlay`, where the dialog leaves the top layer
+	   before the closing fade has finished. */
 	z-index: 50;
 	display: none;
 	width: auto;
@@ -647,28 +626,24 @@ footer.on-dark {
 	}
 }
 
-/* The dialog covers the viewport itself, so the backdrop has nothing to add. */
+/* The dialog itself covers the viewport. */
 .lightbox::backdrop {
 	background: transparent;
 }
 
-/* Wheel and touch scrolling over the open preview would otherwise move the
-   page underneath it, which then comes back at a different place. */
+/* No page scrolling behind the open preview. */
 body:has(.lightbox:modal) {
 	overflow: hidden;
 }
 
-/* Deferred slides stay hidden until their picture has fully arrived, so one
-   jumped to before it was fetched fades in complete instead of popping in
-   as it loads. */
+/* Set by the gallery script in ProjectDetail.astro while a slide's image loads. */
 [data-gallery] img[data-loading] {
 	opacity: 0;
 }
 
 /* ---- Legal page -------------------------------------------------------- */
 
-/* Set like the project pages: serif body copy in a reading-width column,
-   display headings, and a rule above each top-level section. */
+/* Serif body copy in a reading-width column, like the project pages. */
 .legal-content {
 	font-family: var(--font-body);
 	font-size: 1.05rem;
@@ -686,8 +661,7 @@ body:has(.lightbox:modal) {
 	color: var(--color-navy);
 	font-family: var(--font-display);
 	letter-spacing: -0.02em;
-	/* Single long German compounds ("Datenschutzerklärung") are wider than the
-	   column at 320px and used to push the whole page into horizontal scroll. */
+	/* Long German compounds ("Datenschutzerklärung") overflow the column at 320px. */
 	overflow-wrap: break-word;
 	hyphens: auto;
 }
@@ -783,8 +757,7 @@ body:has(.lightbox:modal) {
 	color: #475569;
 }
 
-/* Long URLs in <code> used to push the legal page into horizontal scroll
-   on narrow viewports. */
+/* Long URLs have to wrap on narrow viewports. */
 .legal-content code {
 	overflow-wrap: anywhere;
 	word-break: break-word;

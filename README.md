@@ -1,6 +1,6 @@
 # Personal Portfolio v3
 
-A clean, modern personal portfolio website showcasing my software development projects and skills.
+My portfolio site: projects, tech stack and contact, in English and German.
 
 ## Tech Stack
 

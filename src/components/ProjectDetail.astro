@@ -21,27 +21,21 @@ const t = ui[locale];
 
 const currentIndex = projects.findIndex((candidate) => candidate.slug === project.slug);
 const nextProject = getLocalizedProject(projects[(currentIndex + 1) % projects.length], locale);
-// Shown at ~13rem in a 16:10 crop, doubled for high-density displays.
+// Shown at 13rem wide in a 16:10 crop, 2x for high-DPI screens.
 const nextShot = await getImage({ src: nextProject.image, width: 416, height: 260, format: 'webp', quality: 75 });
 
 const hasGallery = project.images.length > 1;
 const totalLabel = String(project.images.length).padStart(2, '0');
 const isExternal = (href: string) => href.startsWith('http');
 
-/*
- * The screenshots are CloudFront originals of up to ~1900px. The frame is
- * ~500px wide and the thumbnails 96px, so both are re-encoded at build time to
- * something proportionate; the fullscreen preview gets the whole screenshot,
- * re-encoded but not resized. Slides keep each image's own ratio — the frame
- * is still sized by the first one — while thumbnails are cropped to the 16:10
- * the strip renders them at. Sharp will not upscale, so screenshots already
- * smaller than a target come through untouched.
- */
+// Three sizes per screenshot: the frame (about 500px wide on screen), the
+// 16:10 thumbnails (96px) and the fullscreen preview. Sharp doesn't upscale,
+// so smaller originals pass through as they are.
 const FRAME_WIDTH = 1000;
 const THUMB_WIDTH = 192;
 const FULLSCREEN_WIDTH = 1920;
 
-/** `src` is a required attribute, so deferred slides hold a transparent pixel until shown. */
+// Placeholder src for slides that are loaded on demand.
 const BLANK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 const gallery = await Promise.all(
@@ -82,13 +76,11 @@ const gallery = await Promise.all(
 );
 ---
 
-<!-- shortDescription, not description: the long one runs to ~490 characters,
-     well past what search results and social cards keep. -->
+<!-- The long description is too long for a meta description. -->
 <Layout locale={locale} title={project.title} description={project.shortDescription}>
 	<Header locale={locale} />
 
 	<main id="content">
-		<!-- The static blueprint grid carries the home hero into the project pages. -->
 		<div class="relative isolate">
 			<Backdrop />
 			<div class="shell relative">
@@ -108,28 +100,23 @@ const gallery = await Promise.all(
 					<h1 class="h-hero max-w-[16ch] text-[clamp(2.4rem,5.4vw,4.1rem)] text-navy">{project.title}</h1>
 				</div>
 
-				<!-- Description alongside the gallery, 40 / 60 -------------------- -->
-				<!-- 40% description / 10% gutter / 50% gallery. Explicit tracks plus
-				     space-between: the 10% left over lands entirely in the gutter. -->
+				<!-- Description and gallery: 40% / 50%, with the rest as gutter. -->
 				<div class="grid items-start gap-10 lg:grid-cols-[40%_50%] lg:justify-between lg:gap-x-0">
 					<p class="prose-serif m-0 min-w-0 text-[1.08rem] text-[#333c4d]">{project.description}</p>
 
-					<!-- min-w-0: without it the scrolling thumbnail strip stretches the column. -->
+					<!-- min-w-0 stops the scrolling thumbnail strip from widening the column. -->
 					<div
 						class:list={['grid min-w-0 gap-3', hasGallery && 'lg:grid-cols-[minmax(0,1fr)_5.25rem]']}
 						data-gallery
 					>
-						<!-- The whole frame opens the fullscreen preview; the expand button is the
-						     keyboard-reachable handle for it and the hint that it exists. -->
+						<!-- A click anywhere on the frame opens the fullscreen preview. The button
+						     makes that reachable by keyboard. -->
 						<div
 							class="relative cursor-zoom-in overflow-hidden rounded-[3px] bg-navy shadow-[0_30px_70px_-40px_rgb(12_23_48/0.6)]"
 							data-lightbox-open
 						>
-							<!-- No fixed aspect ratio: the first screenshot sets the frame height and the
-							     rest are contained inside it. Within a project the shots share nearly the
-							     same ratio, so this removes the letterboxing a fixed frame would cause.
-							     Its intrinsic size is declared so the box is reserved up front — without
-							     it the frame started at zero height and shoved the article down on load. -->
+							<!-- The first slide sets the frame height; the others are contained inside
+							     it. width/height reserve the box before the image loads. -->
 							<img
 								data-slide="0"
 								class="block h-auto w-full opacity-100 transition-opacity duration-300"
@@ -141,8 +128,8 @@ const gallery = await Promise.all(
 								fetchpriority="high"
 							/>
 
-							<!-- These sit inside the visible frame, so `loading="lazy"` would never
-							     defer them. Holding the URL back until a slide is first shown does. -->
+							<!-- Stacked inside the visible frame, so loading="lazy" wouldn't defer
+							     them. The real src is set when a slide is first shown. -->
 							{
 								gallery.slice(1).map((image, offset) => (
 									<img
@@ -197,9 +184,9 @@ const gallery = await Promise.all(
 							}
 						</div>
 
-						<!-- Thumbnails: horizontal strip on narrow screens, vertical rail beside the
-						     image on desktop. The inner absolute layer lets the rail scroll within
-						     the image's height rather than stretching the row. -->
+						<!-- Thumbnails: a horizontal strip, or on lg a vertical rail beside the
+						     image. The absolute inner layer lets the rail scroll inside the image
+						     height. -->
 						{
 							hasGallery && (
 								<div class="relative min-h-0 min-w-0">
@@ -233,9 +220,8 @@ const gallery = await Promise.all(
 							)
 						}
 
-						<!-- Fullscreen preview. A native <dialog>, styled by `.lightbox` in
-						     global.css. It stacks the same slides at full size and reuses the
-						     frame's step buttons and counter, so the script drives both as one. -->
+						<!-- Fullscreen preview, styled as .lightbox in global.css. The same slides
+						     at full size; the script below drives the frame and the dialog together. -->
 						<dialog class="lightbox" aria-label={project.title}>
 							<div class="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
 								<div class="flex min-w-0 items-baseline gap-3 font-mono text-[0.72rem] uppercase tracking-[0.08em]">
@@ -258,9 +244,8 @@ const gallery = await Promise.all(
 								</button>
 							</div>
 
-							<!-- Every slide sits in the one grid cell at its own size, no larger than
-							     the cell, so a tap beside the picture lands on the backdrop and closes
-							     the preview rather than on a letterboxed image box. -->
+							<!-- Slides are sized to the image, so a tap beside the picture hits the
+							     backdrop and closes the dialog. -->
 							<div
 								class="relative grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)] place-items-center touch-pan-y touch-pinch-zoom px-4 pb-4 sm:px-20 sm:pb-6"
 								data-lightbox-stage
@@ -313,7 +298,7 @@ const gallery = await Promise.all(
 		</div>
 
 		<div class="shell">
-			<!-- Sticky meta rail + article ----------------------------------- -->
+			<!-- Meta sidebar and article -->
 			<div class="rule-top mt-18 grid gap-20 pt-13 lg:grid-cols-[17rem_minmax(0,1fr)]">
 				<aside class="self-start lg:sticky lg:top-24">
 					<div class="pb-5">
@@ -397,7 +382,6 @@ const gallery = await Promise.all(
 											index > 0 && 'border-t border-dashed border-base-300',
 										]}
 									>
-										<!-- A plain marker, not a number: the features are a set, not a sequence. -->
 										<span class="feature-mark" aria-hidden="true"></span>
 										<span class="prose-serif text-[1.05rem] text-[#333c4d]">{feature}</span>
 									</li>
@@ -450,8 +434,8 @@ const gallery = await Promise.all(
 
 			let active = 0;
 
-			// Slides carry their URL in data-src until first shown, and stay hidden
-			// until it has arrived (`img[data-loading]` in global.css).
+			// Moves data-src to src. data-loading hides the slide until the image has
+			// loaded (see global.css).
 			const reveal = (images: Element[], index: number) => {
 				const image = images[(index + images.length) % images.length];
 				const src = image?.getAttribute('data-src');
@@ -462,9 +446,7 @@ const gallery = await Promise.all(
 				image.removeAttribute('data-src');
 			};
 
-			// Neighbours are resolved alongside so stepping through never waits. The
-			// fullscreen copies are only fetched while the preview is open: browsing
-			// the frame alone should not pull down the large versions.
+			// Loads a slide and its neighbours. The fullscreen versions only while the dialog is open.
 			const revealAround = (index: number) => {
 				for (const images of lightbox?.open ? [slides, lightboxSlides] : [slides]) {
 					reveal(images, index);
@@ -534,9 +516,9 @@ const gallery = await Promise.all(
 				if (event.target.closest('[data-lightbox-open]')) openLightbox();
 			});
 
-			// On touch, a sideways swipe over the picture steps the gallery. Mice keep
-			// the buttons, since a drag would fight the native image drag. The click
-			// the browser fires after a swipe must not count as a tap on the backdrop.
+			// Swipe to step through the slides on touch. Not for the mouse, where it
+			// would fight the native image drag. `swiped` keeps the click fired after
+			// a swipe from closing the dialog.
 			let swipeStart: number | null = null;
 			let swiped = false;
 
@@ -558,8 +540,7 @@ const gallery = await Promise.all(
 				swipeStart = null;
 			});
 
-			// Anything in the preview that is neither a control nor the picture itself
-			// acts as the backdrop. Escape is handled by the dialog on its own.
+			// Clicks outside the picture and the buttons close the dialog. Escape is handled by the dialog.
 			lightbox?.addEventListener('click', (event) => {
 				if (!(event.target instanceof Element)) return;
 				if (swiped) {
@@ -572,8 +553,7 @@ const gallery = await Promise.all(
 				}
 			});
 
-			// Hovering a thumbnail previews it, same as clicking. Guarded to real mice so
-			// touch devices don't fire a synthesised hover before the tap registers.
+			// Hover previews a thumbnail. Mouse only: touch fires a synthetic pointerover before the tap.
 			gallery.addEventListener('pointerover', (event) => {
 				if (event.pointerType !== 'mouse') return;
 				if (!(event.target instanceof Element)) return;
@@ -582,8 +562,7 @@ const gallery = await Promise.all(
 				if (target) show(Number(target.getAttribute('data-gallery-target')));
 			});
 
-			// Also reaches the preview: it sits inside the gallery, so its keystrokes
-			// bubble up here.
+			// Also catches keys pressed inside the dialog, which is a descendant.
 			gallery.addEventListener('keydown', (event) => {
 				if (slides.length < 2) return;
 
@@ -615,7 +594,7 @@ const gallery = await Promise.all(
 		gap: 0.65rem;
 	}
 
-	/* The icon renders in a child component, so it needs :global to be reached. */
+	/* :global, because the svg comes from SkillIcon. */
 	.tech-list :global(svg),
 	.tech-list-mark {
 		width: 1.05rem;
@@ -623,8 +602,7 @@ const gallery = await Promise.all(
 		flex: 0 0 auto;
 	}
 
-	/* Stands in for technologies without a usable logo, so the names still
-	   line up in one column. */
+	/* Placeholder for tech without an icon, so the names stay aligned. */
 	.tech-list-mark {
 		border: 1px solid var(--color-rule);
 		border-radius: 2px;
