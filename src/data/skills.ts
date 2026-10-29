@@ -184,7 +184,7 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Vue.js', icon: siVuedotjs, level: 4, since: 2020, projects: 7 },
 			{ name: 'Nuxt', icon: siNuxt, level: 3, since: 2022, projects: 3 },
 			{ name: 'React', icon: siReact, level: 2, since: 2025, projects: 3 },
-			{ name: 'Astro', icon: siAstro, level: 2, since: 2025, projects: 3 },
+			{ name: 'Astro', icon: siAstro, level: 2, since: 2025, projects: 4 },
 			{ name: 'HTML', icon: siHtml5, level: 4, since: 2009, projects: 0 },
 			{ name: 'CSS', icon: siCss, level: 4, since: 2009, projects: 0 },
 			{ name: 'Tailwind CSS', icon: siTailwindcss, level: 2, since: 2024, projects: 4 },
@@ -194,7 +194,7 @@ export const skillGroups: SkillGroup[] = [
 	{
 		key: 'backend',
 		skills: [
-			{ name: 'Spring Boot', icon: siSpringboot, level: 4, since: 2025, projects: 3 },
+			{ name: 'Spring Boot', icon: siSpringboot, level: 3, since: 2025, projects: 3 },
 			{ name: 'Node.js', icon: siNodedotjs, level: 2, since: 2022, projects: 2 },
 			{ name: 'Slim', icon: siSlim, level: 3, since: 2018, projects: 4 },
 			{ name: '.NET', icon: siDotnet, level: 1, since: 2026, projects: 1 },
