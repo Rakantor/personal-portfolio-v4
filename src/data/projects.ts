@@ -1,6 +1,6 @@
 import { type Locale, ui } from '../i18n';
 
-export type ProjectButtonType = 'website' | 'demo' | 'github' | 'pdf';
+export type ProjectButtonType = 'website' | 'play' | 'demo' | 'github' | 'pdf';
 
 export type ProjectButton = {
 	href: string;
@@ -205,68 +205,6 @@ const projectEntries: ProjectEntry[] = [
 		],
 	},
 	{
-		slug: 'menacing-blue',
-		years: '2013–2017',
-		title: 'Menacing Blue',
-		text: {
-			en: {
-				shortDescription:
-					'A 2D RPG in the spirit of the classic Pokémon games, built from scratch, with turn-based battles and online multiplayer.',
-				description:
-					'Menacing Blue is the project I built purely for the fun of it: a 2D role-playing game in the spirit of the Pokémon titles I grew up with. Animated NPCs, interactive objects, hand-built maps, turn-based battles you can also fight against another player online, sound design and several difficulty levels. There is no game engine underneath: everything from map rendering to battle logic sits directly on Java and libGDX.',
-				overview: [
-					'This started as a way to find out whether I could build a whole game rather than a demo, and it turned into the most varied thing I have worked on. Movement and collision, tile maps, animation, dialogue, a turn-based battle system, sound and networking all had to exist before any of it was fun to play.',
-					'Maps are built in Tiled and loaded at runtime, so a new area is a content problem instead of a code problem. Battles run through the same system whether the opponent is an NPC or another player across the network. A playable demo is linked below.',
-				],
-				features: [
-					'Written from scratch in Java with libGDX, no game engine involved',
-					'Hand-built maps and interactive environments created with Tiled',
-					'Animated NPCs, interactive objects and a turn-based battle system',
-					'Online multiplayer battles against other players',
-					'Sound design and multiple difficulty levels',
-				],
-				learned:
-					'Games make architecture problems impossible to ignore. State handling, asset loading, collision, input and feedback all run in the same loop many times a second, and if one of them is sloppy the whole thing feels off. Not broken, just off. Getting battles to behave identically against an NPC and across a network connection taught me more about decoupling systems than any amount of theory.',
-			},
-			de: {
-				shortDescription:
-					'Ein 2D-RPG im Stil der klassischen Pokémon-Spiele, von Grund auf selbst gebaut, mit rundenbasierten Kämpfen und Online-Multiplayer.',
-				description:
-					'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Stil der Pokémon-Spiele, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Eine Spiel-Engine gibt es darunter nicht: Vom Kartenrendering bis zur Kampflogik sitzt alles direkt auf Java und libGDX.',
-				overview: [
-					'Angefangen hat das Ganze mit der Frage, ob ich ein komplettes Spiel hinbekomme und nicht nur eine Demo. Herausgekommen ist das abwechslungsreichste Projekt, an dem ich je gearbeitet habe: Bewegung und Kollision, Tile-Maps, Animation, Dialoge, ein rundenbasiertes Kampfsystem, Sound und Netzwerkcode – das alles musste es geben, bevor irgendetwas davon Spaß gemacht hat.',
-					'Die Karten entstehen in Tiled und werden zur Laufzeit geladen; ein neues Gebiet ist damit eine Frage des Inhalts, nicht des Codes. Kämpfe laufen über dasselbe System, egal ob der Gegner ein NPC oder ein anderer Spieler im Netzwerk ist. Eine spielbare Demo ist unten verlinkt.',
-				],
-				features: [
-					'Von Grund auf in Java mit libGDX geschrieben, ohne Spiel-Engine',
-					'Selbst gebaute Karten und interaktive Umgebungen mit Tiled',
-					'Animierte NPCs, interaktive Objekte und ein rundenbasiertes Kampfsystem',
-					'Online-Multiplayer für Kämpfe gegen andere Spieler',
-					'Sounddesign und mehrere Schwierigkeitsgrade',
-				],
-				learned:
-					'Ein Spiel macht Architekturprobleme unübersehbar. State-Handling, Asset-Loading, Kollision, Eingabe und Feedback laufen alle in derselben Schleife, viele Male pro Sekunde, und wenn eines davon schlampig ist, fühlt sich das ganze Spiel falsch an. Nicht kaputt, nur falsch. Kämpfe so hinzubekommen, dass sie gegen einen NPC und über eine Netzwerkverbindung identisch ablaufen, hat mir mehr über entkoppelte Systeme beigebracht als jede Theorie.',
-			},
-		},
-		tech: ['Java', 'libGDX', 'Tiled'],
-		image: projectScreenshot('pmb-0.webp'),
-		images: projectImages([
-			['pmb-0.webp', 1683, 1104],
-			['pmb-6.png', 1922, 1119],
-			['pmb-1.png', 1922, 1119],
-			['pmb-2.png', 1922, 1119],
-			['pmb-3.png', 1922, 1119],
-			['pmb-4.png', 1922, 1119],
-			['pmb-5.png', 1922, 1119],
-		]),
-		buttons: [
-			{
-				href: 'https://pmb-demo.mave.dev',
-				type: 'demo',
-			},
-		],
-	},
-	{
 		slug: 'turnip-tycoon',
 		years: '2026',
 		title: 'Turnip Tycoon',
@@ -326,6 +264,76 @@ const projectEntries: ProjectEntry[] = [
 			{
 				href: 'https://github.com/Rakantor/turnip-tycoon',
 				type: 'github',
+			},
+		],
+	},
+	{
+		slug: 'sabaku',
+		years: '2026',
+		title: 'Sabaku',
+		text: {
+			en: {
+				shortDescription:
+					'A cozy logic puzzle about placing bombs: one in every row, column and color patch, and none of them touching. Plays in the browser and on Android.',
+				description:
+					'Sabaku is a logic puzzle about placing bombs: exactly one in every row, every column and every color patch, and no two may touch, not even at the corners. Fennix, a fennec fox who digs his dens with explosives, walks you through the first one and explains any hint in plain words when you get stuck. Every den has exactly one solution you can reach without guessing, there is a new daily den every day, and once the last bomb is in place, the whole board goes up in one chain reaction.',
+				overview: [
+					'Sabaku may be a mobile game first, but underneath it is still a web app: Angular on top of a pure TypeScript engine that owns the rules, the solver and the puzzle generator. Capacitor wraps the same build into an Android app and adds what a phone game needs on top: haptics, a streak reminder, and ads with a purchase to remove them.',
+					'All levels are generated ahead of time and shipped with the game, so every player gets the same boards. Hints come from the same solver: instead of revealing a tile, it finds the next step a person could take, and Fennix explains why it has to be that way.',
+				],
+				features: [
+					'5,000 levels with exactly one solution each, plus a new daily den every day',
+					'Three themes, each with its own board, effects, sounds and version of Fennix, with every sound synthesized live',
+					'Hints from the solver itself, explained in plain words instead of just revealing a tile',
+					'Streaks, a daily ladder, and portraits and frames to earn for your profile',
+					'Installable web app that works offline, and an Android app built from the same code',
+				],
+				learned:
+					'This is the first mobile game I have made, so the store side was almost entirely new: ads that ask for consent first and stay out of the way, a one-time purchase that removes them, and a pipeline that sends every build to Google Play\'s release tracks. Building the game was the fun part. Finding out how much it takes to ship one through a store was the useful one.',
+			},
+			de: {
+				shortDescription:
+					'Ein entspanntes Logikrätsel... mit Bomben: Eine pro Zeile, Spalte und Farbbereich, ohne dass sich zwei berühren. Im Browser und auf Android spielbar.',
+				description:
+					'In Sabaku musst du Bomben platzieren: genau eine pro Zeile, Spalte und Farbbereich. Dabei dürfen sich keine zwei Bomben berühren, auch nicht diagonal. Fennix, ein Fennek, der seine Baue am liebsten mit Sprengstoff gräbt, zeigt dir im ersten Level, wie es geht. Wenn du mal feststeckst, hilft er dir mit Tipps und erklärt, wie du auf den nächsten Schritt kommst. Jedes Rätsel hat genau eine Lösung, die du allein durch logisches Denken finden kannst. Dazu gibt es jeden Tag ein neues Tagesrätsel. Und wenn die letzte Bombe sitzt, fliegt das gesamte Spielfeld in einer einzigen Kettenreaktion in die Luft.',
+				overview: [
+					'Sabaku ist vor allem fürs Handy gedacht, basiert technisch aber auf einer Web-App. Die Oberfläche läuft mit Angular, während eine eigenständige TypeScript-Engine die Spielregeln, das Lösen und das Generieren der Rätsel übernimmt. Mit Capacitor wird daraus auch eine Android-App, inklusive Vibrationsfeedback, Erinnerungen an laufende Serien und Werbung, die sich durch einen einmaligen Kauf entfernen lässt. Die Browser-Version ist komplett werbefrei.',
+					'Die 5.000 Level werden vorab generiert und direkt mit dem Spiel ausgeliefert. So bekommen alle dieselben Rätsel. Auch das Tippsystem greift auf den Solver zurück: Er verrät nicht einfach ein Feld, sondern findet den nächsten logisch nachvollziehbaren Schritt. Fennix erklärt dann, wie man selbst darauf kommen kann.',
+				],
+				features: [
+					'5.000 Rätsel mit jeweils genau einer Lösung und jeden Tag ein neues Tagesrätsel',
+					'Drei Themes mit eigenen Spielfeldern, Effekten und Sounds, die in Echtzeit erzeugt werden',
+					'Ein Tippsystem, das dir den nächsten logischen Schritt erklärt, statt einfach die Lösung zu verraten',
+					'Siegesserien, eine tägliche Rangliste und freischaltbare Profilbilder und Rahmen',
+					'Offline spielbare Web-App und Android-Version auf derselben Codebasis',
+				],
+				learned:
+					'Sabaku ist mein erstes Spiel fürs Handy. Vor allem die Veröffentlichung im Play Store war Neuland für mich: Werbung mit Einwilligungsabfrage, die beim Spielen nicht stört, ein einmaliger Kauf zum Entfernen der Werbung und eine Pipeline, die neue Builds automatisch in den Release-Channel von Google Play hochlädt. Das eigentliche Spiel zu entwickeln hat am meisten Spaß gemacht. Wie viel Arbeit allerdings noch zwischen einem fertigen Spiel und der Veröffentlichung im Store steckt, war für mich die größte Lernerfahrung.',
+			},
+		},
+		tech: [
+			'TypeScript',
+			'C#',
+			'Angular',
+			'.NET',
+			'PostgreSQL',
+			'Android',
+			'Capacitor',
+			'PixiJS',
+			'Google AdMob',
+			'Vitest',
+		],
+		image: projectScreenshot('sabaku-1.webp'),
+		images: projectImages([
+			['sabaku-1.webp', 1536, 1024],
+			['sabaku-2.webp', 1536, 1024],
+			['sabaku-3.webp', 1536, 1024],
+			['sabaku-4.webp', 1536, 1024],
+		]),
+		buttons: [
+			{
+				href: 'https://sabaku.app',
+				type: 'play',
 			},
 		],
 	},
@@ -403,6 +411,68 @@ const projectEntries: ProjectEntry[] = [
 			{
 				href: 'https://beta.torii-srs.com',
 				type: 'website',
+			},
+		],
+	},
+	{
+		slug: 'menacing-blue',
+		years: '2013–2017',
+		title: 'Menacing Blue',
+		text: {
+			en: {
+				shortDescription:
+					'A 2D RPG in the spirit of the classic Pokémon games, built from scratch, with turn-based battles and online multiplayer.',
+				description:
+					'Menacing Blue is the project I built purely for the fun of it: a 2D role-playing game in the spirit of the Pokémon titles I grew up with. Animated NPCs, interactive objects, hand-built maps, turn-based battles you can also fight against another player online, sound design and several difficulty levels. There is no game engine underneath: everything from map rendering to battle logic sits directly on Java and libGDX.',
+				overview: [
+					'This started as a way to find out whether I could build a whole game rather than a demo, and it turned into the most varied thing I have worked on. Movement and collision, tile maps, animation, dialogue, a turn-based battle system, sound and networking all had to exist before any of it was fun to play.',
+					'Maps are built in Tiled and loaded at runtime, so a new area is a content problem instead of a code problem. Battles run through the same system whether the opponent is an NPC or another player across the network. A playable demo is linked below.',
+				],
+				features: [
+					'Written from scratch in Java with libGDX, no game engine involved',
+					'Hand-built maps and interactive environments created with Tiled',
+					'Animated NPCs, interactive objects and a turn-based battle system',
+					'Online multiplayer battles against other players',
+					'Sound design and multiple difficulty levels',
+				],
+				learned:
+					'Games make architecture problems impossible to ignore. State handling, asset loading, collision, input and feedback all run in the same loop many times a second, and if one of them is sloppy the whole thing feels off. Not broken, just off. Getting battles to behave identically against an NPC and across a network connection taught me more about decoupling systems than any amount of theory.',
+			},
+			de: {
+				shortDescription:
+					'Ein 2D-RPG im Stil der klassischen Pokémon-Spiele, von Grund auf selbst gebaut, mit rundenbasierten Kämpfen und Online-Multiplayer.',
+				description:
+					'Menacing Blue ist das Projekt, das ich rein aus Spaß gebaut habe: ein 2D-Rollenspiel im Stil der Pokémon-Spiele, mit denen ich aufgewachsen bin. Animierte NPCs, interaktive Objekte, selbst gebaute Karten, rundenbasierte Kämpfe (auch online gegen andere Spieler), Sounddesign und mehrere Schwierigkeitsgrade. Eine Spiel-Engine gibt es darunter nicht: Vom Kartenrendering bis zur Kampflogik sitzt alles direkt auf Java und libGDX.',
+				overview: [
+					'Angefangen hat das Ganze mit der Frage, ob ich ein komplettes Spiel hinbekomme und nicht nur eine Demo. Herausgekommen ist das abwechslungsreichste Projekt, an dem ich je gearbeitet habe: Bewegung und Kollision, Tile-Maps, Animation, Dialoge, ein rundenbasiertes Kampfsystem, Sound und Netzwerkcode – das alles musste es geben, bevor irgendetwas davon Spaß gemacht hat.',
+					'Die Karten entstehen in Tiled und werden zur Laufzeit geladen; ein neues Gebiet ist damit eine Frage des Inhalts, nicht des Codes. Kämpfe laufen über dasselbe System, egal ob der Gegner ein NPC oder ein anderer Spieler im Netzwerk ist. Eine spielbare Demo ist unten verlinkt.',
+				],
+				features: [
+					'Von Grund auf in Java mit libGDX geschrieben, ohne Spiel-Engine',
+					'Selbst gebaute Karten und interaktive Umgebungen mit Tiled',
+					'Animierte NPCs, interaktive Objekte und ein rundenbasiertes Kampfsystem',
+					'Online-Multiplayer für Kämpfe gegen andere Spieler',
+					'Sounddesign und mehrere Schwierigkeitsgrade',
+				],
+				learned:
+					'Ein Spiel macht Architekturprobleme unübersehbar. State-Handling, Asset-Loading, Kollision, Eingabe und Feedback laufen alle in derselben Schleife, viele Male pro Sekunde, und wenn eines davon schlampig ist, fühlt sich das ganze Spiel falsch an. Nicht kaputt, nur falsch. Kämpfe so hinzubekommen, dass sie gegen einen NPC und über eine Netzwerkverbindung identisch ablaufen, hat mir mehr über entkoppelte Systeme beigebracht als jede Theorie.',
+			},
+		},
+		tech: ['Java', 'libGDX', 'Tiled'],
+		image: projectScreenshot('pmb-0.webp'),
+		images: projectImages([
+			['pmb-0.webp', 1683, 1104],
+			['pmb-6.png', 1922, 1119],
+			['pmb-1.png', 1922, 1119],
+			['pmb-2.png', 1922, 1119],
+			['pmb-3.png', 1922, 1119],
+			['pmb-4.png', 1922, 1119],
+			['pmb-5.png', 1922, 1119],
+		]),
+		buttons: [
+			{
+				href: 'https://pmb-demo.mave.dev',
+				type: 'demo',
 			},
 		],
 	},
@@ -853,7 +923,7 @@ export const getLocalizedProjects = (locale: Locale = 'en') => projects.map((pro
 export const featuredSlugs = [
 	'torii-srs-web-v2',
 	'torii-srs-java',
-	'menacing-blue',
+	'sabaku',
 	'turnip-tycoon',
 ] as const;
 
@@ -868,14 +938,31 @@ export const getMoreProjects = (locale: Locale = 'en') =>
 		.filter((project) => !featuredSlugs.includes(project.slug as (typeof featuredSlugs)[number]))
 		.map((project) => getLocalizedProject(project, locale));
 
+/** A column of the quick-link grid in the "More Projects" index. */
+export type QuickLinkSlot = 'website' | 'github' | 'pdf';
+
+/**
+ * The column each button type sits in. A project's live link goes under "Site"
+ * whether it is a website, a game or a demo, so those never add columns.
+ */
+const quickLinkSlotOf: Record<ProjectButtonType, QuickLinkSlot> = {
+	website: 'website',
+	play: 'website',
+	demo: 'website',
+	github: 'github',
+	pdf: 'pdf',
+};
+
 /**
  * Column order for the quick-link grid in the "More Projects" index.
- * Types that none of the listed projects uses are dropped, so a column is
- * never entirely empty.
+ * Columns that none of the listed projects has a link for are dropped, so a
+ * column is never entirely empty.
  */
-export const quickLinkSlotOrder: ProjectButtonType[] = ['website', 'demo', 'github', 'pdf'];
+export const quickLinkSlotOrder: QuickLinkSlot[] = ['website', 'github', 'pdf'];
+
+/** The project's link for a quick-link column, if it has one. */
+export const getQuickLink = (project: Project, slot: QuickLinkSlot) =>
+	project.buttons.find((button) => quickLinkSlotOf[button.type] === slot);
 
 export const getQuickLinkSlots = (visible: Project[]) =>
-	quickLinkSlotOrder.filter((type) =>
-		visible.some((project) => project.buttons.some((button) => button.type === type))
-	);
+	quickLinkSlotOrder.filter((slot) => visible.some((project) => getQuickLink(project, slot)));

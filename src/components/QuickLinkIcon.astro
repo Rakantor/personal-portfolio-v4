@@ -1,5 +1,5 @@
 ---
-import { FileText, Globe, Play } from '@lucide/astro';
+import { FileText, Gamepad2, Globe, Play } from '@lucide/astro';
 import { siGithub } from 'simple-icons';
 import type { ProjectButtonType } from '../data/projects';
 
@@ -12,6 +12,7 @@ const { type, size = 16 } = Astro.props;
 ---
 
 {type === 'website' && <Globe size={size} />}
+{type === 'play' && <Gamepad2 size={size} />}
 {type === 'demo' && <Play size={size} />}
 {type === 'pdf' && <FileText size={size} />}
 {

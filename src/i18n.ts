@@ -47,12 +47,12 @@ export const ui = {
 			readMore: 'View project',
 			slots: {
 				website: 'Site',
-				demo: 'Demo',
 				github: 'Code',
 				pdf: 'PDF',
 			},
 			buttons: {
 				website: 'Website',
+				play: 'Play',
 				demo: 'Play Demo',
 				github: 'Source Code',
 				pdf: 'Project Report',
@@ -178,12 +178,12 @@ export const ui = {
 			readMore: 'Projekt ansehen',
 			slots: {
 				website: 'Seite',
-				demo: 'Demo',
 				github: 'Code',
 				pdf: 'PDF',
 			},
 			buttons: {
 				website: 'Website',
+				play: 'Spielen',
 				demo: 'Demo spielen',
 				github: 'Source Code',
 				pdf: 'Projektbericht',
