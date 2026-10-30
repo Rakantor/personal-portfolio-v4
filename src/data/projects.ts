@@ -685,6 +685,63 @@ const projectEntries: ProjectEntry[] = [
 		],
 	},
 	{
+		slug: 'foxloop-studios',
+		years: '2026',
+		title: 'Foxloop Studios',
+		tags: ['website'],
+		text: {
+			en: {
+				shortDescription:
+					'The website for Foxloop Studios, the name I publish some of my apps and games under, with a small endless runner on the home page.',
+				description:
+					'Foxloop Studios is the name I use to publish some of my apps and games. The website showcases its releases and provides the necessary legal information. I also added a small endless runner that you can play directly on the home page.',
+				overview: [
+					'Built with Astro and hosted on Cloudflare, the site is mostly static HTML and CSS. It includes an overview of my apps, a privacy policy and an imprint.',
+					'The home page also features a small endless runner made with SVG, CSS and TypeScript, without a canvas or game engine. The scene is rendered at build time, and the game only starts running when you interact with it.',
+				],
+				features: [
+					'Small endless runner built with SVG, CSS and TypeScript',
+					'Day and dusk themes with automatic and manual switching',
+					'App listings, privacy policy and imprint',
+					'Static Astro site hosted on Cloudflare with minimal JavaScript',
+				],
+				learned:
+					'Getting the game to run smoothly on mobile was trickier than expected. Fixing unnecessary repaints taught me more about browser rendering and CSS performance.',
+			},
+			de: {
+				shortDescription:
+					'Die Website von Foxloop Studios. Unter dem Namen veröffentliche ich manche meiner Apps und Games. Mit einem kleinen Endless Runner auf der Startseite.',
+				description:
+					'Unter dem Namen Foxloop Studios veröffentliche ich manche meiner Apps und Games. Die Website stellt die einzelnen Projekte vor und enthält die nötigen rechtlichen Informationen. Als kleines Extra gibt es auf der Startseite einen Endless Runner, den du direkt im Browser spielen kannst.',
+				overview: [
+					'Die Website ist mit Astro umgesetzt, läuft auf Cloudflare und besteht größtenteils aus statischem HTML und CSS. Neben einer Übersicht meiner Apps gibt es eine Datenschutzerklärung und ein Impressum.',
+					'Auf der Startseite habe ich außerdem einen kleinen Endless Runner mit SVG, CSS und TypeScript eingebaut, ohne Canvas oder Game-Engine. Die Szene wird bereits beim Build erzeugt und das Spiel erst bei Bedarf gestartet.',
+				],
+				features: [
+					'Kleiner Endless Runner mit SVG, CSS und TypeScript',
+					'Hell- und Dunkelmodus mit automatischer oder manueller Umschaltung',
+					'App-Übersicht, Datenschutzerklärung und Impressum',
+					'Statische Astro-Website auf Cloudflare mit minimalem JavaScript',
+				],
+				learned:
+					'Den Runner auf Smartphones flüssig zum Laufen zu bringen, war etwas schwieriger als gedacht. Beim Debuggen habe ich mehr über Browser-Rendering und CSS-Performance gelernt.',
+			},
+		},
+		tech: ['TypeScript', 'Astro', 'CSS', 'Cloudflare'],
+		image: projectScreenshot('foxloop-1.webp'),
+		images: projectImages([
+			['foxloop-1.webp', 2016, 1260],
+			['foxloop-2.webp', 1920, 1200],
+			['foxloop-3.webp', 1920, 1200],
+		]),
+		buttons: [
+			{
+				href: 'https://foxloopstudios.com',
+				type: 'website',
+			},
+		],
+	},
+	{
 		slug: 'torii-srs-landing-page',
 		years: '2026',
 		title: 'Torii SRS Landing Page',
