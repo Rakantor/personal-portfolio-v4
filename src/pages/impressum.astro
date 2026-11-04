@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
 		<div class="relative isolate">
 			<Backdrop />
 			<div class="shell relative pb-12 pt-16 lg:pt-20">
-				<h1 class="h-hero max-w-[18ch] text-[clamp(2.2rem,5vw,3.8rem)] text-navy">
+				<h1 class="impressum-title h-hero max-w-[18ch] text-navy">
 					Impressum und Datenschutz&shy;erklärung
 				</h1>
 			</div>
@@ -266,3 +266,12 @@ import Layout from '../layouts/Layout.astro';
 	</main>
 	<Footer locale="de" />
 </Layout>
+
+<style>
+	/* Below 350px, "Datenschutz-" is wider than the page at the .h-hero size. */
+	@media (width < 350px) {
+		.impressum-title {
+			font-size: 12vw;
+		}
+	}
+</style>
