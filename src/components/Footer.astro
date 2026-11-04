@@ -120,6 +120,13 @@ const linkedinPath =
 		color: var(--color-blue-bright);
 	}
 
+	/* Smaller below 360px, so the icon stays on screen. */
+	@media (max-width: 359px) {
+		.contact-email {
+			font-size: 1.35rem;
+		}
+	}
+
 	/* Out of flow, so the address stays centred. */
 	.contact-email-icon {
 		position: absolute;
