@@ -11,20 +11,38 @@ const { locale = 'en' } = Astro.props;
 const t = ui[locale];
 const c = t.techStack.capabilities;
 
-// proof: slugs of the projects that show the capability, rendered as links.
+type Proof = { slug: string; label?: string };
+
+// proof: projects that show the capability, rendered as links. label replaces the project title.
 const capabilities = [
-	{ copy: c.fullStack, Icon: CodeXml, proof: ['torii-srs-web-v2', 'iu-quiz-app'] },
-	{ copy: c.objectOriented, Icon: Boxes, proof: ['torii-srs-java', 'menacing-blue'] },
-	{ copy: c.restApis, Icon: Route, proof: ['torii-srs-web-v1'] },
-	{ copy: c.databaseDesign, Icon: Database, proof: ['torii-srs-web-v2'] },
-	{ copy: c.crossPlatform, Icon: MonitorSmartphone, proof: ['torii-srs-java'] },
-	{ copy: c.deploymentHosting, Icon: Globe, proof: ['personal-website', 'leave-me-be'] },
+	{
+		copy: c.fullStack,
+		Icon: CodeXml,
+		proof: [{ slug: 'torii-srs-web-v2', label: 'Torii SRS (Web)' }, { slug: 'turnip-tycoon' }],
+	},
+	{ copy: c.objectOriented, Icon: Boxes, proof: [{ slug: 'torii-srs-java' }, { slug: 'menacing-blue' }] },
+	{
+		copy: c.restApis,
+		Icon: Route,
+		proof: [{ slug: 'torii-srs-web-v2', label: 'Torii SRS (Web)' }, { slug: 'turnip-tycoon' }],
+	},
+	{
+		copy: c.databaseDesign,
+		Icon: Database,
+		proof: [{ slug: 'torii-srs-web-v2', label: 'Torii SRS' }, { slug: 'sabaku' }],
+	},
+	{ copy: c.crossPlatform, Icon: MonitorSmartphone, proof: [{ slug: 'torii-srs-java' }, { slug: 'sabaku' }] },
+	{
+		copy: c.deploymentHosting,
+		Icon: Globe,
+		proof: [{ slug: 'personal-website' }, { slug: 'foxloop-studios', label: 'Foxloop' }],
+	},
 ].map((capability) => ({
 	...capability,
-	proof: capability.proof
-		.map((slug) => projects.find((project) => project.slug === slug))
-		.filter((project) => project !== undefined)
-		.map((project) => ({ title: project.title, href: localePath(locale, `/projects/${project.slug}`) })),
+	proof: capability.proof.flatMap(({ slug, label }: Proof) => {
+		const project = projects.find((project) => project.slug === slug);
+		return project ? [{ title: label ?? project.title, href: localePath(locale, `/projects/${project.slug}`) }] : [];
+	}),
 }));
 ---
 
