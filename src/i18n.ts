@@ -87,10 +87,10 @@ export const ui = {
 				seenIn: 'Seen in',
 				fullStack: {
 					title: 'Full-stack Development',
-					text: 'I build frontends and backends and bring them together into complete applications. My current go-to technologies are Vue and Nuxt, alongside Node.js, Spring Boot, or PHP.',
+					text: 'I build frontends and backends and bring them together into complete applications.',
 				},
 				objectOriented: {
-					title: 'Object-oriented Programming',
+					title: 'Object-oriented Programming (OOP)',
 					text: "I've been developing with Java since 2010. I break down complex functionality into classes with clear responsibilities, making the code easier to understand and extend.",
 				},
 				restApis: {
@@ -99,7 +99,7 @@ export const ui = {
 				},
 				databaseDesign: {
 					title: 'Database Design',
-					text: 'I design data models for relational (SQL) and NoSQL databases. I also store structured data locally in the browser so applications can work offline.',
+					text: 'I design data models for relational (<b>SQL</b>) and NoSQL databases. I also store structured data locally in the browser so applications can work offline.',
 				},
 				crossPlatform: {
 					title: 'Cross-platform Apps',
@@ -107,7 +107,7 @@ export const ui = {
 				},
 				deploymentHosting: {
 					title: 'Deployment & CI/CD',
-					text: 'I deploy and run my projects on platforms including AWS, Cloudflare, and GitHub Pages. I build CI/CD pipelines with GitHub Actions to automate builds, tests, and deployments.',
+					text: 'I deploy and run my projects on platforms including AWS, Cloudflare, and GitHub Pages. I build CI/CD pipelines with <b>GitHub Actions</b> to automate builds, tests, and deployments.',
 				},
 			},
 			groups: {
@@ -227,10 +227,10 @@ export const ui = {
 				seenIn: 'Beispiele',
 				fullStack: {
 					title: 'Full-Stack-Entwicklung',
-					text: 'Ich entwickle Frontend und Backend und verbinde beides zu einer vollständigen Anwendung. Dafür nutze ich derzeit bevorzugt Vue und Nuxt sowie Node.js, Spring Boot oder PHP.',
+					text: 'Ich entwickle Frontend und Backend und verbinde beides zu einer vollständigen Anwendung.',
 				},
 				objectOriented: {
-					title: 'Objektorientierte Programmierung',
+					title: 'Objektorientierte Programmierung (OOP)',
 					text: 'Seit 2010 entwickle ich mit Java. Ich teile komplexe Funktionen in Klassen mit klaren Aufgaben auf, damit sich der Code leichter verstehen und erweitern lässt.',
 				},
 				restApis: {
@@ -239,7 +239,7 @@ export const ui = {
 				},
 				databaseDesign: {
 					title: 'Datenbankdesign',
-					text: 'Ich entwerfe Datenmodelle für relationale Datenbanken (SQL) und NoSQL-Datenbanken. Für die Nutzung ohne Internetverbindung speichere ich Daten auch strukturiert lokal im Browser.',
+					text: 'Ich entwerfe Datenmodelle für relationale Datenbanken (<b>SQL</b>) und NoSQL-Datenbanken. Für die Nutzung ohne Internetverbindung speichere ich Daten auch strukturiert lokal im Browser.',
 				},
 				crossPlatform: {
 					title: 'Plattformübergreifende Apps',
@@ -247,7 +247,7 @@ export const ui = {
 				},
 				deploymentHosting: {
 					title: 'Deployment & CI/CD',
-					text: 'Ich veröffentliche und betreibe meine Projekte unter anderem auf AWS, Cloudflare und GitHub Pages. Mit GitHub Actions automatisiere ich Builds, Tests und Deployments in CI/CD-Pipelines.',
+					text: 'Ich veröffentliche und betreibe meine Projekte unter anderem auf AWS, Cloudflare und GitHub Pages. Mit <b>GitHub Actions</b> automatisiere ich Builds, Tests und Deployments in CI/CD-Pipelines.',
 				},
 			},
 			groups: {

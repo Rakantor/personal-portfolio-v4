@@ -1,5 +1,4 @@
 ---
-import { Boxes, CodeXml, Database, Globe, MonitorSmartphone, Route } from '@lucide/astro';
 import { projects } from '../data/projects';
 import { localePath, type Locale, ui } from '../i18n';
 
@@ -7,36 +6,33 @@ type Props = {
 	locale?: Locale;
 };
 
+type Proof = { slug: string; label?: string };
+
 const { locale = 'en' } = Astro.props;
 const t = ui[locale];
 const c = t.techStack.capabilities;
 
-type Proof = { slug: string; label?: string };
-
+// kind: the part of the drawing, a bracket around the layers, a layer, the base under them or a note beside them.
 // proof: projects that show the capability, rendered as links. label replaces the project title.
 const capabilities = [
 	{
+		kind: 'span',
 		copy: c.fullStack,
-		Icon: CodeXml,
 		proof: [{ slug: 'torii-srs-web-v2', label: 'Torii SRS (Web)' }, { slug: 'turnip-tycoon' }],
 	},
-	{ copy: c.objectOriented, Icon: Boxes, proof: [{ slug: 'torii-srs-java' }, { slug: 'menacing-blue' }] },
+	{ kind: 'layer', copy: c.crossPlatform, proof: [{ slug: 'torii-srs-java' }, { slug: 'sabaku' }] },
 	{
+		kind: 'layer',
 		copy: c.restApis,
-		Icon: Route,
 		proof: [{ slug: 'torii-srs-web-v2', label: 'Torii SRS (Web)' }, { slug: 'turnip-tycoon' }],
 	},
 	{
+		kind: 'layer',
 		copy: c.databaseDesign,
-		Icon: Database,
 		proof: [{ slug: 'torii-srs-web-v2', label: 'Torii SRS' }, { slug: 'sabaku' }],
 	},
-	{ copy: c.crossPlatform, Icon: MonitorSmartphone, proof: [{ slug: 'torii-srs-java' }, { slug: 'sabaku' }] },
-	{
-		copy: c.deploymentHosting,
-		Icon: Globe,
-		proof: [{ slug: 'personal-website' }, { slug: 'foxloop-studios', label: 'Foxloop' }],
-	},
+	{ kind: 'base', copy: c.deploymentHosting, proof: [{ slug: 'personal-website' }, { slug: 'foxloop-studios' }] },
+	{ kind: 'note', copy: c.objectOriented, proof: [{ slug: 'torii-srs-java' }, { slug: 'menacing-blue' }] },
 ].map((capability) => ({
 	...capability,
 	proof: capability.proof.flatMap(({ slug, label }: Proof) => {
@@ -47,20 +43,17 @@ const capabilities = [
 ---
 
 <!-- pt-24 is four grid cells, which puts the heading rule on a grid line. -->
-<section id="what" class="on-dark bg-neutral pb-20 pt-24 text-neutral-content">
+<section id="what" class="on-dark bg-neutral pb-24 pt-24 text-neutral-content">
 	<div class="shell">
 		<h2 data-reveal class="eyebrow mb-6"><span class="num">01</span> {c.title}</h2>
 		<p class="what-lead">{c.lead}</p>
 
-		<ul class="cap-grid mt-12">
+		<ul class="cap-grid mt-6">
 			{
-				capabilities.map(({ copy, Icon, proof }, index) => (
-					<li data-reveal class="cap" style={`--i: ${index}`}>
-						<span class="cap-icon">
-							<Icon size={22} aria-hidden="true" />
-						</span>
+				capabilities.map(({ kind, copy, proof }, index) => (
+					<li data-reveal class={`cap-${kind}`} style={`--i: ${index}`}>
 						<h3 class="cap-title">{copy.title}</h3>
-						<p class="cap-text">{copy.text}</p>
+						<p class="cap-text" set:html={copy.text} />
 						<p class="cap-proof">
 							<span>{c.seenIn}</span>
 							{proof.map((project) => (
@@ -80,60 +73,43 @@ const capabilities = [
 		text-wrap: pretty;
 		font-family: var(--font-body);
 		font-size: 1.15rem;
-		line-height: 1.6;
+		line-height: var(--grid);
 		color: rgb(255 255 255 / 0.7);
 	}
 
-	/* No borders between the cells on the navy band, only gaps. */
+	/* Row heights and gaps are whole grid cells, so the card borders land on lines of the background grid. */
 	.cap-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem 4rem;
-	}
-
-	.cap {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-		padding-block: 1.5rem;
-	}
-
-	.cap-icon {
-		display: grid;
-		place-items: center;
-		width: 2.75rem;
-		height: 2.75rem;
-		border: 1px solid rgb(255 255 255 / 0.2);
-		border-radius: 3px;
-		background: rgb(255 255 255 / 0.04);
-		color: var(--color-blue-bright);
-		flex: 0 0 auto;
+		grid-template-columns: minmax(0, 11fr) minmax(0, 25fr) minmax(0, 11fr);
+		grid-template-rows: repeat(3, minmax(calc(var(--grid) * 7), 1fr)) auto;
+		gap: var(--grid);
 	}
 
 	.cap-title {
-		margin-top: 0.5rem;
 		font-family: var(--font-display);
 		font-size: 1.2rem;
 		font-weight: 700;
+		line-height: var(--grid);
 		letter-spacing: -0.015em;
 		color: #fff;
 	}
 
 	.cap-text {
+		margin-top: 0.25rem;
 		font-family: var(--font-body);
 		font-size: 1rem;
-		line-height: 1.6;
-		color: rgb(255 255 255 / 0.7);
+		line-height: var(--grid);
+		color: rgb(255 255 255 / 0.74);
 	}
 
 	.cap-proof {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem 0.9rem;
-		margin-top: auto;
-		padding-top: 0.5rem;
+		flex-direction: column;
+		align-items: flex-start;
+		margin-top: 0.75rem;
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
+		font-size: 0.8rem;
+		line-height: var(--grid);
 	}
 
 	.cap-proof span {
@@ -151,16 +127,162 @@ const capabilities = [
 		text-decoration-color: currentColor;
 	}
 
-	@media (max-width: 1023px) {
-		.cap-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			column-gap: 2.5rem;
-		}
+	/* ---- Bracket spanning the three layers ---- */
+
+	.cap-span {
+		position: relative;
+		grid-column: 1;
+		grid-row: 1 / span 3;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-right: 1.875rem;
 	}
 
-	@media (max-width: 640px) {
+	.cap-span::after {
+		content: '';
+		position: absolute;
+		inset-block: 0;
+		right: 0;
+		width: 0.875rem;
+		border: 1px solid var(--color-blue-bright);
+		border-right: 0;
+	}
+
+	.cap-span .cap-text,
+	.cap-note .cap-text {
+		margin-top: 0.5rem;
+	}
+
+	/* ---- Layers ---- */
+
+	.cap-layer {
+		grid-column: 2;
+		display: flex;
+		flex-direction: column;
+		padding: 1.25rem;
+		border: 1px solid rgb(255 255 255 / 0.2);
+		border-radius: 3px;
+		background: #111e3c;
+	}
+
+	.cap-layer .cap-proof {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		column-gap: 0.75rem;
+		margin-top: auto;
+		padding-top: 0.25rem;
+		font-size: 0.74rem;
+		line-height: 1.25rem;
+	}
+
+	/* ---- Base. Shares the grid's columns, so its text lines up with the layers and the note. ---- */
+
+	.cap-base {
+		grid-column: 1 / -1;
+		grid-row: 4;
+		display: grid;
+		grid-template-columns: subgrid;
+		min-height: calc(var(--grid) * 5);
+		padding: calc(var(--grid) - 3px) 1.25rem calc(var(--grid) - 1px);
+		border: 1px solid rgb(255 255 255 / 0.2);
+		border-top: 3px solid var(--color-primary);
+		border-radius: 3px;
+		background: #111e3c;
+	}
+
+	.cap-base .cap-title {
+		align-self: center;
+		text-align: center;
+	}
+
+	.cap-base .cap-text {
+		grid-column: 2;
+		margin-top: 0;
+		padding-inline: calc(1.25rem + 1px);
+	}
+
+	.cap-base .cap-proof {
+		grid-column: 3;
+		margin-top: 0;
+		padding-left: calc(1rem + 1px);
+	}
+
+	/* ---- Note beside the layers ---- */
+
+	.cap-note {
+		grid-column: 3;
+		grid-row: 1 / span 3;
+		align-self: start;
+		padding-left: 1rem;
+		border-left: 1px solid rgb(255 255 255 / 0.2);
+	}
+
+	/* ---- One column, in document order ---- */
+
+	@media (max-width: 1023px) {
+		.what-lead {
+			line-height: 1.5;
+		}
+
 		.cap-grid {
 			grid-template-columns: minmax(0, 1fr);
+			grid-template-rows: none;
+			row-gap: 1rem;
+		}
+
+		.cap-span,
+		.cap-layer,
+		.cap-base,
+		.cap-note {
+			grid-column: auto;
+			grid-row: auto;
+		}
+
+		.cap-span {
+			padding: 0.5rem 0;
+		}
+
+		.cap-span::after {
+			display: none;
+		}
+
+		.cap-proof {
+			flex-direction: row;
+			flex-wrap: wrap;
+			column-gap: 0.75rem;
+			font-size: 0.74rem;
+		}
+
+		.cap-layer .cap-proof {
+			line-height: var(--grid);
+		}
+
+		.cap-base {
+			grid-template-columns: minmax(0, 1fr);
+			row-gap: 0.5rem;
+			min-height: 0;
+			padding: 1.25rem;
+		}
+
+		.cap-base .cap-title {
+			text-align: left;
+		}
+
+		.cap-base .cap-text {
+			grid-column: auto;
+			padding-inline: 0;
+		}
+
+		.cap-base .cap-proof {
+			grid-column: auto;
+			padding-left: 0;
+		}
+
+		.cap-note {
+			align-self: auto;
+			margin-block: 0.5rem;
 		}
 	}
 </style>
