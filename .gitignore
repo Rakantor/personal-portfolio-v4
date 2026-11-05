@@ -23,6 +23,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# generated documents
+scripts/projektliste/*.pdf
+
 # local tool state
 .claude/
 .playwright-mcp/

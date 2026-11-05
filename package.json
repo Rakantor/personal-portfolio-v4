@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "projektliste": "node scripts/projektliste/projektliste.mjs"
   },
   "dependencies": {
     "@lucide/astro": "^1.63.0",
@@ -20,6 +21,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
     "daisyui": "^5.7.50",
+    "playwright-core": "^1.64.1",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3"
   }
