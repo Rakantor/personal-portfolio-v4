@@ -181,7 +181,7 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'HTML', icon: siHtml5, level: 4, since: 2009, projects: 0 },
 			{ name: 'CSS', icon: siCss, level: 4, since: 2009, projects: 0 },
 			{ name: 'Tailwind CSS', icon: siTailwindcss, level: 2, since: 2024, projects: 4 },
-			{ name: 'Angular', icon: siAngular, level: 1, since: 2026, projects: 1 },
+			{ name: 'Angular', icon: siAngular, level: 2, since: 2026, projects: 1 },
 		],
 	},
 	{

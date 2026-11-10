@@ -331,15 +331,14 @@ const projectEntries: ProjectEntry[] = [
 		},
 		tech: [
 			'TypeScript',
-			'C#',
 			'Angular',
-			'.NET',
+			'C#/.NET',
 			'PostgreSQL',
 			'Android',
 			'Capacitor',
-			'PixiJS',
 			'Google AdMob',
 			'Vitest',
+			'GitHub Actions',
 		],
 		image: projectScreenshot('sabaku-1.webp'),
 		images: projectImages([
@@ -543,7 +542,11 @@ const projectEntries: ProjectEntry[] = [
 					'Die größte Herausforderung war, mit einer Website zu arbeiten, über deren interne Abläufe ich keine Kontrolle hatte. Seiten werden erst bei Bedarf geladen, Bilder brauchen unterschiedlich lange zum Rendern und nicht jedes Dokument verhält sich gleich. Ich musste deshalb viel ausprobieren, um die Seiten zuverlässig und in guter Qualität zu erfassen, ohne unnötig Zeit oder Speicher zu verbrauchen. Vor allem habe ich gelernt, dass ein Tool nicht schon deshalb zuverlässig funktioniert, weil es bei den ersten drei Testdateien geklappt hat.',
 			},
 		},
-		tech: ['TypeScript', 'Vitest'],
+		tech: [
+			'TypeScript',
+			'Vitest',
+			'GitHub Actions',
+		],
 		image: projectScreenshot('gdrive-pdf-2.webp'),
 		images: projectImages([
 			['gdrive-pdf-1.webp', 1536, 1024],
@@ -727,7 +730,13 @@ const projectEntries: ProjectEntry[] = [
 					'Den Runner auf Smartphones flüssig zum Laufen zu bringen, war etwas schwieriger als gedacht. Beim Debuggen habe ich mehr über Browser-Rendering und CSS-Performance gelernt.',
 			},
 		},
-		tech: ['TypeScript', 'Astro', 'CSS', 'Cloudflare'],
+		tech: [
+			'TypeScript',
+			'Astro',
+			'CSS',
+			'Cloudflare',
+			'GitHub Actions',
+		],
 		image: projectScreenshot('foxloop-1.webp'),
 		images: projectImages([
 			['foxloop-1.webp', 2016, 1260],
